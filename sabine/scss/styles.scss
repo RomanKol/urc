@@ -1,0 +1,147 @@
+@import "normalize";
+@import "colors";
+
+
+// Pseudo Classes
+@mixin fullsize {
+	width: 100%;
+	height: 100%;
+}
+
+@mixin tilesP {
+	height: 33%;
+	width: 50%;
+}
+
+@mixin tilesL {
+	height: 50%;
+	width: 33.33%;
+}
+
+
+body, html {
+	font-family: 'Segoe UI', Arial, sans-serif ;
+	color: white;
+	@include fullsize;
+	background-color: $asphalt;
+}
+
+/* Grid For Tiles */
+#theGrid {
+	@include fullsize;
+  padding: 0;
+
+	&.detail {
+		@media screen and (orientation:portrait){
+			height: 40%;
+			.tile {
+				@include tilesL;
+			}
+		}
+
+		@media screen and (orientation:landscape){
+			width: 40%;
+			float: left;
+			.tile {
+				@include tilesP;
+			}
+		}
+
+		.tile h1 {
+			font-size: 1.5em;
+		}
+
+	}
+
+}
+
+/* Tiles List View*/
+.tile {
+  padding: 10px;
+  float: left;
+  clear: none;
+  box-sizing: border-box;
+  overflow: hidden;
+
+	@media screen and (orientation:portrait){
+		@include tilesP;
+	}
+
+	@media screen and (orientation:landscape){
+		@include tilesL;
+	}
+
+	&.active {
+		background-color: $pomegranate;
+	}
+
+	figure {
+		@include fullsize;
+		padding: 20px;
+		margin: 0;
+		box-sizing: border-box;
+		background-color: $emerland;
+
+		img {
+			height: 60%;
+			display: block;
+			margin: auto;
+			margin-bottom: 20px;
+		}
+
+		figcaption {
+			h1 {
+				font-size: 2em;
+				text-align: center;
+			}
+			h2 {
+				display: none;
+			}
+		}
+	}
+
+}
+
+#detail {
+	display: none;
+	box-sizing: border-box;
+	padding: 10px;
+	position: relative;
+
+	> div {
+		@include fullsize;
+		margin-top: -20px;
+		background-color: $emerland;
+	}
+
+	@media screen and (orientation:portrait){
+		width: 100%;
+		height: 60%;
+	}
+
+	@media screen and (orientation:landscape){
+		width: 60%;
+		height: 100%;
+		float: left;
+	}
+
+	&.active {
+		display: block;
+	}
+
+	#theButton {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		width: 40px;
+		height: 40px;
+		border: none;
+		padding: 5px;
+		background-color: transparent;
+
+		> img {
+			@include fullsize;
+		}
+	}
+
+}

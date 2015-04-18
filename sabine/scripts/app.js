@@ -1,11 +1,12 @@
 // Comment
 
 var grid = document.getElementById('theGrid'),
-		btn = document.getElementById('theButton');
+		btn = document.getElementById('theButton'),
+		detail = document.getElementById('detail');
 
 var data = {};
 
-update();
+//update();
 
 grid.addEventListener('click', activate, false);
 btn.addEventListener('click', deactivate, false);
@@ -19,7 +20,7 @@ function activate(evt) {
 			el = el.parentElement;
 		}
 
-		// Remove Active Class From All Tiles
+		// Remove Active Class From All Other Tiles
 		els = document.getElementsByClassName('tile');
 		for (var i = 0; i < els.length; i++) {
 		  if(els[i].classList.contains('active')){
@@ -27,16 +28,20 @@ function activate(evt) {
 		  }
 		}
 
-		// Remove Detail Class From Grid
+		// Add Detail Class From Grid
 		el.classList.toggle('active');
 		if(!grid.classList.contains('detail')){
 			grid.classList.add('detail');
 		}
 
-		// Add Active Class To Button
-		if(!btn.classList.contains('active')){
-			btn.classList.add('active');
+		// Add Active Class to DetailView
+		if(!detail.classList.contains('active')){
+			detail.classList.add('active');
 		}
+
+		// Copy Content To DetailView
+		detail.querySelector('img').src = el.querySelector('img').src;
+		detail.querySelector('h1').innerText = el.querySelector('h1').innerText;
 
 	}
 	evt.stopPropagation();
@@ -56,9 +61,6 @@ function deactivate (evt) {
 	if(grid.classList.contains('detail')){
 		grid.classList.remove('detail');
 	}
-
-	// Remove Active Class From Button
-	btn.classList.remove('active');
 
 }
 
