@@ -21,9 +21,8 @@
 
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
-	color: white;
 	@include fullsize;
-	background-color: $asphalt;
+	background-color: $midnight;
 }
 
 /* Grid For Tiles */
@@ -72,7 +71,7 @@ body, html {
 	}
 
 	&.active {
-		background-color: $pomegranate;
+		background-color: $pumpkin;
 	}
 
 	figure {
@@ -80,7 +79,7 @@ body, html {
 		padding: 20px;
 		margin: 0;
 		box-sizing: border-box;
-		background-color: $emerland;
+		background-color: $clouds;
 
 		img {
 			height: 60%;
@@ -110,8 +109,20 @@ body, html {
 
 	> div {
 		@include fullsize;
-		margin-top: -20px;
-		background-color: $emerland;
+		background-color: $clouds;
+		box-sizing: border-box;
+		padding: 10px;
+
+		> figure {
+			margin: 0;
+			img {
+				display: none;
+			}
+			figcaption > h1{
+				font-size: 3em;
+				margin: 0.4em 0.6em;
+			}
+		}
 	}
 
 	@media screen and (orientation:portrait){
@@ -121,7 +132,7 @@ body, html {
 
 	@media screen and (orientation:landscape){
 		width: 60%;
-		height: 100%;
+		height: 99%;
 		float: left;
 	}
 

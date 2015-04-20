@@ -363,13 +363,12 @@ td, th {
 /* line 22, E:/Sites/urc/sabine/scss/styles.scss */
 body, html {
   font-family: 'Segoe UI', Arial, sans-serif;
-  color: white;
   width: 100%;
   height: 100%;
-  background-color: #34495e; }
+  background-color: #2c3e50; }
 
 /* Grid For Tiles */
-/* line 30, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 29, E:/Sites/urc/sabine/scss/styles.scss */
 #theGrid {
   width: 100%;
   height: 100%;
@@ -377,7 +376,7 @@ body, html {
   @media screen and (orientation: portrait) {
     #theGrid.detail {
       height: 40%; }
-      /* line 37, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 36, E:/Sites/urc/sabine/scss/styles.scss */
       #theGrid.detail .tile {
         height: 50%;
         width: 33.33%; } }
@@ -385,16 +384,16 @@ body, html {
     #theGrid.detail {
       width: 40%;
       float: left; }
-      /* line 45, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 44, E:/Sites/urc/sabine/scss/styles.scss */
       #theGrid.detail .tile {
         height: 33%;
         width: 50%; } }
-  /* line 50, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 49, E:/Sites/urc/sabine/scss/styles.scss */
   #theGrid.detail .tile h1 {
     font-size: 1.5em; }
 
 /* Tiles List View*/
-/* line 59, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 58, E:/Sites/urc/sabine/scss/styles.scss */
 .tile {
   padding: 10px;
   float: left;
@@ -409,43 +408,54 @@ body, html {
     .tile {
       height: 50%;
       width: 33.33%; } }
-  /* line 74, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 73, E:/Sites/urc/sabine/scss/styles.scss */
   .tile.active {
-    background-color: #c0392b; }
-  /* line 78, E:/Sites/urc/sabine/scss/styles.scss */
+    background-color: #d35400; }
+  /* line 77, E:/Sites/urc/sabine/scss/styles.scss */
   .tile figure {
     width: 100%;
     height: 100%;
     padding: 20px;
     margin: 0;
     box-sizing: border-box;
-    background-color: #2ecc71; }
-    /* line 85, E:/Sites/urc/sabine/scss/styles.scss */
+    background-color: #ecf0f1; }
+    /* line 84, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure img {
       height: 60%;
       display: block;
       margin: auto;
       margin-bottom: 20px; }
-    /* line 93, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 92, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure figcaption h1 {
       font-size: 2em;
       text-align: center; }
-    /* line 97, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 96, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure figcaption h2 {
       display: none; }
 
-/* line 105, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 104, E:/Sites/urc/sabine/scss/styles.scss */
 #detail {
   display: none;
   box-sizing: border-box;
   padding: 10px;
   position: relative; }
-  /* line 111, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 110, E:/Sites/urc/sabine/scss/styles.scss */
   #detail > div {
     width: 100%;
     height: 100%;
-    margin-top: -20px;
-    background-color: #2ecc71; }
+    background-color: #ecf0f1;
+    box-sizing: border-box;
+    padding: 10px; }
+    /* line 116, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail > div > figure {
+      margin: 0; }
+      /* line 118, E:/Sites/urc/sabine/scss/styles.scss */
+      #detail > div > figure img {
+        display: none; }
+      /* line 121, E:/Sites/urc/sabine/scss/styles.scss */
+      #detail > div > figure figcaption > h1 {
+        font-size: 3em;
+        margin: 0.4em 0.6em; }
   @media screen and (orientation: portrait) {
     #detail {
       width: 100%;
@@ -453,12 +463,12 @@ body, html {
   @media screen and (orientation: landscape) {
     #detail {
       width: 60%;
-      height: 100%;
+      height: 99%;
       float: left; } }
-  /* line 128, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 139, E:/Sites/urc/sabine/scss/styles.scss */
   #detail.active {
     display: block; }
-  /* line 132, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 143, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #theButton {
     position: absolute;
     right: 20px;
@@ -468,7 +478,7 @@ body, html {
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 142, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 153, E:/Sites/urc/sabine/scss/styles.scss */
     #detail #theButton > img {
       width: 100%;
       height: 100%; }
