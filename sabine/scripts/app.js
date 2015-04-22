@@ -6,7 +6,7 @@ var grid = document.getElementById('theGrid'),
 
 var data = {};
 
-//update();
+update();
 
 grid.addEventListener('click', activate, false);
 btn.addEventListener('click', deactivate, false);
@@ -40,9 +40,7 @@ function activate(evt) {
 		}
 
 		// Copy Content To DetailView
-		detail.querySelector('img').src = el.querySelector('img').src;
-		detail.querySelector('h1').innerText = el.querySelector('h1').innerText;
-
+		detail.querySelector('div').innerHTML = el.querySelector('figcaption').innerHTML;
 	}
 	evt.stopPropagation();
 }
@@ -62,6 +60,12 @@ function deactivate (evt) {
 		grid.classList.remove('detail');
 	}
 
+	// Add Active Class to DetailView
+	if(detail.classList.contains('active')){
+		detail.classList.remove('active');
+	}
+
+
 }
 
 function update() {
@@ -80,12 +84,7 @@ function update() {
     if (this.status >= 200 && this.status < 400){
       data = JSON.parse(this.response);
 
-      for(item in data){
-      	console.log(typeof item);
-		  	el = document.getElementById(item);
-		  	el = el.querySelector('.data');
-		  	el.innerText = data[item];
-		  }
+      insertData(data);
 
     } else {
       console.log('Fehler: ' + this);
@@ -93,5 +92,36 @@ function update() {
   }
 
   request.send();
+
+}
+
+function insertData(data){
+
+	console.log(data);
+
+	// Temperature
+	grid.querySelector('#temperature h2').innerText = data.temperature_indoor + ' C°';
+
+	// Food
+	var foodEl = grid.querySelector('#food figcaption');
+	var list = document.createElement('ul');
+	for (var i = 0; i < data.food.length; i++) {
+		item = document.createElement('li')
+		item.innerText = data.food[i];
+		list.appendChild(item);
+	};
+	foodEl.appendChild(list);
+
+	// Weather
+	grid.querySelector('#barometer h2').innerText = data.barometer + ' Pa';
+
+	// Stresslevel
+	var stessLevelEl = grid.querySelector('#stresslevel h2').innerText = data.stresslevel;
+
+	// Loudness
+	grid.querySelector('#loudness h2').innerText = data.loudness + ' dB';
+
+	// Airquality
+	grid.querySelector('#airquality h2').innerText = data.airquality_indoor;
 
 }

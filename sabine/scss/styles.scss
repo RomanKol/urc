@@ -89,12 +89,13 @@ body, html {
 		}
 
 		figcaption {
+			* {
+				display: none;
+			}
 			h1 {
+				display: block;
 				font-size: 2em;
 				text-align: center;
-			}
-			h2 {
-				display: none;
 			}
 		}
 	}
@@ -111,18 +112,35 @@ body, html {
 		@include fullsize;
 		background-color: $clouds;
 		box-sizing: border-box;
-		padding: 10px;
+		padding: 20px;
 
-		> figure {
+		h1{
+			font-size: 3em;
 			margin: 0;
-			img {
-				display: none;
-			}
-			figcaption > h1{
-				font-size: 3em;
-				margin: 0.4em 0.6em;
+			line-height: 1em
+		}
+
+		ul {
+			-webkit-columns: 2;
+			-moz-columns: 2;
+			columns: 2;
+			padding: 0;
+			li {
+				font-size: 1.5em;
+				font-weight: bold;
+				line-height: 1.5;
+				&:before {
+					content: '';
+					display: inline-block;
+					height: 5px;
+					width: 5px;
+					background: black;
+					margin: 5px 10px 5px 5px;
+					border-radius: 5px;
+				}
 			}
 		}
+
 	}
 
 	@media screen and (orientation:portrait){
