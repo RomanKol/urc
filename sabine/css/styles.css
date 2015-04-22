@@ -360,7 +360,7 @@ table {
 td, th {
   padding: 0; }
 
-/* line 22, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 21, E:/Sites/urc/sabine/scss/styles.scss */
 body, html {
   font-family: 'Segoe UI', Arial, sans-serif;
   width: 100%;
@@ -368,10 +368,10 @@ body, html {
   background-color: #2c3e50; }
 
 /* Grid For Tiles */
-/* line 29, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 28, E:/Sites/urc/sabine/scss/styles.scss */
 #theGrid {
+  height: 90%;
   width: 100%;
-  height: 100%;
   padding: 0; }
   @media screen and (orientation: portrait) {
     #theGrid.detail {
@@ -475,11 +475,11 @@ body, html {
   @media screen and (orientation: portrait) {
     #detail {
       width: 100%;
-      height: 60%; } }
+      height: 50%; } }
   @media screen and (orientation: landscape) {
     #detail {
       width: 60%;
-      height: 99%;
+      height: 90%;
       float: left; } }
   /* line 157, E:/Sites/urc/sabine/scss/styles.scss */
   #detail.active {
@@ -498,3 +498,55 @@ body, html {
     #detail #theButton > img {
       width: 100%;
       height: 100%; }
+
+/* line 178, E:/Sites/urc/sabine/scss/styles.scss */
+#settings {
+  height: 10%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background: #2ecc71;
+  position: relative;
+  overflow-y: hidden;
+  transition-property: height;
+  transition-duration: 250ms; }
+  /* line 188, E:/Sites/urc/sabine/scss/styles.scss */
+  #settings h1 {
+    margin: 0;
+    margin-right: 20px;
+    float: left; }
+  /* line 193, E:/Sites/urc/sabine/scss/styles.scss */
+  #settings img {
+    float: right;
+    height: 100%; }
+  /* line 198, E:/Sites/urc/sabine/scss/styles.scss */
+  #settings.active {
+    height: 100%; }
+
+/* line 204, E:/Sites/urc/sabine/scss/styles.scss */
+.temp-low > figure {
+  background-color: #3498db; }
+
+/* line 207, E:/Sites/urc/sabine/scss/styles.scss */
+.temp-ok > figure {
+  background-color: #2ecc71; }
+
+/* line 210, E:/Sites/urc/sabine/scss/styles.scss */
+.temp-warm > figure {
+  background-color: #f39c12; }
+
+/* line 213, E:/Sites/urc/sabine/scss/styles.scss */
+.temp-hot > figure {
+  background-color: #c0392b; }
+
+/* line 217, E:/Sites/urc/sabine/scss/styles.scss */
+.loudness-low > figure {
+  background-color: #2ecc71; }
+
+/* line 220, E:/Sites/urc/sabine/scss/styles.scss */
+.loudness-medium > figure {
+  background-color: #f1c40f; }
+
+/* line 223, E:/Sites/urc/sabine/scss/styles.scss */
+.loudness-heigh > figure {
+  background-color: #c0392b; }

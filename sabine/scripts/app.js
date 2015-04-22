@@ -1,15 +1,25 @@
 // Comment
 
-var grid = document.getElementById('theGrid'),
-		btn = document.getElementById('theButton'),
-		detail = document.getElementById('detail');
+
+// Variables
+var gridEl			= document.getElementById('theGrid'),
+		buttonEl		= document.getElementById('theButton'),
+		detailEl 		= document.getElementById('detail'),
+		settingsEl	= document.getElementById('settings');
 
 var data = {};
 
+// Clock Initai
 update();
+//clock();
 
-grid.addEventListener('click', activate, false);
-btn.addEventListener('click', deactivate, false);
+gridEl.addEventListener('click', activate, false);
+buttonEl.addEventListener('click', deactivate, false);
+settingsEl.querySelector('img').addEventListener('click', settings, false);
+
+//
+clock();
+setInterval( clock, 60 * 1000);
 
 function activate(evt) {
 	if(evt.target !== evt.currentTarget){
@@ -30,17 +40,17 @@ function activate(evt) {
 
 		// Add Detail Class From Grid
 		el.classList.toggle('active');
-		if(!grid.classList.contains('detail')){
-			grid.classList.add('detail');
+		if(!gridEl.classList.contains('detail')){
+			gridEl.classList.add('detail');
 		}
 
 		// Add Active Class to DetailView
-		if(!detail.classList.contains('active')){
-			detail.classList.add('active');
+		if(!detailEl.classList.contains('active')){
+			detailEl.classList.add('active');
 		}
 
 		// Copy Content To DetailView
-		detail.querySelector('div').innerHTML = el.querySelector('figcaption').innerHTML;
+		detailEl.querySelector('div').innerHTML = el.querySelector('figcaption').innerHTML;
 	}
 	evt.stopPropagation();
 }
@@ -56,13 +66,13 @@ function deactivate (evt) {
 	}
 
 	// Remove Detail Class From Grid
-	if(grid.classList.contains('detail')){
-		grid.classList.remove('detail');
+	if(gridEl.classList.contains('detail')){
+		gridEl.classList.remove('detail');
 	}
 
 	// Add Active Class to DetailView
-	if(detail.classList.contains('active')){
-		detail.classList.remove('active');
+	if(detailEl.classList.contains('active')){
+		detailEl.classList.remove('active');
 	}
 
 
@@ -100,10 +110,23 @@ function insertData(data){
 	console.log(data);
 
 	// Temperature
-	grid.querySelector('#temperature h2').innerText = data.temperature_indoor + ' C°';
+	el = gridEl.querySelector('#temperature')
+
+
+	if(data.temperature_indoor < 15){
+		el.classList.add('temp-low');
+	} else if(data.temperature_indoor > 15 && data.temperature_indoor < 25){
+		el.classList.add('temp-ok');
+	} else if(data.temperature_indoor > 25 && data.temperature_indoor < 30){
+		el.classList.add('temp-warm');
+	} else if(data.temperature_indoor > 30){
+		el.classList.add('temp-hot');
+	}
+
+	el.querySelector('h2').innerText = data.temperature_indoor + ' C°';
 
 	// Food
-	var foodEl = grid.querySelector('#food figcaption');
+	var foodEl = gridEl.querySelector('#food figcaption');
 	var list = document.createElement('ul');
 	for (var i = 0; i < data.food.length; i++) {
 		item = document.createElement('li')
@@ -113,15 +136,37 @@ function insertData(data){
 	foodEl.appendChild(list);
 
 	// Weather
-	grid.querySelector('#barometer h2').innerText = data.barometer + ' Pa';
+	gridEl.querySelector('#barometer h2').innerText = data.barometer + ' Pa';
 
 	// Stresslevel
-	var stessLevelEl = grid.querySelector('#stresslevel h2').innerText = data.stresslevel;
+	var stessLevelEl = gridEl.querySelector('#stresslevel h2').innerText = data.stresslevel;
 
 	// Loudness
-	grid.querySelector('#loudness h2').innerText = data.loudness + ' dB';
+	el = gridEl.querySelector('#loudness')
+
+	if(data.loudness < 62){
+		el.classList.add('loudness-low');
+	} else if(data.loudness > 62 && data.loudness < 81){
+		el.classList.add('loudness-medium');
+	} else if(data.loudness > 81){
+		el.classList.add('loudness-high');
+	}
+
+	el.querySelector('h2').innerText = data.loudness + ' dB';
 
 	// Airquality
-	grid.querySelector('#airquality h2').innerText = data.airquality_indoor;
+	gridEl.querySelector('#airquality h2').innerText = data.airquality_indoor;
 
+}
+
+function settings (argument) {
+	settingsEl.classList.toggle('active');
+}
+
+
+function clock () {
+	var date = new Date();
+	settingsEl.querySelector('#date').innerText = date.toLocaleDateString();
+	settingsEl.querySelector('#time').innerText = date.toLocaleTimeString();
+	console.log('tick');
 }
