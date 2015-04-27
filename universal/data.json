@@ -1,0 +1,43 @@
+{
+	"airquality": 1,
+	"barometer": {
+		"indoor": 1,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	},
+	"co2": {
+		"indoor": 1,
+		"flow_indoor": [1, 2, 3]
+	},
+	"food": [
+		"string", "string", "string"
+	],
+	"humidity": {
+		"indoor": 1,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	},
+	"loudness": {
+		"indoor": 1,
+		"flow_indoor": [1, 2, 3]
+	},
+	"pollen": {
+		"name": 1,
+		"name2": 2
+	},
+	"settings": {
+		"battery": 1,
+		"fstate": 1,
+		"lat": 1,
+		"lng": 1
+	},
+	"stresslevel": 1,
+	"temperature": {
+		"indoor": 1,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	}
+}
