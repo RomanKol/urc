@@ -9,6 +9,14 @@ var pollen = new Array();
 var feelgood_temp = 20.1;
 var feelgood_humidity = 50;
 var feelgood_co2 = 650;
+var flow_barometer_indoor 	= [];
+var flow_barometer_outdoor 	= [];
+var flow_co2			 	= [];
+var flow_humidity_indoor	= [];
+var flow_humidity_outdoor	= [];
+var flow_noise				= [];
+var flow_temperatur_indoor 	= [];
+var flow_temperatur_outdoor	= [];
 
 //-------------------PARSE CSV DATA --------------
 var csv = require('csv');
@@ -21,7 +29,6 @@ var handler_obst = function(error, content){
     else{
       csv.parse(content,{delimiter: ';'}, function(err, output){
  		 obst = output;
- 		 console.log(obst)
 		});
     } 
   }
@@ -61,10 +68,10 @@ var handler_pollen = function(error, content){
 		});
     }
   }
-fs.readFile('smartHomeServer/obst_gemuese/obst.csv','utf-8', handler_obst);
-fs.readFile('smartHomeServer/obst_gemuese/gemuese.csv','utf-8', handler_gemuese);
-fs.readFile('smartHomeServer/obst_gemuese/salat.csv','utf-8', handler_salat);
-fs.readFile('smartHomeServer/pollen/pollen.csv','utf-8', handler_pollen);
+fs.readFile('Server/obst_gemuese/obst.csv','utf-8', handler_obst);
+fs.readFile('Server/obst_gemuese/gemuese.csv','utf-8', handler_gemuese);
+fs.readFile('Server/obst_gemuese/salat.csv','utf-8', handler_salat);
+fs.readFile('Server/pollen/pollen.csv','utf-8', handler_pollen);
 //-------------------Create Server --------------
 http.createServer(function (req, res) {
   res.setHeader("Content-Type", "text/html");
@@ -75,9 +82,9 @@ http.createServer(function (req, res) {
 	// which sets the http method to GET
 	if(req.url=='/index.html' || req.url=='/') {
 		res.setHeader("Content-Type", "text/html");
-		var runningPath = 'smartHomeServer'
+		var runningPath = 'frontend'
 			    var pathname = 'index.html';
-			  	console.log(url.format(pathname));
+			  	//console.log(url.format(pathname));
 				//css(res,runningPath+"\\"+url.format(pathname))
 				var handler = function(error, content){
 
@@ -96,43 +103,7 @@ http.createServer(function (req, res) {
 
 			  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
 
-/*		var request = http.get(urlOfOpenHab, function (response) {
-		
-		    // data is streamed in chunks from the server
-		    // so we have to handle the "data" event    
-		    var buffer = "", 
-		        data,
-		        route;
 
-		    response.on("data", function (chunk) {
-		        buffer += chunk;
-		    }); 
-
-		    response.on("end", function (err) {			
-				var parseString = require('xml2js').parseString;
-				var xml = buffer
-				var dataArray = new Array();
-				parseString(xml, function (err, result) {
-					for (var it = 0; it < result.items.item.length; it++){
-						dataArray.push(new Array(result.items.item[it].name[0],result.items.item[it].state[0]));
-						//res.write(result.items.item[it].name[0] + " : " + result.items.item[it].state[0] + "\n")
-					}
-				    
-				});
-				var swig  = require('swig');
-				res.write(swig.renderFile('smartHomeServer/template.html', {
-				    pagename: 'awesome people',
-				    authors: dataArray
-				}));
-				res.end();
-		        //data = JSON.parse(buffer);
-		        //route = data.routes[0];
-		        // extract the distance and time
-		        //console.log("Walking Distance: " + route.legs[0].distance.text);
-		        //console.log("Time: " + route.legs[0].duration.text);
-		    });
-	 
-		}); */
   	 }else
 		{
 
@@ -157,21 +128,16 @@ http.createServer(function (req, res) {
 						var xml = buffer
 						var dataArray = new Array();
 						var returnObject = {
-						    "temperature_indoor": 0,
-						    "temperature_outdoor": 0,
-						    "food": [],
-						    "barometer": 0,
-						    "stresslevel": 0,
-						    "loudness": 0,
-						    "airquality_indoor": 0,
-						    "co2_indoor": 0,
+							"airquality": 0,
+							"barometer": {"indoor" : 0, "flow_indoor": new Array()},
+							"co2": {"indoor" : 0, "flow_indoor": new Array()},
+							"food": [],
+							"humidity": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						    "loudness": {"indoor" : 0, "flow_indoor": new Array()},
 						    "pollen": new Object,
-						    "humidity_indoor": 0,
-						    "humidity_outdoor": 0,
-						    "lng": 0,
-						    "lat": 0,
-						    "battery": 0,
-						    "fstate": 0
+						    "settings" : {"battery": 0,"fstate": 0,"lat": 0,"lng": 0},
+						    "stresslevel": 0,
+						    "temperature": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
 						}
 						parseString(xml, function (err, result) {
 							
@@ -197,37 +163,37 @@ http.createServer(function (req, res) {
 							for (var it = 0; it < result.items.item.length; it++){
 								var name = result.items.item[it].name[0];
 								if(name.indexOf("Netatmo_Indoor_Temperature") > -1){
-									returnObject.temperature_indoor = Number(result.items.item[it].state[0]);
+									returnObject.temperature.indoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Temperature") > -1){
-									returnObject.temperature_outdoor = Number(result.items.item[it].state[0]);
+									returnObject.temperature.outdoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_Pressure") > -1){
-									returnObject.barometer = Number(result.items.item[it].state[0]);
+									returnObject.barometer.indoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_Noise") > -1){
-									returnObject.loudness = Number(result.items.item[it].state[0]);
+									returnObject.loudness.indoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_CO2") > -1){
-									returnObject.co2_indoor = Number(result.items.item[it].state[0]);
+									returnObject.co2.indoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_Humidity") > -1){
-									returnObject.humidity_indoor = Number(result.items.item[it].state[0]);
+									returnObject.humidity.indoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Humidity") > -1){
-									returnObject.humidity_outdoor = Number(result.items.item[it].state[0]);
+									returnObject.humidity.outdoor = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_latitude") > -1){
-									returnObject.lat = Number(result.items.item[it].state[0]);
+									returnObject.settings.lat = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_longitude") > -1){
-									returnObject.lng = Number(result.items.item[it].state[0]);
+									returnObject.settings.lng = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Batteryvp") > -1){
-									returnObject.battery = Number(result.items.item[it].state[0]);
+									returnObject.settings.battery = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Rfstatus") > -1){
-									returnObject.fstate = Number(result.items.item[it].state[0]);
+									returnObject.settings.fstate = Number(result.items.item[it].state[0]);
 								}
 
 							}
@@ -260,9 +226,9 @@ http.createServer(function (req, res) {
 							//---------------------airquality_indoor---------
 							var airquality = 0;
 							var maxValue_airquality = 16;
-							var temparatur_indoor = Number(returnObject.temperature_indoor);
-							var humidity_indoor = Number(returnObject.humidity_indoor);
-							var co2 = Number(returnObject.co2_indoor);
+							var temparatur_indoor = Number(returnObject.temperature.indoor);
+							var humidity_indoor = Number(returnObject.humidity.indoor);
+							var co2 = Number(returnObject.co2.indoor);
 							var humidity_diff = Math.abs(feelgood_humidity - humidity_indoor);
 							var temp_diff = Math.abs(temparatur_indoor - feelgood_temp);
 							//----normierung humidity
@@ -332,12 +298,12 @@ http.createServer(function (req, res) {
 							var proz = 100/maxValue_airquality*airquality;
 							console.log("Proz Wert: "+proz);
 							if(proz<= 30){
-								returnObject.airquality_indoor = Number(1);
+								returnObject.airquality = Number(1);
 							}else{
 								if(proz> 30 && proz<= 60){
-									returnObject.airquality_indoor = Number(2);
+									returnObject.airquality = Number(2);
 								}else{
-									returnObject.airquality_indoor = Number(3);
+									returnObject.airquality = Number(3);
 								}
 							}
 								//---------------------Stresslevel---------------
@@ -355,7 +321,7 @@ http.createServer(function (req, res) {
 							// -- genau in der Mitte Orange
 							var stresslevel = airquality;
 							var maxValue_stresslevel = maxValue_airquality+12;
-							var noise = returnObject.loudness;
+							var noise = returnObject.loudness.indoor;
 							if(noise >=70){
 								stresslevel = maxValue_stresslevel;
 							}else{
@@ -399,15 +365,57 @@ http.createServer(function (req, res) {
 
 
 							//---------------------pollen--------------------
-							console.log(pollen)
+							//console.log(pollen)
 							for (var pollenIndex = 1; pollenIndex < pollen.length-1; pollenIndex++){
 								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
 								if(pollen[pollenIndex][n] == '1' || pollen[pollenIndex][n] == '2' ||pollen[pollenIndex][n] == '3' ){
 									returnObject.pollen[pollen[pollenIndex][0]] = Number(pollen[pollenIndex][n]);
 								}
 							}
-							res.write(JSON.stringify(returnObject));
-						    res.end()
+							//------start request for weather forcast
+							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.settings.lng+"&lon="+returnObject.settings.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
+							
+							var request = http.get(urlOfweatherAPI, function (response) {	
+							    // data is streamed in chunks from the server
+							    // so we have to handle the "data" event    
+							    var buffer2 = ""
+
+							    response.on("data", function (chunk) {
+							        buffer2 += chunk;
+							    }); 
+
+							    response.on("end", function (err) {
+							    	//console.log(buffer2);
+							    	returnObject["forcast"] = JSON.parse(buffer2);
+									//------start request for measurements
+							    	var urlOfNetAtmoAPiForMeasurements = "http://api.netatmo.net/api/getmeasure?access_token=5513dbcb1977594a72541c2f|04f8cd13786f46b6b2783515c5504ce6&device_id=70:ee:50:12:be:10&type=Temperature,Humidity,Co2,Pressure,Noise&scale=3hours";
+							
+									/*var request = http.get(urlOfNetAtmoAPiForMeasurements, function (response) {	
+									    // data is streamed in chunks from the server
+									    // so we have to handle the "data" event    
+									    var buffer3 = ""
+
+									    response.on("data", function (chunk) {
+									        buffer3 += chunk;
+									    }); 
+
+									    response.on("end", function (err) {
+									    	console.log(buffer3);
+									    	var parsedJSON = JSON.parse(buffer3);
+									    	res.write(JSON.stringify(returnObject));
+								    		res.end()
+									    });
+									 });*/
+								    res.write(JSON.stringify(returnObject));
+									res.end()
+							    });
+							 });	
+
+
+
+
+
+							
 						});
 				    });
 			 
@@ -415,7 +423,7 @@ http.createServer(function (req, res) {
 			}
 			else
 			{
-				var runningPath = 'smartHomeServer'
+				var runningPath = 'frontend'
 			    var pathname = req.url;
 			  	console.log(url.format(pathname));
 				//css(res,runningPath+"\\"+url.format(pathname))
@@ -439,7 +447,7 @@ http.createServer(function (req, res) {
 			}
 		} 
   
-}).listen(1337, '127.0.0.1');
+}).listen(1337, 'localhost');
 
 function css(response,path) {
   response.writeHead(200, {"Content-Type": "text/css"});
@@ -463,5 +471,58 @@ function css(response,path) {
  
 }
 
+/*setInterval(function(){
+	var url = "https://api.netatmo.net/oauth2/token/"
+	var grant = "grant_type=password&client_id=552d1ba21e7759ef905d9b6a&client_secret=ghffFwPKUKLGhlGX8mY5dwwX4UGFa9mk&username=kk114%40hdm-stuttgart.de&password=HdMurc2015zPq7!&scope=read_station";
+	flow_barometer_indoor 	= [];
+	flow_barometer_outdoor 	= [];
+ 	flow_co2			 	= [];
+	flow_humidity_indoor	= [];
+	flow_humidity_outdoor	= [];
+	flow_noise				= [];
+	flow_temperatur_indoor 	= [];
+	flow_temperatur_outdoor	= [];
+	var urlOfNetAtmoAPiForMeasurements = url + grant;
+	var request = http.post(urlOfNetAtmoAPiForMeasurements, function (response) {	
+	    // data is streamed in chunks from the server
+	    // so we have to handle the "data" event    
+	    var getAccessToken = ""
+  		console.log('Start Request for access_token');
+	    response.on("data", function (chunk) {
+	        getAccessToken += chunk;
+	    }); 
 
-console.log('Server running at http://127.0.0.1:1337/');
+	    response.on("end", function (err) {
+	    	console.log(getAccessToken);
+	    	var parsedJSON = JSON.parse(getAccessToken);
+	    	var temp_accessToken= parsedJSON.access_token;
+	    	var device_id = "70:ee:50:12:be:10";
+	    	var urlOfNetAtmoAPiForMeasurements = "http://api.netatmo.net/api/getmeasure?access_token="+temp_accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale=3hours";
+							
+			var request = http.get(urlOfNetAtmoAPiForMeasurements, function (response) {	
+			    // data is streamed in chunks from the server
+			    // so we have to handle the "data" event    
+			    var measurment = ""
+			    console.log('Start Request for measurment');
+			    response.on("data", function (chunk) {
+			        measurment += chunk;
+			    }); 
+
+			    response.on("end", function (err) {
+			    	console.log(measurment);
+			    	var parsedJSONFromMeasurement = JSON.parse(measurment);
+			    	for(var counter = 0; counter < parsedJSONFromMeasurement.body[0].value.length;counter++){
+			    		var step =  parsedJSONFromMeasurement.body[0].value[counter];
+			    		flow_temperatur_indoor.push(step[0]);
+			    		flow_humidity_indoor.push(step[1]);
+			    		flow_co2.push(step[2]);
+			    		flow_barometer_indoor.push(step[3]);
+			    		flow_noise.push(step[4]);
+			    	}
+			    });
+			 });
+	    });
+	 });
+
+}, 60*1000); */
+console.log('Server running at http://localhost:1337/');
