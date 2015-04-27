@@ -417,15 +417,15 @@ aside#aside {
   width: 25%;
   height: 85%;
   padding: 20px;
-  box-sizing: border-box; }
-  /* line 85, E:/Sites/urc/universal/scss/styles.scss */
+  box-sizing: border-box;
+  overflow: hidden; }
+  /* line 86, E:/Sites/urc/universal/scss/styles.scss */
   aside#aside > ul {
     list-style-type: none;
     margin: 0;
     padding: 0; }
-    /* line 89, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 90, E:/Sites/urc/universal/scss/styles.scss */
     aside#aside > ul li {
-      height: 40px;
       padding: 4px; }
       /* line 92, E:/Sites/urc/universal/scss/styles.scss */
       aside#aside > ul li img {
@@ -435,17 +435,25 @@ aside#aside {
       /* line 97, E:/Sites/urc/universal/scss/styles.scss */
       aside#aside > ul li p {
         line-height: 40px;
+        float: left;
         margin: 0; }
-      /* line 101, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 102, E:/Sites/urc/universal/scss/styles.scss */
       aside#aside > ul li.active {
         margin-left: -20px;
         padding-left: 14px;
         background: rgba(255, 255, 255, 0.2);
         border-left: 10px solid #d35400; }
+      /* line 108, E:/Sites/urc/universal/scss/styles.scss */
+      aside#aside > ul li:after {
+        display: block;
+        content: '';
+        clear: both; }
 
-/* line 112, E:/Sites/urc/universal/scss/styles.scss */
+/* line 118, E:/Sites/urc/universal/scss/styles.scss */
 main#main {
   float: right;
   background-color: #bdc3c7;
   height: 85%;
-  width: 75%; }
+  width: 75%;
+  box-sizing: border-box;
+  padding: 20px; }

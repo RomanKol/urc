@@ -7,17 +7,19 @@ var gridEl			= document.getElementById('theGrid'),
 	settingsBtnEl	= document.getElementById('settingsBtn'),
 	settingsImgEl = document.getElementById('settingsImg');
 
-var listEl = document.getElementById('list');
+var listEl = document.getElementById('list'),
+	mainEl = document.getElementById('main');
 
 
 var settings = {},
 	data = {};
 
-// Clock Initai
+// Initialize Functions
 update();
+loadSettings();
+clock();
 
 // Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
-clock();
 setInterval( clock, 1000);
 
 // Eventlisteners
@@ -69,7 +71,7 @@ function loadSettings(){
 
 	if(settings === null) settings = {};
 
-	console.log(settings);
+	//console.log(settings);
 
 	for( var setting in settings){
 		if(settings[setting] === true){
@@ -78,11 +80,11 @@ function loadSettings(){
 		} else {
 			document.getElementById('settings_' + setting).checked = false;
 		}
-	};
+	}
 
 }
 
-loadSettings();
+
 
 function addElement(key){
 
@@ -154,9 +156,84 @@ function loadElement(evt){
 	  	}
 		}
 
-
-
+		// Add Active Class To Clicked Element
 		el.classList.add('active');
+
+		while (mainEl.firstChild) {
+	    mainEl.removeChild(mainEl.firstChild);
+		}
+
+		//Selected Element
+		element = el.querySelector('p').innerText;
+		console.log(element);
+
+		h1 = document.createElement('h1');
+		h1.innerText = element;
+
+		mainEl.appendChild(h1);
+
+		// Array // Food
+		if(typeof data[element] === 'object' && Array.isArray(data[element]) ){
+
+			ul = document.createElement('ul');
+
+			data[element].forEach(function(item){
+				li = document.createElement('li');
+				li.innerText = item;
+				ul.appendChild(li);
+			});
+
+			mainEl.appendChild(ul);
+
+		//
+		} else if(typeof data[element] === 'object'){
+
+			// Barometer, Co2, Humidity, Loudness, Temperature
+			if(data[element]['indoor']){
+				indoor = document.createElement('h2');
+				indoor.innerText = 'Indoor: ' + data[element]['indoor'];
+				mainEl.appendChild(indoor);
+			}
+
+			// Baromter, Humidity, Temperature
+			if(data[element]['outdoor']){
+				outdoor = document.createElement('h2');
+				outdoor.innerText = 'Outdoor: ' + data[element]['outdoor'];
+				mainEl.appendChild(outdoor);
+			}
+
+			// Pollen
+			if(!data[element]['indoor'] && !data[element]['outdoor']){
+				ul = document.createElement('ul');
+				for (item in data[element]) {
+			  	li = document.createElement('li');
+					li.innerText = item + ': ' + data[element][item];
+					ul.appendChild(li);
+				}
+				mainEl.appendChild(ul);
+			}
+		// NUmber // Airquality
+		} else if(typeof data[element] === 'number'){
+
+			value = document.createElement('h2');
+			value.innerText = data[element];
+			mainEl.appendChild(value);
+
+		// Settings
+		} else {
+
+			ul = document.createElement('ul');
+				for (item in data[element]) {
+			  	li = document.createElement('li');
+					li.innerText = item + ': ' + data[element][item];
+					ul.appendChild(li);
+				}
+				mainEl.appendChild(ul);
+
+		}
+
+
+
 
 	}
 	evt.stopPropagation();

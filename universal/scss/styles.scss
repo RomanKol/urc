@@ -82,12 +82,12 @@ aside#aside {
 	height: 85%;
 	padding: 20px;
 	box-sizing: border-box;
+	overflow: hidden;
 	> ul {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
 		li {
-			height: 40px;
 			padding: 4px;
 			img {
 				height: 40px;
@@ -96,6 +96,7 @@ aside#aside {
 			}
 			p {
 				line-height: 40px;
+				float: left;
 				margin: 0;
 			}
 			&.active {
@@ -103,6 +104,11 @@ aside#aside {
   			padding-left: 14px;
   			background: rgba(255,255,255,0.2);
 				border-left: 10px solid $pumpkin;
+			}
+			&:after {
+				display: block;
+				content: '';
+				clear: both;
 			}
 		}
 
@@ -114,4 +120,6 @@ main#main {
 	background-color: $silver;
 	height: 85%;
 	width: 75%;
+	box-sizing: border-box;
+	padding: 20px;
 }
