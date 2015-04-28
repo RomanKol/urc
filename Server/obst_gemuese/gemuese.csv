@@ -1,8 +1,8 @@
-Zutat (Gemüse);Jan;Feb;Mär;Apr;Mai;Jun;Jul;Aug;Sep;Okt;Nov;Dez
+Zutat (GemÃ¼se);Jan;Feb;MÃ¤r;Apr;Mai;Jun;Jul;Aug;Sep;Okt;Nov;Dez
 Aubergine;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
 Blumenkohl;nein;nein;nein;nein;ja;ja;ja;ja;ja;ja;nein;nein
-Bohnen, grüne;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
-Bohnen, dicke;nein;nein;nein;nein;nein;ja;ja;ja;nein;nein;nein;nein
+gruene-Bohnen,;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
+dicke-Bohnen;nein;nein;nein;nein;nein;ja;ja;ja;nein;nein;nein;nein
 Brokkoli;nein;nein;nein;nein;nein;ja;ja;ja;ja;ja;nein;nein
 Butterrueben;(ja);(ja);(ja);(ja);nein;nein;nein;ja;ja;ja;ja;ja
 Champignons;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja
@@ -22,7 +22,7 @@ Paprika;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
 Pastinaken;ja;ja;ja;(ja);nein;nein;nein;nein;ja;ja;ja;ja
 Radieschen;nein;nein;nein;nein;ja;ja;ja;ja;ja;ja;nein;nein
 Rosenkohl;ja;ja;ja;nein;nein;nein;nein;nein;nein;ja;ja;ja
-Rote Bete;(ja);(ja);(ja);(ja);nein;nein;ja;ja;ja;ja;ja;(ja)
+Rote-Bete;(ja);(ja);(ja);(ja);nein;nein;ja;ja;ja;ja;ja;(ja)
 Rotkohl;(ja);(ja);(ja);(ja);(ja);ja;ja;ja;ja;ja;ja;(ja)
 Schwarzwurzeln;ja;ja;nein;nein;nein;nein;nein;nein;nein;ja;ja;ja
 Spargel;nein;nein;nein;ja;ja;ja;nein;nein;nein;nein;nein;nein
