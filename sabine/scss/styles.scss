@@ -25,7 +25,7 @@ body, html {
 }
 
 /* Grid For Tiles */
-#theGrid {
+#grid {
 	height: 90%;
 	width: 100%;
   padding: 0;
@@ -46,10 +46,15 @@ body, html {
 			}
 		}
 
-		.tile h1 {
-			font-size: 1.5em;
+		.tile {
+			img {
+				height: 100%;
+				margin: auto;
+			}
+			figcaption {
+				display: none;
+			}
 		}
-
 	}
 
 }
@@ -81,11 +86,8 @@ body, html {
 		box-sizing: border-box;
 		background-color: $clouds;
 
-		img {
-			height: 60%;
+		img, object {
 			display: block;
-			margin: auto;
-			margin-bottom: 20px;
 		}
 
 		figcaption {
@@ -95,7 +97,6 @@ body, html {
 			h1 {
 				display: block;
 				font-size: 2em;
-				text-align: center;
 			}
 		}
 	}
@@ -158,7 +159,7 @@ body, html {
 		display: block;
 	}
 
-	#theButton {
+	#clsBtn {
 		position: absolute;
 		right: 20px;
 		top: 20px;
@@ -175,36 +176,27 @@ body, html {
 
 }
 
-#settings {
+#header {
 	height: 10%;
 	width: 100%;
 	box-sizing: border-box;
 	padding: 10px;
 	background: $emerland;
 	position: relative;
-	overflow-y: hidden;
-	transition-property: height;
-	transition-duration: 250ms;
+
 	h1 {
 		margin: 0;
 		margin-right: 20px;
 		float: left;
 	}
-	img {
-		float: right;
-		height: 100%;
-	}
 
-	&.active {
-		height: 100%;
-	}
 }
 
 
 .temp-low > figure {
 	background-color: $river;
 }
-.temp-ok > figure {
+.temp-good > figure {
 	background-color: $emerland;
 }
 .temp-warm > figure {
@@ -214,12 +206,19 @@ body, html {
 	background-color: $pomegranate;
 }
 
-.loudness-low > figure {
-	background-color: $emerland;
+// Loudness && Stresslvevel Classes
+.loudness-low, .stresslevel-1, .airquality-1 {
+	> figure {
+		background-color: $emerland;
+	}
 }
-.loudness-medium > figure {
-	background-color: $sunflower;
+.loudness-medium, .stresslevel-2, .airquality-2 {
+	> figure {
+		background-color: $sunflower;
+	}
 }
-.loudness-heigh > figure {
-	background-color: $pomegranate;
+.loudness-heigh, .stresslevel-3, .airquality-3 {
+	> figure {
+		background-color: $pomegranate;
+	}
 }

@@ -2,25 +2,29 @@
 
 
 // Variables
-var gridEl			= document.getElementById('theGrid'),
-		buttonEl		= document.getElementById('theButton'),
-		detailEl 		= document.getElementById('detail'),
-		settingsEl	= document.getElementById('settings');
+var gridEl			= document.getElementById('grid'),
+		buttonEl		= document.getElementById('clsBtn'),
+		detailEl 		= document.getElementById('detail');
 
-var data = {};
+var data = {},
+		settings = {};
 
-// Clock Initai
+		// Default Settings
+		settings.temperature = 20;
+
+// Clock Initial
 update();
-//clock();
 
-gridEl.addEventListener('click', activate, false);
-buttonEl.addEventListener('click', deactivate, false);
-settingsEl.querySelector('img').addEventListener('click', settings, false);
-
-//
+// Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
 clock();
 setInterval( clock, 60 * 1000);
 
+// Eventlisteners
+gridEl.addEventListener('click', activate, false);
+buttonEl.addEventListener('click', deactivate, false);
+
+// Functions
+// Active Tile  For Detail View
 function activate(evt) {
 	if(evt.target !== evt.currentTarget){
 		el = evt.target;
@@ -55,6 +59,7 @@ function activate(evt) {
 	evt.stopPropagation();
 }
 
+// Close Detail View
 function deactivate (evt) {
 
 	// Remove Active Class From All Tile Elements
@@ -74,10 +79,9 @@ function deactivate (evt) {
 	if(detailEl.classList.contains('active')){
 		detailEl.classList.remove('active');
 	}
-
-
 }
 
+// Get NetAtmo Data
 function update() {
 
 	// AJAX Request
@@ -102,71 +106,99 @@ function update() {
   }
 
   request.send();
-
 }
 
+
+// Insert NetAtmo Data Into Elements
 function insertData(data){
 
 	console.log(data);
 
-	// Temperature
-	el = gridEl.querySelector('#temperature')
+	setTemperature(data.temperature);
+	setFood(data.food);
+	setWeather(data.weather);
+	setStresslevel(data.stresslevel);
+	setLoudness(data.loudness);
+	setAirquality(data.airquality);
+}
 
+// Temperature Element
+function setTemperature(temperature){
 
-	if(data.temperature_indoor < 15){
+	el = document.getElementById('temperature');
+
+	el.querySelector('data').innerText = temperature.indoor + 'C°';
+	el.classList.remove('temp-low', 'temp-good', 'temp-warm', 'temp-hot');
+
+	// Temperature less than 15
+	if(temperature.indoor < settings.temperature - 5){
 		el.classList.add('temp-low');
-	} else if(data.temperature_indoor > 15 && data.temperature_indoor < 25){
-		el.classList.add('temp-ok');
-	} else if(data.temperature_indoor > 25 && data.temperature_indoor < 30){
+	} else if(temperature.indoor > settings.temperature - 5 && temperature.indoor < settings.temperature +5){
+		el.classList.add('temp-good');
+	} else if(temperature.indoor > settings.temperature + 5 && temperature.indoor < settings.temperature + 10){
 		el.classList.add('temp-warm');
-	} else if(data.temperature_indoor > 30){
+	} else if(temperature.indoor > settings.temperature + 10){
 		el.classList.add('temp-hot');
 	}
 
-	el.querySelector('h2').innerText = data.temperature_indoor + ' C°';
+	//todo
+	// Image
+}
 
-	// Food
-	var foodEl = gridEl.querySelector('#food figcaption');
-	var list = document.createElement('ul');
-	for (var i = 0; i < data.food.length; i++) {
-		item = document.createElement('li')
-		item.innerText = data.food[i];
+// Food Element
+function setFood(food){
+	el = document.querySelector('#food figcaption'),
+	list = document.createElement('ul');
+
+	for (var i = food.length - 1; i >= 0; i--) {
+		item = document.createElement('li');
+		item.innerText = food[i];
 		list.appendChild(item);
 	};
-	foodEl.appendChild(list);
 
-	// Weather
-	gridEl.querySelector('#barometer h2').innerText = data.barometer + ' Pa';
+	el.appendChild(list);
+}
 
-	// Stresslevel
-	var stessLevelEl = gridEl.querySelector('#stresslevel h2').innerText = data.stresslevel;
+// Weather Element
+// TODO
+function setWeather(weather){
+	el = document.querySelector('#barometer figcaption');
 
-	// Loudness
-	el = gridEl.querySelector('#loudness')
+	// todo
+}
 
-	if(data.loudness < 62){
+// Stresslevel Element
+function setStresslevel(stresslevel){
+	el = document.getElementById('stresslevel');
+	el.classList.remove('stresslevel-1', 'stresslevel-2', 'stresslevel-3');
+	el.classList.add('stresslevel-' + stresslevel);
+}
+
+// Loudness Element
+function setLoudness(loudness){
+	el = document.getElementById('loudness');
+	el.classList.remove('loudness-low', 'loudness-medium', 'loudness-height');
+
+	if(loudness.indoor < 62){
 		el.classList.add('loudness-low');
-	} else if(data.loudness > 62 && data.loudness < 81){
+	} else if(loudness.indoor > 62 && loudness.indoor < 81){
 		el.classList.add('loudness-medium');
-	} else if(data.loudness > 81){
+	} else if(loudness.indoor > 81){
 		el.classList.add('loudness-high');
 	}
-
-	el.querySelector('h2').innerText = data.loudness + ' dB';
-
-	// Airquality
-	gridEl.querySelector('#airquality h2').innerText = data.airquality_indoor;
-
 }
 
-function settings (argument) {
-	settingsEl.classList.toggle('active');
+// Airquality Element
+function setAirquality(airquality){
+	el = document.getElementById('airquality');
+	el.classList.remove('airquality-1', 'airquality-2', 'airquality-3');
+	el.classList.add('airquality-' + airquality);
 }
 
 
+// Clock
 function clock () {
 	var date = new Date();
-	settingsEl.querySelector('#date').innerText = date.toLocaleDateString();
-	settingsEl.querySelector('#time').innerText = date.toLocaleTimeString();
-	console.log('tick');
+	document.getElementById('date').innerText = date.toLocaleDateString();
+	document.getElementById('time').innerText = date.toLocaleTimeString().substring(0,5);
 }
