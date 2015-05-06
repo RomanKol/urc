@@ -177,13 +177,15 @@ function setStresslevel(stresslevel){
 // Loudness Element
 function setLoudness(loudness){
 	el = document.getElementById('loudness');
+
+	el.querySelector('data').innerText = loudness.indoor + 'dB';
 	el.classList.remove('loudness-low', 'loudness-medium', 'loudness-height');
 
-	if(loudness.indoor < 62){
+	if(loudness.indoor <= 63){
 		el.classList.add('loudness-low');
-	} else if(loudness.indoor > 62 && loudness.indoor < 81){
+	} else if(loudness.indoor > 63 && loudness.indoor < 81){
 		el.classList.add('loudness-medium');
-	} else if(loudness.indoor > 81){
+	} else if(loudness.indoor >= 81){
 		el.classList.add('loudness-high');
 	}
 }
