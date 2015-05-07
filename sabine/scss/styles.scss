@@ -116,7 +116,6 @@ body, html {
 }
 
 #detail {
-	display: none;
 	box-sizing: border-box;
 	padding: 10px;
 	position: relative;
@@ -126,34 +125,58 @@ body, html {
 		background-color: $clouds;
 		box-sizing: border-box;
 		padding: 20px;
+		overflow: hidden;
 
 		h1{
 			font-size: 3em;
-			margin: 0;
-			line-height: 1em
+			line-height: 1em;
+			margin: 20px 0;
 		}
+	}
 
-		ul {
-			-webkit-columns: 2;
-			-moz-columns: 2;
-			columns: 2;
-			padding: 0;
-			li {
-				font-size: 1.5em;
-				font-weight: bold;
-				line-height: 1.5;
-				&:before {
-					content: '';
-					display: inline-block;
-					height: 5px;
-					width: 5px;
-					background: black;
-					margin: 5px 10px 5px 5px;
-					border-radius: 5px;
+	.food {
+		position: relative;
+		.foodList {
+			height: 80%;
+			overflow-x: scroll;
+			overflow-y: hidden;
+			position: relative;
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				li {
+					float: left;
+					height: 100%;
+					figure {
+						height: 100%;
+						margin: 0 40px 0 0;
+						img {
+								min-height: 80%;
+								max-height: 80%;
+								height: 80%;
+						}
+						figcaption {
+							height: 20%;
+							h2 {
+								margin: 0;
+							}
+						}
+					}
 				}
 			}
 		}
-
+		button {
+			position: absolute;
+			top: 0;
+			&#slideNext {
+				right: 0;
+			}
+			&#slidePrev {
+				left: 0;
+			}
+		}
 	}
 
 	@media screen and (orientation:portrait){
@@ -165,10 +188,6 @@ body, html {
 		width: 60%;
 		height: 90%;
 		float: left;
-	}
-
-	&.active {
-		display: block;
 	}
 
 	#clsBtn {
@@ -202,6 +221,10 @@ body, html {
 		float: left;
 	}
 
+}
+
+.hide {
+	display: none;
 }
 
 

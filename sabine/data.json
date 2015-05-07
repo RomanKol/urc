@@ -11,7 +11,22 @@
 		"flow_indoor": [1, 2, 3]
 	},
 	"food": [
-		"string", "string", "string"
+		"Apfel",
+		"Rhabarber",
+		"Butterrueben",
+		"Champignons",
+		"Kartoffeln",
+		"Lauch Porree",
+		"Möhren Karotten",
+		"Pastinaken",
+		"Rote Bete",
+		"Rotkohl",
+		"Spargel",
+		"Spinat",
+		"Weisskohl",
+		"Chicoree",
+		"Feldsalat",
+		"Portulak"
 	],
 	"humidity": {
 		"indoor": 1,
@@ -20,7 +35,7 @@
 		"flow_outdoor": [1, 2, 3]
 	},
 	"loudness": {
-		"indoor": 70,
+		"indoor": 62,
 		"flow_indoor": [1, 2, 3]
 	},
 	"pollen": {
@@ -33,7 +48,7 @@
 		"lat": 1,
 		"lng": 1
 	},
-	"stresslevel": 1,
+	"stresslevel": 2,
 	"temperature": {
 		"indoor": 14,
 		"outdoor": 1,
