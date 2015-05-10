@@ -1,5 +1,5 @@
-// Comment
-
+// Execute when DOM fully loaded and parsed
+document.addEventListener("DOMContentLoaded", function(event) {
 
 // DomElements and Variables
 var gridEl			= document.getElementById('grid'),
@@ -7,11 +7,12 @@ var gridEl			= document.getElementById('grid'),
 		detailEl 		= document.getElementById('detail');
 
 var data = {},
-		settings = {},
-		slider;
-
+		settings = {};
 		// Default Settings
 		settings.temperature = 20;
+
+var idleTime = 0;
+		idelInterval = setInterval(timerIncrement, 60 * 1000);
 
 // Initialize Interface and load Data
 getData();
@@ -29,6 +30,8 @@ buttonEl.addEventListener('click', deactivate, false);
 // Functions
 // Active Tile  For Detail View
 function activate(evt) {
+	idleTime = 0;
+
 	if(evt.target !== evt.currentTarget){
 		el = evt.target;
 
@@ -60,18 +63,12 @@ function activate(evt) {
 		for (var i = 0; i < els.length; i++) {
 			if(!els[i].classList.contains('hide') && els[i].nodeName == 'DIV'){
 				els[i].classList.add('hide');
-				console.log('tick')
 			}
 			if(els[i].classList.contains(el.id)){
 				els[i].classList.remove('hide');
-				console.log('trick')
 			}
-
 		};
-
 	}
-
-	console.log(el.id);
 
 	evt.stopPropagation();
 }
@@ -103,7 +100,6 @@ function deactivate (evt) {
 			els[i].classList.add('hide');
 		}
 	};
-
 }
 
 // Get NetAtmo Data
@@ -123,8 +119,7 @@ function getData() {
     if (this.status >= 200 && this.status < 400){
       data = JSON.parse(this.response);
 
-      initializeTiles(data);
-      initializeDetailView(data);
+      initializeData(data);
 
     } else {
       console.log('Fehler: ' + this);
@@ -135,18 +130,19 @@ function getData() {
 }
 
 // Insert NetAtmo Data Into Elements
-function initializeTiles(data){
-	setTemperatureTile(data.temperature);
-	setFoodTile(data.food);
-	setWeatherTile(data.weather);
-	setStresslevelTile(data.stresslevel);
-	setLoudnessTile(data.loudness);
-	setAirqualityTile(data.airquality);
+function initializeData(data){
+	setTemperature(data.temperature);
+	setFood(data.food);
+	setWeather(data.weather);
+	setStresslevel(data.stresslevel);
+	setLoudness(data.loudness);
+	setAirquality(data.airquality);
 }
 
 // Temperature Element
-function setTemperatureTile(temperature, el){
+function setTemperature(temperature){
 
+ 	// Tile
 	el = document.getElementById('temperature');
 
 	el.querySelector('data').innerText = temperature.indoor + 'C°';
@@ -163,43 +159,51 @@ function setTemperatureTile(temperature, el){
 		el.classList.add('temp-hot');
 	}
 
-	//todo
-	// Image
+	// DetailView
+	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor + '°C';
+	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor + '°C';
 }
 
 // Food Element
-function setFoodTile(food){
-	el = document.querySelector('#food figcaption'),
-	list = document.createElement('ul');
+function setFood(food){
 
-	for (var i = food.length - 1; i >= 0; i--) {
-		item = document.createElement('li');
-		item.innerText = food[i];
-		list.appendChild(item);
+	// Tile
+	// toDo?
+
+	//DetailView
+	list = detailEl.querySelector('.food ul');
+	list.style.width = food.length * 100 + '%';
+	itemWidth = window.getComputedStyle(detailEl.querySelector('.foodList', null)).width;
+	for (var i = 0; food.length > i; i++) {
+		list.appendChild(buildSlideItem(food[i], itemWidth));
 	};
-
-	el.appendChild(list);
 }
 
 // Weather Element
 // TODO
-function setWeatherTile(weather){
+function setWeather(weather){
 	el = document.querySelector('#barometer figcaption');
 
 	// todo
 }
 
 // Stresslevel Element
-function setStresslevelTile(stresslevel){
+function setStresslevel(stresslevel){
+
+	// Tile
 	el = document.getElementById('stresslevel');
 	el.classList.remove('stresslevel-1', 'stresslevel-2', 'stresslevel-3');
 	el.classList.add('stresslevel-' + stresslevel);
+
+	// DetailView
+	detailEl.querySelector('.stresslevel h2').innerText = 'Lorem Ipsum set dolor et ament sum: ' + stresslevel;
 }
 
 // Loudness Element
-function setLoudnessTile(loudness){
-	el = document.getElementById('loudness');
+function setLoudness(loudness){
 
+	// Tile
+	el = document.getElementById('loudness');
 	el.querySelector('data').innerText = loudness.indoor + 'dB';
 	el.classList.remove('loudness-low', 'loudness-medium', 'loudness-height');
 
@@ -210,37 +214,21 @@ function setLoudnessTile(loudness){
 	} else if(loudness.indoor >= 81){
 		el.classList.add('loudness-high');
 	}
+
+	// DetailView
+	detailEl.querySelector('.loudness data').innerText = loudness.indoor + ' db';
 }
 
 // Airquality Element
-function setAirqualityTile(airquality){
+function setAirquality(airquality){
+
+	// Tile
 	el = document.getElementById('airquality');
 	el.classList.remove('airquality-1', 'airquality-2', 'airquality-3');
 	el.classList.add('airquality-' + airquality);
-}
 
-// Initialize DetailView
-function initializeDetailView(data){
-	setTemperatureDetail(data.temperature);
-	setFoodDetail(data.food);
-	setWeatherDetail(data.forecast);
-	setStresslevelDetail(data.stresslevel);
-	setLoudnessDetail(data.loudness);
-	setAirqualityDetail(data.airquality);
-}
-
-function setTemperatureDetail(temperature){
-	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor + '°C';
-	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor + '°C';
-}
-
-function setFoodDetail(food){
-	list = detailEl.querySelector('.food ul');
-	list.style.width = food.length * 100 + '%';
-	itemWidth = window.getComputedStyle(detailEl.querySelector('.foodList', null)).width;
-	for (var i = 0; food.length > i; i++) {
-		list.appendChild(buildSlideItem(food[i], itemWidth));
-	};
+	// DetailView
+	detailEl.querySelector('.airquality h2').innerText = 'Lorem Ipsum set dolor et ament sum: ' + airquality;
 }
 
 function buildSlideItem(data, itemWidth){
@@ -263,21 +251,6 @@ function buildSlideItem(data, itemWidth){
 	return item
 }
 
-function setWeatherDetail(weather){
-	// toDo
-}
-
-function setStresslevelDetail(stresslevel){
-	detailEl.querySelector('.stresslevel p').innerText = 'Lorem Ipsum set dolor et ament sum: ' + stresslevel;
-}
-
-function setLoudnessDetail(loudness){
-	detailEl.querySelector('.loudness data').innerText = loudness.indoor + ' db';
-}
-
-function setAirqualityDetail(airquality){
-	detailEl.querySelector('.airquality p').innerText = 'Lorem Ipsum set dolor et ament sum: ' + airquality;
-}
 
 // Clock
 function clock () {
@@ -286,3 +259,12 @@ function clock () {
 	document.getElementById('time').innerText = date.toLocaleTimeString().substring(0,5);
 }
 
+// IdleTimer
+function timerIncrement(){
+	idleTime ++;
+	if(idleTime == 15){
+		deactivate();
+	}
+}
+
+});

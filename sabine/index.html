@@ -13,8 +13,7 @@
 
 <body>
 	<header id="header">
-		<h1 id="time"></h1>
-		<h1 id="date"></h1>
+		<h1>Hallo Sabine, heute ist der <time id="date"></time>. Es ist <time id="time"></time> Uhr.</h1>
 	</header>
 	<div id="grid">
 		<div id="temperature" class="tile">
@@ -73,9 +72,13 @@
 
 	<div id="detail" class="hide">
 		<div class="temperature hide">
-			<h1>Termperatur</h1>
-			<data class="indoor"></data>
-			<data class="outdoor"></data>
+			<h1>Temperatur</h1>
+			<h2>Innentemperatur:
+				<data class="indoor"></data>
+			</h2>
+			<h2>Außentemperatur:
+				<data class="outdoor"></data>
+			</h2>
 		</div>
 		<div class="food hide">
 			<h1>Markt</h1>
@@ -86,19 +89,22 @@
 		</div>
 		<div class="barometer hide">
 			<h1>Wetter</h1>
-			<p></p>
+			<h2></h2>
 		</div>
 		<div class="stresslevel hide">
 			<h1>Stresslevel</h1>
-			<p></p>
+			<h2></h2>
 		</div>
 		<div class="loudness hide">
 			<h1>Lautstsärke</h1>
-			<data class="indoor"></data>
+			<h2>
+				<data class="indoor"></data>
+			</h2>
+
 		</div>
 		<div class="airquality hide">
 			<h1>Luftqualität</h1>
-			<p></p>
+			<h2></h2>
 		</div>
 
 		<button id="clsBtn">
@@ -106,9 +112,7 @@
 		</button>
 	</div>
 
-	<script src="scripts/vanilla-slider.js"></script>
 	<script src="scripts/app.js"></script>
-
 
 </body>
 
