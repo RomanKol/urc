@@ -424,54 +424,92 @@ body, html {
     box-sizing: border-box;
     background-color: #ecf0f1; }
     /* line 89, E:/Sites/urc/sabine/scss/styles.scss */
-    .tile figure img, .tile figure object {
-      display: block; }
-    /* line 94, E:/Sites/urc/sabine/scss/styles.scss */
+    .tile figure img {
+      display: inline-block; }
+      /* line 91, E:/Sites/urc/sabine/scss/styles.scss */
+      .tile figure img.center {
+        display: block;
+        margin: auto; }
+    /* line 97, E:/Sites/urc/sabine/scss/styles.scss */
+    .tile figure data {
+      font-size: 50px;
+      display: inline-block;
+      margin-top: 15%;
+      float: right; }
+    /* line 105, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure figcaption * {
       display: none; }
-    /* line 97, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 108, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure figcaption h1 {
       display: block;
-      font-size: 2em; }
+      font-size: 2em;
+      text-align: center; }
 
-/* line 106, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 118, E:/Sites/urc/sabine/scss/styles.scss */
 #detail {
-  display: none;
   box-sizing: border-box;
   padding: 10px;
   position: relative; }
-  /* line 112, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 123, E:/Sites/urc/sabine/scss/styles.scss */
   #detail > div {
     width: 100%;
     height: 100%;
     background-color: #ecf0f1;
     box-sizing: border-box;
-    padding: 20px; }
-    /* line 118, E:/Sites/urc/sabine/scss/styles.scss */
+    padding: 20px;
+    overflow: hidden; }
+    /* line 130, E:/Sites/urc/sabine/scss/styles.scss */
     #detail > div h1 {
       font-size: 3em;
-      margin: 0;
-      line-height: 1em; }
-    /* line 124, E:/Sites/urc/sabine/scss/styles.scss */
-    #detail > div ul {
-      -webkit-columns: 2;
-      -moz-columns: 2;
-      columns: 2;
-      padding: 0; }
-      /* line 129, E:/Sites/urc/sabine/scss/styles.scss */
-      #detail > div ul li {
-        font-size: 1.5em;
-        font-weight: bold;
-        line-height: 1.5; }
-        /* line 133, E:/Sites/urc/sabine/scss/styles.scss */
-        #detail > div ul li:before {
-          content: '';
-          display: inline-block;
-          height: 5px;
-          width: 5px;
-          background: black;
-          margin: 5px 10px 5px 5px;
-          border-radius: 5px; }
+      line-height: 1em;
+      margin: 20px 0; }
+    /* line 135, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail > div h2 {
+      font-size: 2.5em; }
+  /* line 140, E:/Sites/urc/sabine/scss/styles.scss */
+  #detail .food {
+    position: relative; }
+    /* line 142, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail .food .foodList {
+      height: 80%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      position: relative; }
+      /* line 147, E:/Sites/urc/sabine/scss/styles.scss */
+      #detail .food .foodList ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%; }
+        /* line 152, E:/Sites/urc/sabine/scss/styles.scss */
+        #detail .food .foodList ul li {
+          float: left;
+          height: 100%; }
+          /* line 155, E:/Sites/urc/sabine/scss/styles.scss */
+          #detail .food .foodList ul li figure {
+            height: 100%;
+            margin: 0 40px 0 0; }
+            /* line 158, E:/Sites/urc/sabine/scss/styles.scss */
+            #detail .food .foodList ul li figure img {
+              min-height: 80%;
+              max-height: 80%;
+              height: 80%; }
+            /* line 163, E:/Sites/urc/sabine/scss/styles.scss */
+            #detail .food .foodList ul li figure figcaption {
+              height: 20%; }
+              /* line 165, E:/Sites/urc/sabine/scss/styles.scss */
+              #detail .food .foodList ul li figure figcaption h2 {
+                margin: 0; }
+    /* line 173, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail .food button {
+      position: absolute;
+      top: 0; }
+      /* line 176, E:/Sites/urc/sabine/scss/styles.scss */
+      #detail .food button#slideNext {
+        right: 0; }
+      /* line 179, E:/Sites/urc/sabine/scss/styles.scss */
+      #detail .food button#slidePrev {
+        left: 0; }
   @media screen and (orientation: portrait) {
     #detail {
       width: 100%;
@@ -481,10 +519,7 @@ body, html {
       width: 60%;
       height: 90%;
       float: left; } }
-  /* line 158, E:/Sites/urc/sabine/scss/styles.scss */
-  #detail.active {
-    display: block; }
-  /* line 162, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 196, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;
     right: 20px;
@@ -494,12 +529,12 @@ body, html {
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 172, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 206, E:/Sites/urc/sabine/scss/styles.scss */
     #detail #clsBtn > img {
       width: 100%;
       height: 100%; }
 
-/* line 179, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 213, E:/Sites/urc/sabine/scss/styles.scss */
 #header {
   height: 10%;
   width: 100%;
@@ -507,36 +542,40 @@ body, html {
   padding: 10px;
   background: #2ecc71;
   position: relative; }
-  /* line 187, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 221, E:/Sites/urc/sabine/scss/styles.scss */
   #header h1 {
     margin: 0;
     margin-right: 20px;
     float: left; }
 
-/* line 196, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 229, E:/Sites/urc/sabine/scss/styles.scss */
+.hide {
+  display: none; }
+
+/* line 234, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   background-color: #3498db; }
 
-/* line 199, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 237, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   background-color: #2ecc71; }
 
-/* line 202, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 240, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   background-color: #f39c12; }
 
-/* line 205, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 243, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   background-color: #c0392b; }
 
-/* line 211, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 249, E:/Sites/urc/sabine/scss/styles.scss */
 .loudness-low > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   background-color: #2ecc71; }
 
-/* line 216, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 254, E:/Sites/urc/sabine/scss/styles.scss */
 .loudness-medium > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   background-color: #f1c40f; }
 
-/* line 221, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 259, E:/Sites/urc/sabine/scss/styles.scss */
 .loudness-heigh > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   background-color: #c0392b; }

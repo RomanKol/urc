@@ -1,19 +1,22 @@
-// Comment
+// Execute when DOM fully loaded and parsed
+document.addEventListener("DOMContentLoaded", function(event) {
 
-
-// Variables
+// DomElements and Variables
 var gridEl			= document.getElementById('grid'),
 		buttonEl		= document.getElementById('clsBtn'),
 		detailEl 		= document.getElementById('detail');
 
 var data = {},
 		settings = {};
-
 		// Default Settings
 		settings.temperature = 20;
 
-// Clock Initial
-update();
+var idleTime = 0;
+		idelInterval = setInterval(timerIncrement, 60 * 1000);
+
+// Initialize Interface and load Data
+getData();
+//setInterval(getData, 5 * 60 * 1000)
 
 // Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
 clock();
@@ -23,9 +26,12 @@ setInterval( clock, 60 * 1000);
 gridEl.addEventListener('click', activate, false);
 buttonEl.addEventListener('click', deactivate, false);
 
+
 // Functions
 // Active Tile  For Detail View
 function activate(evt) {
+	idleTime = 0;
+
 	if(evt.target !== evt.currentTarget){
 		el = evt.target;
 
@@ -42,20 +48,28 @@ function activate(evt) {
 		  }
 		}
 
-		// Add Detail Class From Grid
+		// Add Detail Class to Grid
 		el.classList.toggle('active');
 		if(!gridEl.classList.contains('detail')){
 			gridEl.classList.add('detail');
 		}
 
-		// Add Active Class to DetailView
-		if(!detailEl.classList.contains('active')){
-			detailEl.classList.add('active');
+		// Display DetailView
+		if(detailEl.classList.contains('hide')){
+			detailEl.classList.remove('hide');
 		}
 
-		// Copy Content To DetailView
-		detailEl.querySelector('div').innerHTML = el.querySelector('figcaption').innerHTML;
+		els = detailEl.children;
+		for (var i = 0; i < els.length; i++) {
+			if(!els[i].classList.contains('hide') && els[i].nodeName == 'DIV'){
+				els[i].classList.add('hide');
+			}
+			if(els[i].classList.contains(el.id)){
+				els[i].classList.remove('hide');
+			}
+		};
 	}
+
 	evt.stopPropagation();
 }
 
@@ -75,14 +89,21 @@ function deactivate (evt) {
 		gridEl.classList.remove('detail');
 	}
 
-	// Add Active Class to DetailView
-	if(detailEl.classList.contains('active')){
-		detailEl.classList.remove('active');
+	// Hide DetailView
+	if(!detailEl.classList.contains('hide')){
+		detailEl.classList.add('hide');
 	}
+
+	els = detailEl.children;
+	for (var i = 0; i < els.length; i++) {
+		if(!els[i].classList.contains('hide') && els[i].classList.contains('tile')){
+			els[i].classList.add('hide');
+		}
+	};
 }
 
 // Get NetAtmo Data
-function update() {
+function getData() {
 
 	// AJAX Request
   var	request = new XMLHttpRequest();
@@ -98,7 +119,7 @@ function update() {
     if (this.status >= 200 && this.status < 400){
       data = JSON.parse(this.response);
 
-      insertData(data);
+      initializeData(data);
 
     } else {
       console.log('Fehler: ' + this);
@@ -108,12 +129,8 @@ function update() {
   request.send();
 }
 
-
 // Insert NetAtmo Data Into Elements
-function insertData(data){
-
-	console.log(data);
-
+function initializeData(data){
 	setTemperature(data.temperature);
 	setFood(data.food);
 	setWeather(data.weather);
@@ -125,6 +142,7 @@ function insertData(data){
 // Temperature Element
 function setTemperature(temperature){
 
+ 	// Tile
 	el = document.getElementById('temperature');
 
 	el.querySelector('data').innerText = temperature.indoor + 'C°';
@@ -141,22 +159,24 @@ function setTemperature(temperature){
 		el.classList.add('temp-hot');
 	}
 
-	//todo
-	// Image
+	// DetailView
+	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor + '°C';
+	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor + '°C';
 }
 
 // Food Element
 function setFood(food){
-	el = document.querySelector('#food figcaption'),
-	list = document.createElement('ul');
 
-	for (var i = food.length - 1; i >= 0; i--) {
-		item = document.createElement('li');
-		item.innerText = food[i];
-		list.appendChild(item);
+	// Tile
+	// toDo?
+
+	//DetailView
+	list = detailEl.querySelector('.food ul');
+	list.style.width = food.length * 100 + '%';
+	itemWidth = window.getComputedStyle(detailEl.querySelector('.foodList', null)).width;
+	for (var i = 0; food.length > i; i++) {
+		list.appendChild(buildSlideItem(food[i], itemWidth));
 	};
-
-	el.appendChild(list);
 }
 
 // Weather Element
@@ -169,30 +189,66 @@ function setWeather(weather){
 
 // Stresslevel Element
 function setStresslevel(stresslevel){
+
+	// Tile
 	el = document.getElementById('stresslevel');
 	el.classList.remove('stresslevel-1', 'stresslevel-2', 'stresslevel-3');
 	el.classList.add('stresslevel-' + stresslevel);
+
+	// DetailView
+	detailEl.querySelector('.stresslevel h2').innerText = 'Lorem Ipsum set dolor et ament sum: ' + stresslevel;
 }
 
 // Loudness Element
 function setLoudness(loudness){
+
+	// Tile
 	el = document.getElementById('loudness');
+	el.querySelector('data').innerText = loudness.indoor + 'dB';
 	el.classList.remove('loudness-low', 'loudness-medium', 'loudness-height');
 
-	if(loudness.indoor < 62){
+	if(loudness.indoor <= 63){
 		el.classList.add('loudness-low');
-	} else if(loudness.indoor > 62 && loudness.indoor < 81){
+	} else if(loudness.indoor > 63 && loudness.indoor < 81){
 		el.classList.add('loudness-medium');
-	} else if(loudness.indoor > 81){
+	} else if(loudness.indoor >= 81){
 		el.classList.add('loudness-high');
 	}
+
+	// DetailView
+	detailEl.querySelector('.loudness data').innerText = loudness.indoor + ' db';
 }
 
 // Airquality Element
 function setAirquality(airquality){
+
+	// Tile
 	el = document.getElementById('airquality');
 	el.classList.remove('airquality-1', 'airquality-2', 'airquality-3');
 	el.classList.add('airquality-' + airquality);
+
+	// DetailView
+	detailEl.querySelector('.airquality h2').innerText = 'Lorem Ipsum set dolor et ament sum: ' + airquality;
+}
+
+function buildSlideItem(data, itemWidth){
+	item = document.createElement('li');
+	item.style.width = itemWidth;
+	figure = document.createElement('figure');
+	figure.classList.add('slide');
+	img = document.createElement('img');
+	name = data.replace(' ', '-').replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue');
+	img.src = 'images/food/' + name + '.jpg';
+	figcaption = document.createElement('figcaption');
+	h2 = document.createElement('h2');
+	h2.innerText = data;
+
+	figcaption.appendChild(h2);
+	figure.appendChild(img);
+	figure.appendChild(figcaption);
+	item.appendChild(figure);
+
+	return item
 }
 
 
@@ -202,3 +258,13 @@ function clock () {
 	document.getElementById('date').innerText = date.toLocaleDateString();
 	document.getElementById('time').innerText = date.toLocaleTimeString().substring(0,5);
 }
+
+// IdleTimer
+function timerIncrement(){
+	idleTime ++;
+	if(idleTime == 15){
+		deactivate();
+	}
+}
+
+});
