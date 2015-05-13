@@ -188,12 +188,9 @@ function setWeather(forecast){
 	list = detailEl.querySelector('.weather ul');
 	list.style.width = forecast.length * 100 + '%';
 	itemWidth = window.getComputedStyle(detailEl.querySelector('.slider', null)).width;
-	console.log(itemWidth);
 	for (var i = 0; forecast.length > i; i++) {
 		list.appendChild(weatherListItem(forecast[i], itemWidth));
 	};
-
-	console.log(forecast);
 }
 
 // Stresslevel Element
@@ -205,7 +202,10 @@ function setStresslevel(stresslevel){
 	el.classList.add('stresslevel-' + stresslevel.indoor);
 
 	// DetailView
-	detailEl.querySelector('.stresslevel h2').innerText = stresslevel.message;
+	dEl = detailEl.querySelector('.stresslevel');
+	dEl.querySelector('h2').innerText = stresslevel.message;
+	//dEl.querySelector('.ampel .active').classList.toggle('active');
+	dEl.querySelector('.ampel-' + stresslevel.indoor).classList.toggle('active');
 }
 
 // noise Element
@@ -217,15 +217,20 @@ function setNoise(noise){
 	el.classList.remove('noise-low', 'noise-medium', 'noise-height');
 
 	if(noise.indoor <= 63){
-		el.classList.add('noise-low');
+		domClass = 1;
 	} else if(noise.indoor > 63 && noise.indoor < 81){
-		el.classList.add('noise-medium');
+		domClass = 2;
 	} else if(noise.indoor >= 81){
-		el.classList.add('noise-high');
+		domClass = 3;
 	}
 
+	el.classList.add('noise-' + domClass);
+
 	// DetailView
-	detailEl.querySelector('.noise data').innerText = noise.indoor + ' db';
+	dEl = detailEl.querySelector('.noise');
+	dEl.querySelector('data').innerText = noise.indoor + ' db';
+	//dEl.querySelector('.ampel .active').classList.toggle('active');
+	dEl.querySelector('.ampel-' + domClass).classList.toggle('active');
 }
 
 // Airquality Element
@@ -237,7 +242,10 @@ function setAirquality(airquality){
 	el.classList.add('airquality-' + airquality.indoor);
 
 	// DetailView
-	detailEl.querySelector('.airquality h2').innerText = airquality.message;
+	dEl = detailEl.querySelector('.airquality')
+	dEl.querySelector('h2').innerText = airquality.message;
+	//dEl.querySelector('.ampel .active').classList.toggle('active');
+	dEl.querySelector('.ampel-' + airquality.indoor).classList.toggle('active');
 }
 
 function foodListItem(data, itemWidth){

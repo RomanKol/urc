@@ -152,7 +152,7 @@ body, html {
 				height: 100%;
 				figure {
 					height: 100%;
-					margin: 0 40px 0 0;
+					margin: 0 40p;
 				}
 			}
 		}
@@ -203,6 +203,42 @@ body, html {
 		}
 	}
 
+	.ampel {
+		width: 120px;
+		background-color: black;
+		padding: 10px;
+		border-radius: 10px;
+		margin-right: 20px;
+		float: left;
+		> div {
+			border-radius: 50%;
+			height: 100px;
+			width: 100px;
+			margin: 10px;
+			opacity: .3;
+			&.ampel-1 {
+				background-color: $emerland;
+			}
+			&.ampel-2 {
+				background-color: $sunflower;
+			}
+			&.ampel-3 {
+				background-color: $pomegranate;
+			}
+			&.active {
+				opacity: 1;
+				border: 4px solid white;
+				width: 92px;
+				height: 92px;
+			}
+		}
+	}
+
+	.stresslevel, .noise, .airquality {
+		> h2 {
+			max-width: 400px;
+		}
+	}
 
 	@media screen and (orientation:portrait){
 		width: 100%;
@@ -267,17 +303,17 @@ body, html {
 }
 
 // noise && Stresslvevel Classes
-.noise-low, .stresslevel-1, .airquality-1 {
+.noise-1, .stresslevel-1, .airquality-1 {
 	> figure {
 		background-color: $emerland;
 	}
 }
-.noise-medium, .stresslevel-2, .airquality-2 {
+.noise-2, .stresslevel-2, .airquality-2 {
 	> figure {
 		background-color: $sunflower;
 	}
 }
-.noise-heigh, .stresslevel-3, .airquality-3 {
+.noise-3, .stresslevel-3, .airquality-3 {
 	> figure {
 		background-color: $pomegranate;
 	}
