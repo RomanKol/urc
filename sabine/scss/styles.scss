@@ -130,55 +130,113 @@ body, html {
 		h1{
 			font-size: 3em;
 			line-height: 1em;
-			margin: 20px 0;
+			margin: 0 0 20px 0;
 		}
 		h2 {
 			font-size: 2.5em;
 		}
 	}
 
-	.food {
+	.slider {
+		height: 80%;
+		overflow-x: scroll;
+		overflow-y: hidden;
 		position: relative;
-		.foodList {
-			height: 80%;
-			overflow-x: scroll;
-			overflow-y: hidden;
-			position: relative;
-			ul {
-				list-style: none;
-				margin: 0;
-				padding: 0;
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			li {
+				float: left;
 				height: 100%;
-				li {
-					float: left;
+				figure {
 					height: 100%;
-					figure {
-						height: 100%;
-						margin: 0 40px 0 0;
-						img {
-								min-height: 80%;
-								max-height: 80%;
-								height: 80%;
-						}
-						figcaption {
-							height: 20%;
-							h2 {
-								margin: 0;
-							}
-						}
-					}
+					margin: 0 40p;
 				}
 			}
 		}
-		button {
-			position: absolute;
-			top: 0;
-			&#slideNext {
-				right: 0;
+	}
+
+	.food {
+		.slider {
+			img {
+				min-height: 80%;
+				max-height: 80%;
+				height: 80%;
 			}
-			&#slidePrev {
-				left: 0;
+			figcaption {
+				height: 20%;
+				h2 {
+					margin: 0;
+					font-size: 2.5em;
+				}
 			}
+		}
+	}
+
+	.weather {
+		.slider .slide{
+			h2 {
+				font-size: 2em;
+				margin: 0 0 0.5em 0;
+			}
+			> img {
+				min-height: 50%;
+				max-height: 50%;
+				height: 50%;
+			}
+			figcaption {
+				h3 {
+					margin: 0;
+					font-size: 1.5em;
+					&.rain {
+						padding-left: 40px;
+						background-image: url(../images/weather/rain.svg);
+						background-position: left top;
+						background-size: 30px;
+						background-repeat: no-repeat;
+					}
+				}
+
+			}
+		}
+	}
+
+	.ampel {
+		width: 120px;
+		background-color: black;
+		padding: 10px;
+		border-radius: 10px;
+		margin-right: 20px;
+		float: left;
+		> div {
+			border-radius: 50%;
+			height: 100px;
+			width: 100px;
+			margin: 10px;
+			opacity: .3;
+			&.ampel-1 {
+				background-color: $emerland;
+			}
+			&.ampel-2 {
+				background-color: $sunflower;
+			}
+			&.ampel-3 {
+				background-color: $pomegranate;
+			}
+			&.active {
+				opacity: 1;
+				border: 4px solid white;
+				width: 92px;
+				height: 92px;
+			}
+		}
+	}
+
+	.stresslevel, .noise, .airquality {
+		> h2 {
+			max-width: 400px;
 		}
 	}
 
@@ -244,18 +302,18 @@ body, html {
 	background-color: $pomegranate;
 }
 
-// Loudness && Stresslvevel Classes
-.loudness-low, .stresslevel-1, .airquality-1 {
+// noise && Stresslvevel Classes
+.noise-1, .stresslevel-1, .airquality-1 {
 	> figure {
 		background-color: $emerland;
 	}
 }
-.loudness-medium, .stresslevel-2, .airquality-2 {
+.noise-2, .stresslevel-2, .airquality-2 {
 	> figure {
 		background-color: $sunflower;
 	}
 }
-.loudness-heigh, .stresslevel-3, .airquality-3 {
+.noise-3, .stresslevel-3, .airquality-3 {
 	> figure {
 		background-color: $pomegranate;
 	}
