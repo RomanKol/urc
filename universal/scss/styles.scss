@@ -27,6 +27,8 @@ body, html {
 #header {
 	background: $emerland;
 	padding: 20px;
+	width: 75%;
+	float: right;
 	min-height: 15%;
 	box-sizing: border-box;
 
@@ -75,11 +77,11 @@ body, html {
 	}
 }
 
-aside#aside {
+nav#nav {
 	float: left;
 	background-color: $sea;
 	width: 25%;
-	height: 85%;
+	height: 100%;
 	padding: 20px;
 	box-sizing: border-box;
 	overflow: hidden;

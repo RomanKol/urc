@@ -172,8 +172,8 @@ function setFood(food){
 
 	//DetailView
 	list = detailEl.querySelector('.food ul');
-	list.style.width = food.length * 100 + '%';
-	itemWidth = window.getComputedStyle(detailEl.querySelector('.slider', null)).width;
+	itemWidth = window.innerWidth * 0.60 - 60;
+	list.style.width = itemWidth * food.length + 'px';
 	for (var i = 0; food.length > i; i++) {
 		list.appendChild(foodListItem(food[i], itemWidth));
 	};
@@ -186,12 +186,14 @@ function setWeather(forecast){
 
 	// todo
 	list = detailEl.querySelector('.weather ul');
-	list.style.width = forecast.length * 100 + '%';
-	itemWidth = window.getComputedStyle(detailEl.querySelector('.slider', null)).width;
+	itemWidth = window.innerWidth * 0.60 - 60;
+	list.style.width = itemWidth * forecast.length + 'px';
+	day = ['Heute', 'Morgen', 'Übermorgen'];
 	for (var i = 0; forecast.length > i; i++) {
-		list.appendChild(weatherListItem(forecast[i], itemWidth));
+		list.appendChild(weatherListItem(forecast[i], itemWidth, day[i]));
 	};
 }
+
 
 // Stresslevel Element
 function setStresslevel(stresslevel){
@@ -250,7 +252,7 @@ function setAirquality(airquality){
 
 function foodListItem(data, itemWidth){
 	item = document.createElement('li');
-	item.style.width = itemWidth;
+	item.style.width = itemWidth + 'px';
 	figure = document.createElement('figure');
 	figure.classList.add('slide');
 	img = document.createElement('img');
@@ -268,14 +270,14 @@ function foodListItem(data, itemWidth){
 	return item
 }
 
-function weatherListItem(data, itemWidth){
+function weatherListItem(data, itemWidth, day){
 	item = document.createElement('li');
-	//item.style.width = itemWidth;
+	item.style.width = itemWidth + 'px';
 	figure = document.createElement('figure');
 	figure.classList.add('slide');
 	h2Day = document.createElement('h2');
 	date = new Date(data.dt * 1000);
-	h2Day.innerText = date.getDate() + '.' + date.getMonth();
+	h2Day.innerText = day;
 
 	imgWeather = document.createElement('img');
 	imgWeather.src = 'images/weather/' + data.weather.icon + '.svg';
