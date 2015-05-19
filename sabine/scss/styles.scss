@@ -21,8 +21,11 @@
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
 	@include fullsize;
-	background-color: $midnight;
+	background-color: #aaaaaa;
+	background-image: url('../images/background.jpg');
+	background-size: cover;
 }
+
 
 /* Grid For Tiles */
 #grid {
@@ -61,11 +64,12 @@ body, html {
 
 /* Tiles List View*/
 .tile {
-  padding: 10px;
+  padding: 20px;
   float: left;
   clear: none;
   box-sizing: border-box;
   overflow: hidden;
+  border-radius: 50%;
 
 	@media screen and (orientation:portrait){
 		@include tilesP;
@@ -75,23 +79,29 @@ body, html {
 		@include tilesL;
 	}
 
-	&.active {
-		background-color: $pumpkin;
+	&.active figure{
+		    //box-shadow: inset 0px 0px 20px 10px rgba(80, 80, 80, 0.75);
 	}
 
 	figure {
 		@include fullsize;
 		padding: 20px;
 		margin: 0;
+		border-radius: 50%;
+		box-shadow: 0px 0px 25px 10px #A5A5A5;
 		box-sizing: border-box;
-		background-color: $clouds;
+		background-color: rgba(255,255,255,0.7);
+    	background-repeat: no-repeat;
+    	background-position: center;
+    	background-size: 80%;
 
 		img {
-			display: inline-block;
-			&.center {
+			display: none;
+			//display: inline-block;
+			/* &.center {
 				display: block;
 				margin: auto;
-			}
+			} */
 		}
 
 		data {
@@ -102,15 +112,36 @@ body, html {
 		}
 
 		figcaption {
-			* {
+			//* {
 				display: none;
-			}
+			//}
 			h1 {
 				display: block;
 				font-size: 2em;
 				text-align: center;
 			}
 		}
+	}
+
+	
+
+	&#temperature figure{
+		background-image: url('../images/temperature.svg');
+	}
+	&#food figure{
+		background-image: url('../images/food.svg');
+	}
+	&#weather figure{
+		background-image: url('../images/weather.svg');
+	}
+	&#stresslevel figure{
+		background-image: url('../images/stresslevel.svg');
+	}
+	&#noise figure{
+		background-image: url('../images/noise.svg');
+	}
+	&#airquality figure{
+		background-image: url('../images/airquality.svg');
 	}
 
 }
@@ -122,8 +153,10 @@ body, html {
 
 	> div {
 		@include fullsize;
-		background-color: $clouds;
+		box-shadow: 0 0 10px 10px rgba(255,255,255,0.7);
+		background-color: rgba(255,255,255,0.7);
 		box-sizing: border-box;
+		border-radius: 40px;
 		padding: 20px;
 		overflow: hidden;
 
@@ -152,7 +185,8 @@ body, html {
 				height: 100%;
 				figure {
 					height: 100%;
-					margin: 0 40p;
+					padding: 10px;
+					margin: 0;
 				}
 			}
 		}
@@ -164,12 +198,15 @@ body, html {
 				min-height: 80%;
 				max-height: 80%;
 				height: 80%;
+				margin: 0 auto;
+				display: block;				
 			}
 			figcaption {
 				height: 20%;
 				h2 {
 					margin: 0;
 					font-size: 2.5em;
+					text-align: center;
 				}
 			}
 		}
@@ -182,19 +219,23 @@ body, html {
 				margin: 0 0 0.5em 0;
 			}
 			> img {
-				min-height: 50%;
-				max-height: 50%;
-				height: 50%;
+				min-width: 50%;
+				max-width: 50%;
+				width: 50%;
+				float: left;
 			}
 			figcaption {
+				float: right;
 				h3 {
-					margin: 0;
-					font-size: 1.5em;
+					display: block;
+					margin: 0 auto;
+					font-size: 1.8em;
+					margin-bottom: 20px;;
 					&.rain {
-						padding-left: 40px;
+						padding-left: 50px;
 						background-image: url(../images/weather/rain.svg);
 						background-position: left top;
-						background-size: 30px;
+						background-size: 35px;
 						background-repeat: no-repeat;
 					}
 				}
@@ -255,8 +296,8 @@ body, html {
 		position: absolute;
 		right: 20px;
 		top: 20px;
-		width: 40px;
-		height: 40px;
+		width: 60px;
+		height: 60px;
 		border: none;
 		padding: 5px;
 		background-color: transparent;
@@ -273,13 +314,13 @@ body, html {
 	width: 100%;
 	box-sizing: border-box;
 	padding: 10px;
-	background: $emerland;
 	position: relative;
 
 	h1 {
 		margin: 0;
 		margin-right: 20px;
 		float: left;
+		color: white;
 	}
 
 }
@@ -290,31 +331,63 @@ body, html {
 
 
 .temp-low > figure {
-	background-color: $river;
+	box-shadow: 0px 0px 25px 10px $river;
 }
 .temp-good > figure {
-	background-color: $emerland;
+	box-shadow: 0px 0px 25px 10px $emerland;
 }
 .temp-warm > figure {
-	background-color: $orange;
+	box-shadow: 0px 0px 25px 10px $orange;
 }
 .temp-hot > figure {
-	background-color: $pomegranate;
+	box-shadow: 0px 0px 25px 10px $pomegranate;
 }
 
 // noise && Stresslvevel Classes
 .noise-1, .stresslevel-1, .airquality-1 {
 	> figure {
-		background-color: $emerland;
+		box-shadow: 0px 0px 25px 10px $emerland;
 	}
 }
 .noise-2, .stresslevel-2, .airquality-2 {
 	> figure {
-		background-color: $sunflower;
+		box-shadow: 0px 0px 25px 10px $sunflower;
 	}
 }
 .noise-3, .stresslevel-3, .airquality-3 {
 	> figure {
-		background-color: $pomegranate;
+		box-shadow: 0px 0px 25px 10px $pomegranate;
 	}
 }
+
+ .active {
+	&.temp-low > figure {
+		box-shadow: 0px 0px 10px 10px $river;
+	}
+	&.temp-good > figure {
+		box-shadow: 0px 0px 10px 10px $emerland;
+	}
+	&.temp-warm > figure {
+		box-shadow: 0px 0px 10px 10px $orange;
+	}
+	&.temp-hot > figure {
+		box-shadow: 0px 0px 10px 10px $pomegranate;
+	}
+
+	// noise && Stresslvevel Classes
+	&.noise-1, &.stresslevel-1, &.airquality-1 {
+		> figure {
+			box-shadow: 0px 0px 10px 10px $emerland;
+		}
+	}
+	&.noise-2, &.stresslevel-2, &.airquality-2 {
+		> figure {
+			box-shadow: 0px 0px 10px 10px $sunflower;
+		}
+	}
+	&.noise-3, &.stresslevel-3, &.airquality-3 {
+		> figure {
+			box-shadow: 0px 0px 10px 10px $pomegranate;
+		}
+	}
+} 
