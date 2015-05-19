@@ -1,0 +1,109 @@
+{
+	 "airquality":{
+      "indoor" : 2,
+      "message" : "Lorem Ipsum sed Dolor et ament doloris sunt."
+   },
+	"barometer": {
+		"indoor": 20,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	},
+	"co2": {
+		"indoor": 1,
+		"flow_indoor": [1, 2, 3]
+	},
+	"food": [
+		"Apfel",
+		"Rhabarber",
+		"Butterrueben",
+		"Champignons",
+		"Kartoffeln",
+		"Lauch Porree",
+		"Möhren Karotten",
+		"Pastinaken",
+		"Rote Bete",
+		"Rotkohl",
+		"Spargel",
+		"Spinat",
+		"Weisskohl",
+		"Chicoree",
+		"Feldsalat",
+		"Portulak"
+	],
+	"forecast": [
+    {
+			"dt": 1430218800,
+			"temp": {
+				"min": 3.07,
+				"max": 9.8
+			},
+			"weather": {
+				"id": 501,
+				"main": "Rain",
+				"description": "mäßiger Regen",
+				"icon": "10d"
+			},
+			"rain" :3.37
+		},
+		{
+			"dt": 1430305200,
+			"temp": {
+				"min": 5.04,
+				"max": 14.9
+			},
+			"weather": {
+				"id": 801,
+				"main": "Clouds",
+				"description": "ein paar Wolken",
+				"icon": "02d"
+			},
+			"rain" :0
+		},
+		{
+			"dt": 1430391600,
+			"temp": {
+				"min": 5.91,
+				"max": 10.92
+			},
+			"weather": {
+				"id": 501,
+				"main": "Rain",
+				"description": "mäßiger Regen",
+				"icon": "10d"
+			},
+			"rain": 4.36
+		}
+	],
+	"humidity": {
+		"indoor": 1,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	},
+	"noise": {
+		"indoor": 62,
+		"flow_indoor": [1, 2, 3],
+		"origin": [ "box", "tv" , "other"]
+	},
+	"pollen": {
+		"name": 1,
+		"name2": 2
+	},
+	"settings": {
+		"battery": 1,
+		"fstate": 1,
+		"lat": 1,
+		"lng": 1
+	},
+	"stresslevel": {
+   "indoor": 3,
+   "message":  "Lorem Ipsum sed Dolor et ament doloris sunt."
+  },
+	"temperature": {
+		"indoor": 14,
+		"outdoor": 1,
+		"flow_indoor": [1, 2, 3],
+		"flow_outdoor": [1, 2, 3]
+	}
+}
