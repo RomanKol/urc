@@ -1,0 +1,29 @@
+{
+  "name": "NetAtmo-BackendServer",
+  "version": "1.0.1",
+  "description": "Blaaa",
+  "author": "Korbinian kram <kk114@hdm-stuttgart.de>",
+  "scripts": {
+  
+    "start": "node Server/server.js",
+    "predeploy": "echo im about to deploy",
+    "postdeploy": "echo ive deployed"
+  },
+  "main": "Server/server.js",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/nodejitsu/browsenpm.org"
+  },
+  "bugs": {
+  "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+  },
+  "keywords": [
+  "nodejitsu",
+  "example",
+  "browsenpm"
+   ],
+  "dependencies": {
+	  "csv": ">= 0.0.1",
+	  "xml2js": ">= 0.0.1"
+	}
+}

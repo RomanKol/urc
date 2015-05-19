@@ -26,6 +26,7 @@ var accessToken = "";
 var expTimer = 10800;
 var resfreshToken = "";
 var dataTimestampOfRequest = "";
+var windMessage = "";
 
 retrieveAccessTokenInital();
 //-------------------PARSE CSV DATA --------------
@@ -83,373 +84,483 @@ fs.readFile('Server/obst_gemuese/gemuese.csv','utf-8', handler_gemuese);
 fs.readFile('Server/obst_gemuese/salat.csv','utf-8', handler_salat);
 fs.readFile('Server/pollen/pollen.csv','utf-8', handler_pollen);
 //-------------------Create Server --------------
-serverDomain.run(function () {
-	http.createServer(function (req, res) {
-	  res.setHeader("Content-Type", "text/html");
-	  var http = require("http");
-	    urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
+http.createServer(function (req, res) {
+  res.setHeader("Content-Type", "text/html");
+  var http = require("http");
+    urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
 
-		// get is a simple wrapper for request()
-		// which sets the http method to GET
-		if(req.url=='/index.html' || req.url=='/') {
-			res.setHeader("Content-Type", "text/html");
-			var runningPath = 'frontend'
-				    var pathname = 'index.html';
-				  	//console.log(url.format(pathname));
-					//css(res,runningPath+"\\"+url.format(pathname))
-					var handler = function(error, content){
+	// get is a simple wrapper for request()
+	// which sets the http method to GET
+	if(req.url=='/index.html' || req.url=='/') {
+		res.setHeader("Content-Type", "text/html");
+		var runningPath = 'sabine/'
+			    var pathname = 'index.html';
+			  	//console.log(url.format(pathname));
+				//css(res,runningPath+"\\"+url.format(pathname))
+				var handler = function(error, content){
 
-					    if (error){
-					      console.log(error);
-					    }
-					    else{
-					      res.write(content);
-					      res.end()
-					    }
-					    //if(count == 1){
-					    //	response.end();
-					   // }
-					    
-					}
+				    if (error){
+				      console.log(error);
+				    }
+				    else{
+				      res.write(content);
+				      res.end()
+				    }
+				    //if(count == 1){
+				    //	response.end();
+				   // }
+				    
+				}
 
-				  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
+			  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
 
 
-	  	 }else
-			{
+  	 }else
+		{
 
-				//if(req.url=='/update' ){
-				if(req.url.indexOf('/update') > -1  ){
-					res.setHeader('Content-Type','application/json');
-					var http = require("http");
-				     urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
-					var request = http.get(urlOfOpenHab, function (response) {	
-					    // data is streamed in chunks from the server
-					    // so we have to handle the "data" event    
-					    var buffer = "", 
-					        data,
-					        route;
+			//if(req.url=='/update' ){
+			if(req.url.indexOf('/update') > -1  ){
+				res.setHeader('Content-Type','application/json');
+				var http = require("http");
+			     urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
+				var request = http.get(urlOfOpenHab, function (response) {	
+				    // data is streamed in chunks from the server
+				    // so we have to handle the "data" event    
+				    var buffer = "", 
+				        data,
+				        route;
 
-					    response.on("data", function (chunk) {
-					        buffer += chunk;
-					    }); 
+				    response.on("data", function (chunk) {
+				        buffer += chunk;
+				    }); 
 
-					    response.on("end", function (err) {			
-							var parseString = require('xml2js').parseString;
-							var xml = buffer
-							var dataArray = new Array();
-							var returnObject = {
-								"airquality": 0,
-								"barometer": {"indoor" : 0, "flow_indoor": new Array()},
-								"co2": {"indoor" : 0, "flow_indoor": new Array()},
-								"food": [],
-								"humidity": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
-							    "loudness": {"indoor" : 0, "flow_indoor": new Array()},
-							    "pollen": new Object,
-							    "settings" : {"battery": 0,"fstate": 0,"lat": 0,"lng": 0},
-							    "stresslevel": 0,
-							    "temperature": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+				    response.on("end", function (err) {			
+						var parseString = require('xml2js').parseString;
+						var xml = buffer
+						var dataArray = new Array();
+						var returnObject = {
+							"airquality": {"indoor":0,"message":"Temp Message"},
+							"barometer": {"indoor" : 0,"message":windMessage, "flow_indoor": new Array()},
+							"co2": {"indoor" : 0, "flow_indoor": new Array()},
+							"food": [],
+							"humidity": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						    "noise": {"indoor" : 0,"origin": new Array(),"flow_indoor": new Array()},
+						    "pollen": new Object,
+						    "settings" : {"battery": 0,"fstate": 0,"lat": 0,"lng": 0},
+						    "stresslevel": {"indoor":0,"message":"Temp Message"},
+						    "temperature": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						}
+						parseString(xml, function (err, result) {
+							
+							if(req.url == '/update/test/stress'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/stress.json','utf8'));
 							}
-							parseString(xml, function (err, result) {
-								
-								if(req.url == '/update/test/stress'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/stress.json','utf8'));
-								}
-								if(req.url == '/update/test/airquality-co2'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/airquality-co2.json','utf8'));
-								}
-								if(req.url == '/update/test/extrem-carbon'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-carbon.json','utf8'));
-								}
-								if(req.url == '/update/test/extrem-humidity'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-humidity.json','utf8'));
-								}
-								if(req.url == '/update/test/extrem-noise'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-noise.json','utf8'));
-								}
-								if(req.url == '/update/test/extrem-temp'){
-									result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-temp.json','utf8'));
-								}
-								
-								for (var it = 0; it < result.items.item.length; it++){
-									var name = result.items.item[it].name[0];
-									if(name.indexOf("Netatmo_Indoor_Temperature") > -1){
-										returnObject.temperature.indoor = Number(result.items.item[it].state[0]);
-										returnObject.temperature.flow_indoor = flow_temperatur_indoor;
-									}
-									if(name.indexOf("Netatmo_Outdoor_Temperature") > -1){
-										returnObject.temperature.outdoor = Number(result.items.item[it].state[0]);
-										returnObject.temperature.flow_outdoor = flow_temperatur_outdoor;
-									}
-									if(name.indexOf("Netatmo_Indoor_Pressure") > -1){
-										returnObject.barometer.indoor = Number(result.items.item[it].state[0]);
-										returnObject.barometer.flow_indoor = flow_barometer_indoor;
-									}
-									if(name.indexOf("Netatmo_Indoor_Noise") > -1){
-										returnObject.loudness.indoor = Number(result.items.item[it].state[0]);
-										returnObject.loudness.flow_indoor = flow_noise;
-									}
-									if(name.indexOf("Netatmo_Indoor_CO2") > -1){
-										returnObject.co2.indoor = Number(result.items.item[it].state[0]);
-										returnObject.co2.flow_indoor = flow_co2;
-									}
-									if(name.indexOf("Netatmo_Indoor_Humidity") > -1){
-										returnObject.humidity.indoor = Number(result.items.item[it].state[0]);
-										returnObject.humidity.flow_indoor = flow_humidity_indoor;
-									}
-									if(name.indexOf("Netatmo_Outdoor_Humidity") > -1){
-										returnObject.humidity.outdoor = Number(result.items.item[it].state[0]);
-										returnObject.humidity.flow_outdoor = flow_humidity_outdoor;
-									}
-									if(name.indexOf("Netatmo_Indoor_latitude") > -1){
-										returnObject.settings.lat = Number(result.items.item[it].state[0]);
-									}
-									if(name.indexOf("Netatmo_Indoor_longitude") > -1){
-										returnObject.settings.lng = Number(result.items.item[it].state[0]);
-									}
-									if(name.indexOf("Netatmo_Outdoor_Batteryvp") > -1){
-										returnObject.settings.battery = Number(result.items.item[it].state[0]);
-									}
-									if(name.indexOf("Netatmo_Outdoor_Rfstatus") > -1){
-										returnObject.settings.fstate = Number(result.items.item[it].state[0]);
-									}
-
-								}
-								//---------------------FOOD----------------------
-									
-
-								var d = new Date();
-								var n = d.getMonth();
-								n = n+1;
-								console.log("month: "+n);
-								for (var obstIndex = 1; obstIndex < obst.length-1; obstIndex++){
-									//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
-									if(obst[obstIndex][n] == 'ja' ||obst[obstIndex][n] == '(ja)' ){
-										returnObject.food.push(obst[obstIndex][0]);
-									}
-								}
-								for (var gemueseIndex = 1; gemueseIndex < gemuese.length-1; gemueseIndex++){
-									//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
-									if(gemuese[gemueseIndex][n] == 'ja' ||gemuese[gemueseIndex][n] == '(ja)' ){
-										returnObject.food.push(gemuese[gemueseIndex][0]);
-									}
-								}
-								for (var salatIndex = 1; salatIndex < salat.length-1; salatIndex++){
-									//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
-									if(salat[salatIndex][n] == 'ja' ||salat[salatIndex][n] == '(ja)' ){
-										returnObject.food.push(salat[salatIndex][0]);
-									}
-								}
+							if(req.url == '/update/test/airquality-co2'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/airquality-co2.json','utf8'));
+							}
+							if(req.url == '/update/test/extrem-carbon'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-carbon.json','utf8'));
+							}
+							if(req.url == '/update/test/extrem-humidity'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-humidity.json','utf8'));
+							}
+							if(req.url == '/update/test/extrem-noise'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-noise.json','utf8'));
+							}
+							if(req.url == '/update/test/extrem-temp'){
+								result = JSON.parse(fs.readFileSync('smartHomeServer/test/extrem-temp.json','utf8'));
+							}
 							
-								//---------------------airquality_indoor---------
-								var airquality = 0;
-								var maxValue_airquality = 16;
-								var temparatur_indoor = Number(returnObject.temperature.indoor);
-								var humidity_indoor = Number(returnObject.humidity.indoor);
-								var co2 = Number(returnObject.co2.indoor);
-								var humidity_diff = Math.abs(feelgood_humidity - humidity_indoor);
-								var temp_diff = Math.abs(temparatur_indoor - feelgood_temp);
-								//----normierung humidity
-								if(temp_diff>=15){
-									airquality = maxValue_airquality;
+							for (var it = 0; it < result.items.item.length; it++){
+								var name = result.items.item[it].name[0];
+								if(name.indexOf("Netatmo_Indoor_Temperature") > -1){
+									returnObject.temperature.indoor = Number(result.items.item[it].state[0]);
+									returnObject.temperature.flow_indoor = flow_temperatur_indoor;
 								}
-								else{
-									if(temp_diff>=10){
-										airquality+=4;
-									}
-									else{
-										if(temp_diff>=5){
-											airquality+=3;
-										}else{
-											if(temp_diff>=2){
-												airquality+=2;
-											}else{
-												airquality+=1;
-											}
-										}
-									}
+								if(name.indexOf("Netatmo_Outdoor_Temperature") > -1){
+									returnObject.temperature.outdoor = Number(result.items.item[it].state[0]);
+									returnObject.temperature.flow_outdoor = flow_temperatur_outdoor;
 								}
-								console.log("after temp:"+airquality)
-								//----normierung humidity
-								if(humidity_diff>=30){
-									airquality = maxValue_airquality;
+								if(name.indexOf("Netatmo_Indoor_Pressure") > -1){
+									returnObject.barometer.indoor = Number(result.items.item[it].state[0]);
+									returnObject.barometer.flow_indoor = flow_barometer_indoor;
 								}
-								else{
-									if(humidity_diff>=10){
-										airquality+=4;
-									}
-									else{
-										if(humidity_diff>=7){
-											airquality+=3;
-										}else{
-											if(humidity_diff>=3){
-												airquality+=2;
-											}else{
-												airquality+=1;
-											}
-										}
-									}
+								if(name.indexOf("Netatmo_Indoor_Noise") > -1){
+									returnObject.noise.indoor = Number(result.items.item[it].state[0]);
+									returnObject.noise.flow_indoor = flow_noise;
 								}
-								console.log("after humidity:"+airquality)
-								console.log("co2:"+co2)
-								//----normierung Co2
-								if(co2>=2000){
-									airquality = maxValue_airquality;
+								if(name.indexOf("Netatmo_Indoor_CO2") > -1){
+									returnObject.co2.indoor = Number(result.items.item[it].state[0]);
+									returnObject.co2.flow_indoor = flow_co2;
 								}
-								else{
-									if(co2>=1500){
-										airquality+=8;
-									}
-									else{
-										if(co2>=1000){
-											airquality+=6;
-										}else{
-											if(co2>=800){
-												airquality+=4;
-											}else{
-												airquality+=1;
-											}
-										}
-									}
+								if(name.indexOf("Netatmo_Indoor_Humidity") > -1){
+									returnObject.humidity.indoor = Number(result.items.item[it].state[0]);
+									returnObject.humidity.flow_indoor = flow_humidity_indoor;
 								}
-								console.log("after co2:"+airquality)
-								var proz = 100/maxValue_airquality*airquality;
-								console.log("Proz Wert: "+proz);
-								if(proz<= 30){
-									returnObject.airquality = Number(1);
+								if(name.indexOf("Netatmo_Outdoor_Humidity") > -1){
+									returnObject.humidity.outdoor = Number(result.items.item[it].state[0]);
+									returnObject.humidity.flow_outdoor = flow_humidity_outdoor;
+								}
+								if(name.indexOf("Netatmo_Indoor_latitude") > -1){
+									returnObject.settings.lat = Number(result.items.item[it].state[0]);
+								}
+								if(name.indexOf("Netatmo_Indoor_longitude") > -1){
+									returnObject.settings.lng = Number(result.items.item[it].state[0]);
+								}
+								if(name.indexOf("Netatmo_Outdoor_Batteryvp") > -1){
+									returnObject.settings.battery = Number(result.items.item[it].state[0]);
+								}
+								if(name.indexOf("Netatmo_Outdoor_Rfstatus") > -1){
+									returnObject.settings.fstate = Number(result.items.item[it].state[0]);
+								}
+
+							}
+							//---------------------FOOD----------------------
+								
+
+							var d = new Date();
+							var n = d.getMonth();
+							n = n+1;
+							console.log("month: "+n);
+							for (var obstIndex = 1; obstIndex < obst.length-1; obstIndex++){
+								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
+								if(obst[obstIndex][n] == 'ja' ||obst[obstIndex][n] == '(ja)' ){
+									returnObject.food.push(obst[obstIndex][0]);
+								}
+							}
+							for (var gemueseIndex = 1; gemueseIndex < gemuese.length-1; gemueseIndex++){
+								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
+								if(gemuese[gemueseIndex][n] == 'ja' ||gemuese[gemueseIndex][n] == '(ja)' ){
+									returnObject.food.push(gemuese[gemueseIndex][0]);
+								}
+							}
+							for (var salatIndex = 1; salatIndex < salat.length-1; salatIndex++){
+								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
+								if(salat[salatIndex][n] == 'ja' ||salat[salatIndex][n] == '(ja)' ){
+									returnObject.food.push(salat[salatIndex][0]);
+								}
+							}
+						
+							//---------------------airquality_indoor---------
+							var airquality = 0;
+							var maxValue_airquality = 16;
+							var temparatur_indoor = Number(returnObject.temperature.indoor);
+							var humidity_indoor = Number(returnObject.humidity.indoor);
+							var co2 = Number(returnObject.co2.indoor);
+							var humidity_diff = Math.abs(feelgood_humidity - humidity_indoor);
+							var temp_diff = Math.abs(temparatur_indoor - feelgood_temp);
+							//----normierung humidity
+							if(temp_diff>=15){
+								airquality = maxValue_airquality;
+								if(temparatur_indoor >= feelgood_temp){
+									returnObject.airquality.message = "Misserable Qualität, es ist viel zu heiß hier drin";
 								}else{
-									if(proz> 30 && proz<= 60){
-										returnObject.airquality = Number(2);
+									returnObject.airquality.message = "Misserable Qualität, es ist viel zu kalt hier drin. Heizung anschalten!";
+								}
+							}
+							else{
+								if(temp_diff>=10){
+									airquality+=4;
+								}
+								else{
+									if(temp_diff>=5){
+										airquality+=3;
 									}else{
-										returnObject.airquality = Number(3);
+										if(temp_diff>=2){
+											airquality+=2;
+										}else{
+											airquality+=1;
+										}
 									}
 								}
-									//---------------------Stresslevel---------------
-								//Werte die Einfließen sollen:
-								//		- Temperatur check
-								//		- Luftfeuchtigkeitcheck
-								//		- Luftdruck 
-								//		- Co2 check
-								//		- Sonometer check
-								//	47 db
-								//	1130 ppm
-								//	1027 mb
-								//	46%
-								//	21 C
-								// -- genau in der Mitte Orange
-								var stresslevel = airquality;
-								var maxValue_stresslevel = maxValue_airquality+12;
-								var noise = returnObject.loudness.indoor;
-								if(noise >=70){
-									stresslevel = maxValue_stresslevel;
-								}else{
-									if(noise >=60){
-										stresslevel += 12;
+							}
+							console.log("after temp:"+airquality)
+							//----normierung humidity
+							if(humidity_diff>=30){
+								airquality = maxValue_airquality;
+								returnObject.airquality.message = "Misserable Qualität, zu hohe Luftfeuchtigkeit im Raum, unbedingt Lüften";
+							}
+							else{
+								if(humidity_diff>=10){
+									airquality+=4;
+								}
+								else{
+									if(humidity_diff>=7){
+										airquality+=3;
 									}else{
-										if(noise >=50){
-											stresslevel += 10;
+										if(humidity_diff>=3){
+											airquality+=2;
 										}else{
-											if(noise >=45){
-												stresslevel += 8;
+											airquality+=1;
+										}
+									}
+								}
+							}
+							console.log("after humidity:"+airquality)
+							console.log("co2:"+co2)
+							//----normierung Co2
+							if(co2>=2000){
+								airquality = maxValue_airquality;
+								returnObject.airquality.message = "Misserable Qualität, zu viel CO2 im Raum, unbedingt Lüften";
+							}
+							else{
+								if(co2>=1500){
+									airquality+=8;
+								}
+								else{
+									if(co2>=1000){
+										airquality+=6;
+									}else{
+										if(co2>=800){
+											airquality+=4;
+										}else{
+											airquality+=1;
+										}
+									}
+								}
+							}
+							console.log("after co2:"+airquality)
+							var proz = 100/maxValue_airquality*airquality;
+							console.log("Proz Wert: "+proz);
+							if(proz<= 30){
+								returnObject.airquality.indoor = Number(1);
+								if(returnObject.airquality.message.length == 0 ){
+									returnObject.airquality.message = "Ausgezeichnete Qualität, fast wie im tiefsten Urwald";
+								}
+							}else{
+								if(proz> 30 && proz<= 60){
+									returnObject.airquality.indoor = Number(2);
+									if(returnObject.airquality.message.length == 0 ){
+										returnObject.airquality.message = "Mittelmaessige Qualität, denke daran in nächster Zeit zu lüften";
+									}
+								}else{
+									returnObject.airquality.indoor = Number(3);
+									if(returnObject.airquality.message.length == 0 ){
+										returnObject.airquality.message = "Misserable Qualität, es ist unbedingt Zeit zum Lüften";
+									}	
+								}
+							}
+								//---------------------Stresslevel---------------
+							//Werte die Einfließen sollen:
+							//		- Temperatur check
+							//		- Luftfeuchtigkeitcheck
+							//		- Luftdruck 
+							//		- Co2 check
+							//		- Sonometer check
+							//	47 db
+							//	1130 ppm
+							//	1027 mb
+							//	46%
+							//	21 C
+							// -- genau in der Mitte Orange
+							var stresslevel = airquality;
+							var maxValue_stresslevel = maxValue_airquality+12;
+							var noise = returnObject.noise.indoor;
+							if(noise >=70){
+								stresslevel = maxValue_stresslevel;
+								returnObject.stresslevel.message = "Die Umgebung ist unglaublich unruhig. Jetzt ist eine Ruhepause angesagt";
+							}else{
+								if(noise >=60){
+									stresslevel += 12;
+								}else{
+									if(noise >=50){
+										stresslevel += 10;
+									}else{
+										if(noise >=45){
+											stresslevel += 8;
+										}else{
+											if(noise >=40){
+												stresslevel += 6;
 											}else{
-												if(noise >=40){
-													stresslevel += 6;
+												if(noise >=35){
+													stresslevel += 4;
 												}else{
-													if(noise >=35){
-														stresslevel += 4;
+													if(noise >=30){
+														stresslevel += 2;
 													}else{
-														if(noise >=30){
-															stresslevel += 2;
-														}else{
-															stresslevel += 1;
-														}
-													}	
-												}
+														stresslevel += 1;
+													}
+												}	
 											}
 										}
 									}
 								}
-								proz = 100/maxValue_stresslevel*stresslevel;
-								if(proz<= 30){
-									returnObject.stresslevel = Number(1);
+							}
+							proz = 100/maxValue_stresslevel*stresslevel;
+							if(proz<= 30){
+								returnObject.stresslevel.indoor = Number(1);
+								returnObject.stresslevel.message = "Du lässt dich von nichts aus der Ruhe bringen, du kannst ganz entspannt sein.";
+							}else{
+								if(proz> 30 && proz<= 60){
+									returnObject.stresslevel.indoor = Number(2);
+									returnObject.stresslevel.message = "Die Umgebung ist unruhig. Entspanne dich und genieße einen Tee";
 								}else{
-									if(proz> 30 && proz<= 60){
-										returnObject.stresslevel = Number(2);
-									}else{
-										returnObject.stresslevel = Number(3);
-									}
+									returnObject.stresslevel.indoor = Number(3);
+									returnObject.stresslevel.message = "Die Umgebung ist sehr hektisch. Überprüfe deine Geräte und Luftqualität.";
 								}
-								
+							}
+							
 
 
-								//---------------------pollen--------------------
-								//console.log(pollen)
-								for (var pollenIndex = 1; pollenIndex < pollen.length-1; pollenIndex++){
-									//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
-									if(pollen[pollenIndex][n] == '1' || pollen[pollenIndex][n] == '2' ||pollen[pollenIndex][n] == '3' ){
-										returnObject.pollen[pollen[pollenIndex][0]] = Number(pollen[pollenIndex][n]);
-									}
+							//---------------------pollen--------------------
+							//console.log(pollen)
+							for (var pollenIndex = 1; pollenIndex < pollen.length-1; pollenIndex++){
+								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
+								if(pollen[pollenIndex][n] == '1' || pollen[pollenIndex][n] == '2' ||pollen[pollenIndex][n] == '3' ){
+									returnObject.pollen[pollen[pollenIndex][0]] = Number(pollen[pollenIndex][n]);
 								}
-								//------start request for weather forcast
-								var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.settings.lng+"&lon="+returnObject.settings.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
-								
-								var request = http.get(urlOfweatherAPI, function (response) {	
-								    // data is streamed in chunks from the server
-								    // so we have to handle the "data" event    
-								    var buffer2 = ""
+							}
+							//-------------------------Devices from Openhab an their noise
+							var randomValue = randomIntInc(1,6);
+							var randomArray = new Array();
+							switch(randomValue) {
+   								case 1:
+   									randomArray.push("tv")
+   								break
+   								case 2:
+   									randomArray.push("box")
+   								break
+   								case 3:
+   									randomArray.push("other")
+   								break
+   								case 4:
+   									randomArray.push("tv, other")
+   								break
+   								case 5:
+   									randomArray.push("radio, other")
+   								break
+   								case 6:
+   									randomArray.push("radio, tv")
+   								break
+   								default:
+   									randomArray.push("unknownValue")
+   							}
+							returnObject.noise.origin = randomArray;
+							//------start request for weather forcast
+							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.settings.lng+"&lon="+returnObject.settings.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
+							
+							var request = http.get(urlOfweatherAPI, function (response) {	
+							    // data is streamed in chunks from the server
+							    // so we have to handle the "data" event    
+							    var buffer2 = ""
 
-								    response.on("data", function (chunk) {
-								        buffer2 += chunk;
-								    }); 
+							    response.on("data", function (chunk) {
+							        buffer2 += chunk;
+							    }); 
 
-								    response.on("end", function (err) {
-								    	//console.log(buffer2);
-								    	returnObject["forcast"] = JSON.parse(buffer2);
+							    response.on("end", function (err) {
+							    	console.log(buffer2);
+							    	var weatherForcast = JSON.parse(buffer2);
+							    	var returnForcast = new Array(3);
+							    	var today = weatherForcast.list[0];
+							    	var tomorrow = weatherForcast.list[1];
+							    	var theDayAfterTomorrow = weatherForcast.list[1];
+							    	//-----TODAY------------------
+							    	returnForcast[0] = new Object();
+							    	returnForcast[0]["dt"] = today["dt"];
+							    	returnForcast[0]["temp"] = new Object();
+							    	returnForcast[0]["temp"]["min"] = today["temp"].min;
+							    	returnForcast[0]["temp"]["max"] = today["temp"].max;
+							    	returnForcast[0]["weather"] = today["weather"][0];
+							    	if(today.hasOwnProperty("rain")){
+							    		returnForcast[0]["rain"] = today["rain"];
+							    	}else
+							    	{
+							    		returnForcast[0]["rain"] = 0	
+							    	}
+							    	//-----Tomorrow------------------
+							    	returnForcast[1] = new Object();
+							    	returnForcast[1]["dt"] = tomorrow["dt"];
+							    	returnForcast[1]["temp"] = new Object();
+							    	returnForcast[1]["temp"]["min"] = tomorrow["temp"].min;
+							    	returnForcast[1]["temp"]["max"] = tomorrow["temp"].max;
+							    	returnForcast[1]["weather"] = tomorrow["weather"][0];
+							    	if(tomorrow.hasOwnProperty("rain")){
+							    		returnForcast[1]["rain"] = tomorrow["rain"];
+							    	}else
+							    	{
+							    		returnForcast[1]["rain"] = 0	
+							    	}
+							    	//-----the day after tomorrow------------------
+							    	returnForcast[2] = new Object();
+							    	returnForcast[2]["dt"] = theDayAfterTomorrow["dt"];
+							    	returnForcast[2]["temp"] = new Object();
+							    	returnForcast[2]["temp"]["min"] = theDayAfterTomorrow["temp"].min;
+							    	returnForcast[2]["temp"]["max"] = theDayAfterTomorrow["temp"].max;
+							    	returnForcast[2]["weather"] = theDayAfterTomorrow["weather"][0];
+							    	if(theDayAfterTomorrow.hasOwnProperty("rain")){
+							    		returnForcast[2]["rain"] = theDayAfterTomorrow["rain"];
+							    	}else
+							    	{
+							    		returnForcast[2]["rain"] = 0	
+							    	}
+							    	returnObject["forecast"] = returnForcast;
+							    	//returnObject["forcast"] = JSON.parse(buffer2);
+
+						
+								    res.write(JSON.stringify(returnObject));
+									res.end()
+							    });
+							 });	
+							
+
+
+
+
 
 							
-									    res.write(JSON.stringify(returnObject));
-										res.end()
-								    });
-								 });	
+						});
+				    });
+			 
+				}); 
+			}
+			else
+			{
+				var runningPath = 'sabine/'
+			    var pathname = req.url;
+				res.setHeader("Content-Type", "text/html");
+				var extension = pathname.split(".")[1];
+			    if(extension == "css"){
+			    	res.setHeader("Content-Type", "text/css");
+			    }
+			    if(extension == "svg"){
+			    	res.setHeader("Content-Type", "image/svg+xml");
+			    }
+			    if(extension == "jpg"){
+			    	res.setHeader("Content-Type", "image/jpg");
+			    }
+			    if(extension == "js"){
+			    	res.setHeader("Content-Type", "application/javascript");
+			    }
+			    
+			  	//console.log(url.format(pathname));
+				//css(res,runningPath+"\\"+url.format(pathname))
+				var handler = function(error, content){
 
-
-
-
-
-								
-							});
-					    });
-				 
-					}); 
+				    if (error){
+				      console.log(error);
+				    }
+				    else{
+				      res.write(content);
+				      res.end()
+				    }
+				    //if(count == 1){
+				    //	response.end();
+				   // }
+				    
 				}
-				else
-				{
-					var runningPath = 'frontend'
-				    var pathname = req.url;
-				  	console.log(url.format(pathname));
-					//css(res,runningPath+"\\"+url.format(pathname))
-					var handler = function(error, content){
+				console.log(url.format(runningPath+url.format(pathname)));
+			  	fs.readFile(runningPath+url.format(pathname), handler);
+				
+			}
+		} 
+  
+}).listen(1337, 'localhost');
 
-					    if (error){
-					      console.log(error);
-					    }
-					    else{
-					      res.write(content);
-					      res.end()
-					    }
-					    //if(count == 1){
-					    //	response.end();
-					   // }
-					    
-					}
+function randomIntInc (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
 
-				  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
-					
-				}
-			} 
-	  
-	}).listen(1337, 'localhost');
-})
 function css(response,path) {
   response.writeHead(200, {"Content-Type": "text/css"});
 
@@ -610,11 +721,6 @@ setInterval(function(){
 			    // so we have to handle the "data" event    
 			    var measurment = ""
 			    //console.log('Start Request for measurment');
-			    
-			    response.on('error', function(e) {
-				  console.log("Got error: " + e.message);
-				});
-
 			    response.on("data", function (chunk) {
 			        measurment += chunk;
 			    }); 
@@ -648,6 +754,33 @@ setInterval(function(){
 				    		flow_barometer_indoor.push(step[3]);
 				    		flow_noise.push(step[4]);
 				    	}
+				    	if(flow_barometer_indoor.length > 3)
+				    	{
+					    	var pressureDiff = flow_barometer_indoor[flow_barometer_indoor.length-1] - flow_barometer_indoor[flow_barometer_indoor.length-2]
+					    	if(pressureDiff < -6){
+					    		windMessage = "Achtung Orkan! beachte die genaue Wettervorhersage und achte auf Meldungen"
+					    	}else
+					    	{
+					    		if(pressureDiff >= -3 && pressureDiff < -6){
+									windMessage = "starker Wind mit heftigen Böhen"
+					    		}else{
+					    			if(pressureDiff >= 4 && pressureDiff < 6){
+										windMessage = "starker Wind  mit heftigen Böhen"
+					    			}else{
+					    				if(pressureDiff >= 6 && pressureDiff <= 9){
+											windMessage = "sehr starker Wind  mit heftigen Böhen, es wird nicht empfohlen das Haus zu verlassen"
+					    				}else
+					    					if(pressureDiff >= 10){
+					    						windMessage = "Achtung Orkan! beachte die genaue Wettervorhersage und achte auf Meldungen"
+					    					}else
+					    					{
+					    						windMessage = "leichter Wind"
+					    					}
+					    			}
+					    		}
+
+					    	}
+				    	}
 				    	var currentdate = new Date(); 
 						dataTimestampOfRequest = currentdate.getDate() + "/"
 		                + (currentdate.getMonth()+1)  + "/" 
@@ -658,7 +791,6 @@ setInterval(function(){
 					    	}
 			    });
 			 });
-			request.end();
 //	    });
 //	 });
 //	post_req.write(post_data);
