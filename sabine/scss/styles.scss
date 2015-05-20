@@ -8,15 +8,6 @@
 	height: 100%;
 }
 
-@mixin tilesP {
-	height: 33%;
-	width: 50%;
-}
-
-@mixin tilesL {
-	height: 50%;
-	width: 33.33%;
-}
 
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
@@ -31,32 +22,27 @@ body, html {
 #grid {
 	height: 90%;
 	width: 100%;
-  padding: 0;
+	padding: 0;
 
 	&.detail {
 		@media screen and (orientation:portrait){
-			height: 40%;
 			.tile {
-				@include tilesL;
+				height: 33vw;
+				width: 33vw;
 			}
 		}
 
 		@media screen and (orientation:landscape){
-			width: 40%;
 			float: left;
+			width: 66vw;
 			.tile {
-				@include tilesP;
+				height: 33vh;
+				width: 33vh;
 			}
 		}
 
 		.tile {
-			img {
-				height: 100%;
-				margin: auto;
-			}
-			figcaption {
-				display: none;
-			}
+			padding: 20px;
 		}
 	}
 
@@ -64,7 +50,7 @@ body, html {
 
 /* Tiles List View*/
 .tile {
-  padding: 20px;
+  padding: 30px;
   float: left;
   clear: none;
   box-sizing: border-box;
@@ -72,15 +58,13 @@ body, html {
   border-radius: 50%;
 
 	@media screen and (orientation:portrait){
-		@include tilesP;
+		height: 50vw;
+		width: 50vw;
 	}
 
 	@media screen and (orientation:landscape){
-		@include tilesL;
-	}
-
-	&.active figure{
-		    //box-shadow: inset 0px 0px 20px 10px rgba(80, 80, 80, 0.75);
+		height: 50vh;
+		width: 50vh;
 	}
 
 	figure {
@@ -310,6 +294,7 @@ body, html {
 }
 
 #header {
+	display: none;
 	height: 10%;
 	width: 100%;
 	box-sizing: border-box;
