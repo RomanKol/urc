@@ -4,7 +4,7 @@
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
-/* line 9, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 9, E:/Sites/urc/sabine/scss/normalize.scss */
 html {
   font-family: sans-serif;
   /* 1 */
@@ -16,7 +16,7 @@ html {
 /**
  * Remove default margin.
  */
-/* line 19, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 19, E:/Sites/urc/sabine/scss/normalize.scss */
 body {
   margin: 0; }
 
@@ -28,7 +28,7 @@ body {
  * and Firefox.
  * Correct `block` display not defined for `main` in IE 11.
  */
-/* line 45, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 45, E:/Sites/urc/sabine/scss/normalize.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block; }
 
@@ -36,7 +36,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
  * 1. Correct `inline-block` display not defined in IE 8/9.
  * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
-/* line 57, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 57, E:/Sites/urc/sabine/scss/normalize.scss */
 audio, canvas, progress, video {
   display: inline-block;
   /* 1 */
@@ -47,7 +47,7 @@ audio, canvas, progress, video {
  * Prevent modern browsers from displaying `audio` without controls.
  * Remove excess height in iOS 5 devices.
  */
-/* line 67, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 67, E:/Sites/urc/sabine/scss/normalize.scss */
 audio:not([controls]) {
   display: none;
   height: 0; }
@@ -56,7 +56,7 @@ audio:not([controls]) {
  * Address `[hidden]` styling not present in IE 8/9/10.
  * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
  */
-/* line 78, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 78, E:/Sites/urc/sabine/scss/normalize.scss */
 [hidden], template {
   display: none; }
 
@@ -65,14 +65,14 @@ audio:not([controls]) {
 /**
  * Remove the gray background color from active links in IE 10.
  */
-/* line 89, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 89, E:/Sites/urc/sabine/scss/normalize.scss */
 a {
   background-color: transparent; }
 
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
  */
-/* line 98, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 98, E:/Sites/urc/sabine/scss/normalize.scss */
 a:active, a:hover {
   outline: 0; }
 
@@ -81,21 +81,21 @@ a:active, a:hover {
 /**
  * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
  */
-/* line 109, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 109, E:/Sites/urc/sabine/scss/normalize.scss */
 abbr[title] {
   border-bottom: 1px dotted; }
 
 /**
  * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
  */
-/* line 118, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 118, E:/Sites/urc/sabine/scss/normalize.scss */
 b, strong {
   font-weight: bold; }
 
 /**
  * Address styling not present in Safari and Chrome.
  */
-/* line 126, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 126, E:/Sites/urc/sabine/scss/normalize.scss */
 dfn {
   font-style: italic; }
 
@@ -103,7 +103,7 @@ dfn {
  * Address variable `h1` font-size and margin within `section` and `article`
  * contexts in Firefox 4+, Safari, and Chrome.
  */
-/* line 135, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 135, E:/Sites/urc/sabine/scss/normalize.scss */
 h1 {
   font-size: 2em;
   margin: 0.67em 0; }
@@ -111,7 +111,7 @@ h1 {
 /**
  * Address styling not present in IE 8/9.
  */
-/* line 144, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 144, E:/Sites/urc/sabine/scss/normalize.scss */
 mark {
   background: #ff0;
   color: #000; }
@@ -119,25 +119,25 @@ mark {
 /**
  * Address inconsistent and variable font size in all browsers.
  */
-/* line 153, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 153, E:/Sites/urc/sabine/scss/normalize.scss */
 small {
   font-size: 80%; }
 
 /**
  * Prevent `sub` and `sup` affecting `line-height` in all browsers.
  */
-/* line 162, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 162, E:/Sites/urc/sabine/scss/normalize.scss */
 sub, sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline; }
 
-/* line 169, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 169, E:/Sites/urc/sabine/scss/normalize.scss */
 sup {
   top: -0.5em; }
 
-/* line 173, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 173, E:/Sites/urc/sabine/scss/normalize.scss */
 sub {
   bottom: -0.25em; }
 
@@ -146,14 +146,14 @@ sub {
 /**
  * Remove border when inside `a` element in IE 8/9/10.
  */
-/* line 184, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 184, E:/Sites/urc/sabine/scss/normalize.scss */
 img {
   border: 0; }
 
 /**
  * Correct overflow not hidden in IE 9/10/11.
  */
-/* line 192, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 192, E:/Sites/urc/sabine/scss/normalize.scss */
 svg:not(:root) {
   overflow: hidden; }
 
@@ -162,14 +162,14 @@ svg:not(:root) {
 /**
  * Address margin not present in IE 8/9 and Safari.
  */
-/* line 203, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 203, E:/Sites/urc/sabine/scss/normalize.scss */
 figure {
   margin: 1em 40px; }
 
 /**
  * Address differences between Firefox and other browsers.
  */
-/* line 211, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 211, E:/Sites/urc/sabine/scss/normalize.scss */
 hr {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -178,14 +178,14 @@ hr {
 /**
  * Contain overflow in all browsers.
  */
-/* line 221, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 221, E:/Sites/urc/sabine/scss/normalize.scss */
 pre {
   overflow: auto; }
 
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
-/* line 232, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 232, E:/Sites/urc/sabine/scss/normalize.scss */
 code, kbd, pre, samp {
   font-family: monospace, monospace;
   font-size: 1em; }
@@ -202,7 +202,7 @@ code, kbd, pre, samp {
  * 2. Correct font properties not being inherited.
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
-/* line 256, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 256, E:/Sites/urc/sabine/scss/normalize.scss */
 button, input, optgroup, select, textarea {
   color: inherit;
   /* 1 */
@@ -214,7 +214,7 @@ button, input, optgroup, select, textarea {
 /**
  * Address `overflow` set to `hidden` in IE 8/9/10/11.
  */
-/* line 266, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 266, E:/Sites/urc/sabine/scss/normalize.scss */
 button {
   overflow: visible; }
 
@@ -224,7 +224,7 @@ button {
  * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
  * Correct `select` style inheritance in Firefox.
  */
-/* line 278, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 278, E:/Sites/urc/sabine/scss/normalize.scss */
 button, select {
   text-transform: none; }
 
@@ -235,7 +235,7 @@ button, select {
  * 3. Improve usability and consistency of cursor style between image-type
  *    `input` and others.
  */
-/* line 293, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 293, E:/Sites/urc/sabine/scss/normalize.scss */
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
@@ -245,14 +245,14 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 /**
  * Re-set default cursor for disabled elements.
  */
-/* line 303, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 303, E:/Sites/urc/sabine/scss/normalize.scss */
 button[disabled], html input[disabled] {
   cursor: default; }
 
 /**
  * Remove inner padding and border in Firefox 4+.
  */
-/* line 312, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 312, E:/Sites/urc/sabine/scss/normalize.scss */
 button::-moz-focus-inner, input::-moz-focus-inner {
   border: 0;
   padding: 0; }
@@ -261,7 +261,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
  */
-/* line 322, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 322, E:/Sites/urc/sabine/scss/normalize.scss */
 input {
   line-height: normal; }
 
@@ -272,7 +272,7 @@ input {
  * 1. Address box sizing set to `content-box` in IE 8/9/10.
  * 2. Remove excess padding in IE 8/9/10.
  */
-/* line 335, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 335, E:/Sites/urc/sabine/scss/normalize.scss */
 input[type="checkbox"], input[type="radio"] {
   box-sizing: border-box;
   /* 1 */
@@ -284,7 +284,7 @@ input[type="checkbox"], input[type="radio"] {
  * `font-size` values of the `input`, it causes the cursor style of the
  * decrement button to change from `default` to `text`.
  */
-/* line 347, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 347, E:/Sites/urc/sabine/scss/normalize.scss */
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
   height: auto; }
 
@@ -293,7 +293,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
  * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
  *    (include `-moz` to future-proof).
  */
-/* line 357, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 357, E:/Sites/urc/sabine/scss/normalize.scss */
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
@@ -307,14 +307,14 @@ input[type="search"] {
  * Safari (but not Chrome) clips the cancel button when the search input has
  * padding (and `textfield` appearance).
  */
-/* line 371, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 371, E:/Sites/urc/sabine/scss/normalize.scss */
 input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none; }
 
 /**
  * Define consistent border, margin, and padding.
  */
-/* line 379, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 379, E:/Sites/urc/sabine/scss/normalize.scss */
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
@@ -324,7 +324,7 @@ fieldset {
  * 1. Correct `color` not being inherited in IE 8/9/10/11.
  * 2. Remove padding so people aren't caught out if they zero out fieldsets.
  */
-/* line 390, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 390, E:/Sites/urc/sabine/scss/normalize.scss */
 legend {
   border: 0;
   /* 1 */
@@ -334,7 +334,7 @@ legend {
 /**
  * Remove default vertical scrollbar in IE 8/9/10/11.
  */
-/* line 399, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 399, E:/Sites/urc/sabine/scss/normalize.scss */
 textarea {
   overflow: auto; }
 
@@ -342,7 +342,7 @@ textarea {
  * Don't inherit the `font-weight` (applied by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
-/* line 408, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 408, E:/Sites/urc/sabine/scss/normalize.scss */
 optgroup {
   font-weight: bold; }
 
@@ -351,16 +351,16 @@ optgroup {
 /**
  * Remove most spacing between table cells.
  */
-/* line 419, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 419, E:/Sites/urc/sabine/scss/normalize.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* line 425, C:/Users/Roman/Sites/urc/sabine/scss/normalize.scss */
+/* line 425, E:/Sites/urc/sabine/scss/normalize.scss */
 td, th {
   padding: 0; }
 
-/* line 12, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 12, E:/Sites/urc/sabine/scss/styles.scss */
 body, html {
   font-family: 'Segoe UI', Arial, sans-serif;
   width: 100%;
@@ -370,32 +370,37 @@ body, html {
   background-size: cover; }
 
 /* Grid For Tiles */
-/* line 22, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 22, E:/Sites/urc/sabine/scss/styles.scss */
 #grid {
-  height: 90%;
+  height: 100%;
   width: 100%;
   padding: 0; }
   @media screen and (orientation: portrait) {
-    /* line 29, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-    #grid.detail .tile {
-      height: 33vw;
-      width: 33vw; } }
+    #grid.detail {
+      height: 66vw; }
+      /* line 30, E:/Sites/urc/sabine/scss/styles.scss */
+      #grid.detail .tile {
+        height: 33vw;
+        width: 33vw; } }
   @media screen and (orientation: landscape) {
     #grid.detail {
       float: left;
-      width: 66vw; }
-      /* line 38, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      width: 66vh; }
+      /* line 39, E:/Sites/urc/sabine/scss/styles.scss */
       #grid.detail .tile {
         height: 33vh;
         width: 33vh; } }
-  /* line 44, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 45, E:/Sites/urc/sabine/scss/styles.scss */
   #grid.detail .tile {
     padding: 20px; }
+    /* line 47, E:/Sites/urc/sabine/scss/styles.scss */
+    #grid.detail .tile data {
+      display: none; }
 
 /* Tiles List View*/
-/* line 52, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 56, E:/Sites/urc/sabine/scss/styles.scss */
 .tile {
-  padding: 30px;
+  padding: 25px;
   float: left;
   clear: none;
   box-sizing: border-box;
@@ -409,12 +414,13 @@ body, html {
     .tile {
       height: 50vh;
       width: 50vh; } }
-  /* line 70, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 74, E:/Sites/urc/sabine/scss/styles.scss */
   .tile figure {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 25px;
     margin: 0;
+    position: relative;
     border-radius: 50%;
     box-shadow: 0px 0px 25px 10px #A5A5A5;
     box-sizing: border-box;
@@ -422,52 +428,37 @@ body, html {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80%; }
-    /* line 82, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-    .tile figure img {
-      display: none;
-      /* &.center {
-				display: block;
-				margin: auto;
-			} */ }
-    /* line 91, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 87, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure data {
-      font-size: 50px;
-      display: inline-block;
-      margin-top: 15%;
-      float: right; }
-    /* line 98, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-    .tile figure figcaption {
-      display: none; }
-      /* line 102, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-      .tile figure figcaption h1 {
-        display: block;
-        font-size: 2em;
-        text-align: center; }
-  /* line 112, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#temperature figure {
-    background-image: url('../images/temperature.svg'); }
-  /* line 115, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#food figure {
-    background-image: url('../images/food.svg'); }
-  /* line 118, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#weather figure {
-    background-image: url('../images/weather.svg'); }
-  /* line 121, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#stresslevel figure {
-    background-image: url('../images/stresslevel.svg'); }
-  /* line 124, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#noise figure {
-    background-image: url('../images/noise.svg'); }
-  /* line 127, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
-  .tile#airquality figure {
-    background-image: url('../images/airquality.svg'); }
+      width: 100px;
+      height: 100px;
+      display: block;
+      font-size: 40px;
+      line-height: 100px;
+      text-align: center;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0; }
+      /* line 101, E:/Sites/urc/sabine/scss/styles.scss */
+      .tile figure data.left {
+        right: 50%; }
+      /* line 104, E:/Sites/urc/sabine/scss/styles.scss */
+      .tile figure data.right {
+        left: 50%; }
+    /* line 108, E:/Sites/urc/sabine/scss/styles.scss */
+    .tile figure img {
+      width: 100%;
+      height: auto; }
 
-/* line 133, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 117, E:/Sites/urc/sabine/scss/styles.scss */
 #detail {
   box-sizing: border-box;
-  padding: 10px;
+  padding: 30px;
   position: relative; }
-  /* line 138, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 122, E:/Sites/urc/sabine/scss/styles.scss */
   #detail > div {
     width: 100%;
     height: 100%;
@@ -477,77 +468,77 @@ body, html {
     border-radius: 40px;
     padding: 20px;
     overflow: hidden; }
-    /* line 147, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 131, E:/Sites/urc/sabine/scss/styles.scss */
     #detail > div h1 {
       font-size: 3em;
       line-height: 1em;
       margin: 0 0 20px 0; }
-    /* line 152, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 136, E:/Sites/urc/sabine/scss/styles.scss */
     #detail > div h2 {
       font-size: 2.5em; }
-  /* line 157, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 141, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .slider {
     height: 80%;
     overflow-x: scroll;
     overflow-y: hidden;
     position: relative; }
-    /* line 162, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 146, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .slider ul {
       list-style: none;
       margin: 0;
       padding: 0;
       height: 100%; }
-      /* line 167, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 151, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .slider ul li {
         float: left;
         height: 100%; }
-        /* line 170, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+        /* line 154, E:/Sites/urc/sabine/scss/styles.scss */
         #detail .slider ul li figure {
           height: 100%;
           padding: 10px;
           margin: 0; }
-  /* line 181, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 165, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider img {
     min-height: 80%;
     max-height: 80%;
     height: 80%;
     margin: 0 auto;
     display: block; }
-  /* line 188, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 172, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider figcaption {
     height: 20%; }
-    /* line 190, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 174, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .food .slider figcaption h2 {
       margin: 0;
       font-size: 2.5em;
       text-align: center; }
-  /* line 201, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 185, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide h2 {
     font-size: 2em;
     margin: 0 0 0.5em 0; }
-  /* line 205, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 189, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide > img {
     min-width: 50%;
     max-width: 50%;
     width: 50%;
     float: left; }
-  /* line 211, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 195, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide figcaption {
     float: right; }
-    /* line 213, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 197, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .weather .slider .slide figcaption h3 {
       display: block;
       margin: 0 auto;
       font-size: 1.8em;
       margin-bottom: 20px; }
-      /* line 218, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 202, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .weather .slider .slide figcaption h3.rain {
         padding-left: 50px;
         background-image: url(../images/weather/rain.svg);
         background-position: left top;
         background-size: 35px;
         background-repeat: no-repeat; }
-  /* line 231, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 215, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .ampel {
     width: 120px;
     background-color: black;
@@ -555,29 +546,29 @@ body, html {
     border-radius: 10px;
     margin-right: 20px;
     float: left; }
-    /* line 238, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 222, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .ampel > div {
       border-radius: 50%;
       height: 100px;
       width: 100px;
       margin: 10px;
       opacity: .3; }
-      /* line 244, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 228, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-1 {
         background-color: #2ecc71; }
-      /* line 247, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 231, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-2 {
         background-color: #f1c40f; }
-      /* line 250, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 234, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-3 {
         background-color: #c0392b; }
-      /* line 253, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 237, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.active {
         opacity: 1;
         border: 4px solid white;
         width: 92px;
         height: 92px; }
-  /* line 263, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 247, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .stresslevel > h2, #detail .noise > h2, #detail .airquality > h2 {
     max-width: 400px; }
   @media screen and (orientation: portrait) {
@@ -586,25 +577,24 @@ body, html {
       height: 50%; } }
   @media screen and (orientation: landscape) {
     #detail {
-      width: 60%;
-      height: 90%;
+      height: 100%;
       float: left; } }
-  /* line 279, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 262, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 40px;
+    top: 40px;
     width: 60px;
     height: 60px;
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 289, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 272, E:/Sites/urc/sabine/scss/styles.scss */
     #detail #clsBtn > img {
       width: 100%;
       height: 100%; }
 
-/* line 296, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 279, E:/Sites/urc/sabine/scss/styles.scss */
 #header {
   display: none;
   height: 10%;
@@ -612,63 +602,63 @@ body, html {
   box-sizing: border-box;
   padding: 10px;
   position: relative; }
-  /* line 304, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 287, E:/Sites/urc/sabine/scss/styles.scss */
   #header h1 {
     margin: 0;
     margin-right: 20px;
     float: left;
     color: white; }
 
-/* line 313, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 296, E:/Sites/urc/sabine/scss/styles.scss */
 .hide {
   display: none; }
 
-/* line 318, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 301, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   box-shadow: 0px 0px 25px 10px #3498db; }
 
-/* line 321, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 304, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 324, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 307, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   box-shadow: 0px 0px 25px 10px #f39c12; }
 
-/* line 327, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 310, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 333, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 316, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-1 > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 338, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 321, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-2 > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   box-shadow: 0px 0px 25px 10px #f1c40f; }
 
-/* line 343, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 326, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-3 > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 349, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 332, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-low > figure {
   box-shadow: 0px 0px 10px 10px #3498db; }
-/* line 352, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 335, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-good > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 355, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 338, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-warm > figure {
   box-shadow: 0px 0px 10px 10px #f39c12; }
-/* line 358, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 341, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-hot > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
-/* line 364, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 347, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-1 > figure, .active.stresslevel-1 > figure, .active.airquality-1 > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 369, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 352, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-2 > figure, .active.stresslevel-2 > figure, .active.airquality-2 > figure {
   box-shadow: 0px 0px 10px 10px #f1c40f; }
-/* line 374, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 357, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-3 > figure, .active.stresslevel-3 > figure, .active.airquality-3 > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }

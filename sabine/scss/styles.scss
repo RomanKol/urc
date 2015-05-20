@@ -20,12 +20,13 @@ body, html {
 
 /* Grid For Tiles */
 #grid {
-	height: 90%;
+	height: 100%;
 	width: 100%;
 	padding: 0;
 
 	&.detail {
 		@media screen and (orientation:portrait){
+			height: 66vw;
 			.tile {
 				height: 33vw;
 				width: 33vw;
@@ -34,7 +35,7 @@ body, html {
 
 		@media screen and (orientation:landscape){
 			float: left;
-			width: 66vw;
+			width: 66vh;
 			.tile {
 				height: 33vh;
 				width: 33vh;
@@ -43,6 +44,9 @@ body, html {
 
 		.tile {
 			padding: 20px;
+			data {
+				display: none;
+			}
 		}
 	}
 
@@ -50,7 +54,7 @@ body, html {
 
 /* Tiles List View*/
 .tile {
-  padding: 30px;
+  padding: 25px;
   float: left;
   clear: none;
   box-sizing: border-box;
@@ -69,70 +73,50 @@ body, html {
 
 	figure {
 		@include fullsize;
-		padding: 20px;
+		padding: 25px;
 		margin: 0;
+		position: relative;
 		border-radius: 50%;
 		box-shadow: 0px 0px 25px 10px #A5A5A5;
 		box-sizing: border-box;
 		background-color: rgba(255,255,255,0.7);
-    	background-repeat: no-repeat;
-    	background-position: center;
-    	background-size: 80%;
-
-		img {
-			display: none;
-			//display: inline-block;
-			/* &.center {
-				display: block;
-				margin: auto;
-			} */
-		}
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 80%;
 
 		data {
-			font-size: 50px;
-		  display: inline-block;
-		  margin-top: 15%;
-		  float: right;
+			width: 100px;
+			height: 100px;
+			display: block;
+			font-size: 40px;
+			line-height: 100px;
+			text-align: center;
+			position: absolute;
+			margin: auto;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+
+		  &.left {
+				right: 50%;
+		  }
+		  &.right {
+				left: 50%;
+		  }
+		}
+		img {
+			width: 100%;
+			height: auto;
 		}
 
-		figcaption {
-			//* {
-				display: none;
-			//}
-			h1 {
-				display: block;
-				font-size: 2em;
-				text-align: center;
-			}
-		}
-	}
-
-	
-
-	&#temperature figure{
-		background-image: url('../images/temperature.svg');
-	}
-	&#food figure{
-		background-image: url('../images/food.svg');
-	}
-	&#weather figure{
-		background-image: url('../images/weather.svg');
-	}
-	&#stresslevel figure{
-		background-image: url('../images/stresslevel.svg');
-	}
-	&#noise figure{
-		background-image: url('../images/noise.svg');
-	}
-	&#airquality figure{
-		background-image: url('../images/airquality.svg');
 	}
 
 }
 
 #detail {
 	box-sizing: border-box;
-	padding: 10px;
+	padding: 30px;
 	position: relative;
 
 	> div {
@@ -183,7 +167,7 @@ body, html {
 				max-height: 80%;
 				height: 80%;
 				margin: 0 auto;
-				display: block;				
+				display: block;
 			}
 			figcaption {
 				height: 20%;
@@ -271,15 +255,14 @@ body, html {
 	}
 
 	@media screen and (orientation:landscape){
-		width: 60%;
-		height: 90%;
+		height: 100%;
 		float: left;
 	}
 
 	#clsBtn {
 		position: absolute;
-		right: 20px;
-		top: 20px;
+		right: 40px;
+		top: 40px;
 		width: 60px;
 		height: 60px;
 		border: none;
@@ -375,4 +358,4 @@ body, html {
 			box-shadow: 0px 0px 10px 10px $pomegranate;
 		}
 	}
-} 
+}
