@@ -470,71 +470,88 @@ body, html {
     #detail > div h2 {
       font-size: 2.5em; }
   /* line 154, E:/Sites/urc/sabine/scss/styles.scss */
+  #detail .ampel {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 20px solid white;
+    border-radius: 50%;
+    box-shadow: 5px 5px 40px -10px #8E8D8D; }
+    /* line 162, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail .ampel.ampel-1 {
+      background-color: #2ecc71; }
+    /* line 165, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail .ampel.ampel-2 {
+      background-color: #f1c40f; }
+    /* line 168, E:/Sites/urc/sabine/scss/styles.scss */
+    #detail .ampel.ampel-3 {
+      background-color: #c0392b; }
+  /* line 173, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .slider {
     height: 80%;
     overflow-x: scroll;
     overflow-y: hidden;
     position: relative; }
-    /* line 159, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 178, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .slider ul {
       list-style: none;
       margin: 0;
       padding: 0;
       height: 100%; }
-      /* line 164, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 183, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .slider ul li {
         float: left;
         height: 100%; }
-        /* line 167, E:/Sites/urc/sabine/scss/styles.scss */
+        /* line 186, E:/Sites/urc/sabine/scss/styles.scss */
         #detail .slider ul li figure {
           height: 100%;
           padding: 10px;
           margin: 0; }
-  /* line 178, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 197, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider img {
     min-height: 80%;
     max-height: 80%;
     height: 80%;
     margin: 0 auto;
     display: block; }
-  /* line 185, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 204, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider figcaption {
     height: 20%; }
-    /* line 187, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 206, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .food .slider figcaption h2 {
       margin: 0;
       font-size: 2.5em;
       text-align: center; }
-  /* line 198, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 217, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide h2 {
     font-size: 2em;
     margin: 0 0 0.5em 0; }
-  /* line 202, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 221, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide > img {
     min-width: 50%;
     max-width: 50%;
     width: 50%;
     float: left; }
-  /* line 208, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 227, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide figcaption {
     float: right; }
-    /* line 210, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 229, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .weather .slider .slide figcaption h3 {
       display: block;
       margin: 0 auto;
       font-size: 1.8em;
       margin-bottom: 20px; }
-      /* line 215, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 234, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .weather .slider .slide figcaption h3.rain {
         padding-left: 50px;
         background-image: url(../images/weather/rain.svg);
         background-position: left top;
         background-size: 35px;
         background-repeat: no-repeat; }
-  /* line 229, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 248, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .stresslevel > h2, #detail .noise > h2, #detail .airquality > h2 {
     max-width: 400px; }
-  /* line 234, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 253, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;
     right: 40px;
@@ -544,97 +561,97 @@ body, html {
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 244, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 263, E:/Sites/urc/sabine/scss/styles.scss */
     #detail #clsBtn > img {
       width: 100%;
       height: 100%; }
 
 @media screen and (orientation: portrait) {
-  /* line 253, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 272, E:/Sites/urc/sabine/scss/styles.scss */
   #detail {
     width: 100%;
     height: 60%; }
-  /* line 258, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 277, E:/Sites/urc/sabine/scss/styles.scss */
   #grid.detail {
     height: 40%; }
-    /* line 260, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 279, E:/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile {
       height: 50%;
       width: 33.33%; }
-  /* line 264, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 283, E:/Sites/urc/sabine/scss/styles.scss */
   #grid .tile {
     height: 33%;
     width: 50%; } }
 
 @media screen and (orientation: landscape) {
-  /* line 271, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 290, E:/Sites/urc/sabine/scss/styles.scss */
   #detail {
     height: 100%;
     width: 60%;
     float: left; }
-  /* line 277, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 296, E:/Sites/urc/sabine/scss/styles.scss */
   #grid.detail {
     float: left;
     width: 40%; }
-    /* line 280, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 299, E:/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile {
       height: 33%;
       width: 50%; }
-  /* line 284, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 303, E:/Sites/urc/sabine/scss/styles.scss */
   #grid .tile {
     height: 50%;
     width: 33.33%; } }
 
-/* line 294, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 313, E:/Sites/urc/sabine/scss/styles.scss */
 .hide {
   display: none; }
 
-/* line 299, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 318, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   box-shadow: 0px 0px 25px 10px #3498db; }
 
-/* line 302, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 321, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 305, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 324, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   box-shadow: 0px 0px 25px 10px #f39c12; }
 
-/* line 308, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 327, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 314, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 333, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-1 > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 319, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 338, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-2 > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   box-shadow: 0px 0px 25px 10px #f1c40f; }
 
-/* line 324, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 343, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-3 > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 330, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 349, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-low > figure {
   box-shadow: 0px 0px 10px 10px #3498db; }
-/* line 333, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 352, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-good > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 336, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 355, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-warm > figure {
   box-shadow: 0px 0px 10px 10px #f39c12; }
-/* line 339, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 358, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-hot > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
-/* line 345, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 364, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-1 > figure, .active.stresslevel-1 > figure, .active.airquality-1 > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 350, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 369, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-2 > figure, .active.stresslevel-2 > figure, .active.airquality-2 > figure {
   box-shadow: 0px 0px 10px 10px #f1c40f; }
-/* line 355, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 374, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-3 > figure, .active.stresslevel-3 > figure, .active.airquality-3 > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }

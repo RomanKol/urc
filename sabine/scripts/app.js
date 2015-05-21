@@ -203,6 +203,8 @@ function setStresslevel(stresslevel){
 	// DetailView
 	dEl = detailEl.querySelector('.stresslevel');
 	dEl.querySelector('h2').innerText = stresslevel.message;
+	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
+	dEl.querySelector('.ampel').classList.add('ampel-'+ stresslevel.indoor);
 }
 
 // noise Element
@@ -226,6 +228,8 @@ function setNoise(noise){
 	// DetailView
 	dEl = detailEl.querySelector('.noise');
 	dEl.querySelector('data').innerText = noise.indoor + ' db';
+	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
+	dEl.querySelector('.ampel').classList.add('ampel-'+ domClass);
 }
 
 // Airquality Element
@@ -239,6 +243,8 @@ function setAirquality(airquality){
 	// DetailView
 	dEl = detailEl.querySelector('.airquality')
 	dEl.querySelector('h2').innerText = airquality.message;
+	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
+	dEl.querySelector('.ampel').classList.add('ampel-'+ airquality.indoor);
 }
 
 function foodListItem(data, itemWidth){
