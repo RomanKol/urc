@@ -8,6 +8,15 @@
 	height: 100%;
 }
 
+@mixin tilesP {
+	height: 33%;
+	width: 50%;
+}
+
+@mixin tilesL {
+	height: 50%;
+	width: 33.33%;
+}
 
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
@@ -26,19 +35,17 @@ body, html {
 
 	&.detail {
 		@media screen and (orientation:portrait){
-			height: 66vw;
+			height: 40%;
 			.tile {
-				height: 33vw;
-				width: 33vw;
+				@include tilesL;
 			}
 		}
 
 		@media screen and (orientation:landscape){
 			float: left;
-			width: 66vh;
+			width: 40%;
 			.tile {
-				height: 33vh;
-				width: 33vh;
+				@include tilesP;
 			}
 		}
 
@@ -46,6 +53,11 @@ body, html {
 			padding: 20px;
 			data {
 				display: none;
+			}
+			&.active {
+				figure {
+				  border-radius: 0 20%;
+				}
 			}
 		}
 	}
@@ -59,24 +71,24 @@ body, html {
   clear: none;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 50%;
+
 
 	@media screen and (orientation:portrait){
-		height: 50vw;
-		width: 50vw;
+		@include tilesP;
 	}
 
 	@media screen and (orientation:landscape){
-		height: 50vh;
-		width: 50vh;
+		@include tilesL;
 	}
 
 	figure {
 		@include fullsize;
-		padding: 25px;
+		transition-property: border-radius, box-shadow;
+		transition-duration: 250ms;
+
 		margin: 0;
 		position: relative;
-		border-radius: 50%;
+		border-radius: 40px 0;
 		box-shadow: 0px 0px 25px 10px #A5A5A5;
 		box-sizing: border-box;
 		background-color: rgba(255,255,255,0.7);
@@ -106,23 +118,54 @@ body, html {
 		  }
 		}
 		img {
+			display: none;
 			width: 100%;
 			height: auto;
 		}
 
+	}
+		&#temperature {
+			figure {
+				background-image: url('../images/temperature.svg');
+			}
+		}
+	&#food {
+		figure {
+			background-image: url('../images/food.svg');
+		}
+	}
+	&#weather {
+		figure {
+			background-image: url('../images/weather.svg');
+		}
+	}
+	&#stresslevel {
+		figure {
+			background-image: url('../images/stresslevel.svg');
+		}
+	}
+	&#noise {
+		figure {
+			background-image: url('../images/noise.svg');
+		}
+	}
+	&#airquality {
+		figure {
+			background-image: url('../images/airquality.svg');
+		}
 	}
 
 }
 
 #detail {
 	box-sizing: border-box;
-	padding: 30px;
+	padding: 20px;
 	position: relative;
 
 	> div {
 		@include fullsize;
-		box-shadow: 0 0 10px 10px rgba(255,255,255,0.7);
 		background-color: rgba(255,255,255,0.7);
+		box-shadow: 0 0 10px 10px rgba(255,255,255,0.7);
 		box-sizing: border-box;
 		border-radius: 40px;
 		padding: 20px;
@@ -251,11 +294,12 @@ body, html {
 
 	@media screen and (orientation:portrait){
 		width: 100%;
-		height: 50%;
+		height: 60%;
 	}
 
 	@media screen and (orientation:landscape){
 		height: 100%;
+		width: 60%;
 		float: left;
 	}
 

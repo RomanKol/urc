@@ -57,12 +57,6 @@ function activate(evt) {
 		// Display DetailView
 		if(detailEl.classList.contains('hide')){
 			detailEl.classList.remove('hide');
-			detailEl.removeAttribute('style');
-			if (window.matchMedia("(orientation: portrait)").matches) {
-			  detailEl.style.height = document.documentElement.clientHeight - gridEl.offsetHeight + 'px';
-			} else if (window.matchMedia("(orientation: landscape)").matches) {
-			  detailEl.style.width = document.documentElement.clientWidth - gridEl.offsetWidth + 'px';
-			}
 		}
 
 		els = detailEl.children;

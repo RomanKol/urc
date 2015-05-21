@@ -360,7 +360,7 @@ table {
 td, th {
   padding: 0; }
 
-/* line 12, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 21, E:/Sites/urc/sabine/scss/styles.scss */
 body, html {
   font-family: 'Segoe UI', Arial, sans-serif;
   width: 100%;
@@ -370,65 +370,68 @@ body, html {
   background-size: cover; }
 
 /* Grid For Tiles */
-/* line 22, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 31, E:/Sites/urc/sabine/scss/styles.scss */
 #grid {
   height: 100%;
   width: 100%;
   padding: 0; }
   @media screen and (orientation: portrait) {
     #grid.detail {
-      height: 66vw; }
-      /* line 30, E:/Sites/urc/sabine/scss/styles.scss */
+      height: 40%; }
+      /* line 39, E:/Sites/urc/sabine/scss/styles.scss */
       #grid.detail .tile {
-        height: 33vw;
-        width: 33vw; } }
+        height: 50%;
+        width: 33.33%; } }
   @media screen and (orientation: landscape) {
     #grid.detail {
       float: left;
-      width: 66vh; }
-      /* line 39, E:/Sites/urc/sabine/scss/styles.scss */
+      width: 40%; }
+      /* line 47, E:/Sites/urc/sabine/scss/styles.scss */
       #grid.detail .tile {
-        height: 33vh;
-        width: 33vh; } }
-  /* line 45, E:/Sites/urc/sabine/scss/styles.scss */
+        height: 33%;
+        width: 50%; } }
+  /* line 52, E:/Sites/urc/sabine/scss/styles.scss */
   #grid.detail .tile {
     padding: 20px; }
-    /* line 47, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 54, E:/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile data {
       display: none; }
+    /* line 58, E:/Sites/urc/sabine/scss/styles.scss */
+    #grid.detail .tile.active figure {
+      border-radius: 0 20%; }
 
 /* Tiles List View*/
-/* line 56, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 68, E:/Sites/urc/sabine/scss/styles.scss */
 .tile {
   padding: 25px;
   float: left;
   clear: none;
   box-sizing: border-box;
-  overflow: hidden;
-  border-radius: 50%; }
+  overflow: hidden; }
   @media screen and (orientation: portrait) {
     .tile {
-      height: 50vw;
-      width: 50vw; } }
+      height: 33%;
+      width: 50%; } }
   @media screen and (orientation: landscape) {
     .tile {
-      height: 50vh;
-      width: 50vh; } }
-  /* line 74, E:/Sites/urc/sabine/scss/styles.scss */
+      height: 50%;
+      width: 33.33%; } }
+  /* line 84, E:/Sites/urc/sabine/scss/styles.scss */
   .tile figure {
     width: 100%;
     height: 100%;
-    padding: 25px;
+    transition-property: border-radius, box-shadow;
+    transition-duration: 250ms;
     margin: 0;
     position: relative;
-    border-radius: 50%;
+    border-radius: 40px 0;
     box-shadow: 0px 0px 25px 10px #A5A5A5;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.7);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80%; }
-    /* line 87, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 99, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure data {
       width: 100px;
       height: 100px;
@@ -442,103 +445,122 @@ body, html {
       left: 0;
       bottom: 0;
       right: 0; }
-      /* line 101, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 113, E:/Sites/urc/sabine/scss/styles.scss */
       .tile figure data.left {
         right: 50%; }
-      /* line 104, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 116, E:/Sites/urc/sabine/scss/styles.scss */
       .tile figure data.right {
         left: 50%; }
-    /* line 108, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 120, E:/Sites/urc/sabine/scss/styles.scss */
     .tile figure img {
+      display: none;
       width: 100%;
       height: auto; }
+  /* line 128, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#temperature figure {
+    background-image: url('../images/temperature.svg'); }
+  /* line 133, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#food figure {
+    background-image: url('../images/food.svg'); }
+  /* line 138, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#weather figure {
+    background-image: url('../images/weather.svg'); }
+  /* line 143, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#stresslevel figure {
+    background-image: url('../images/stresslevel.svg'); }
+  /* line 148, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#noise figure {
+    background-image: url('../images/noise.svg'); }
+  /* line 153, E:/Sites/urc/sabine/scss/styles.scss */
+  .tile#airquality figure {
+    background-image: url('../images/airquality.svg'); }
 
-/* line 117, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 160, E:/Sites/urc/sabine/scss/styles.scss */
 #detail {
   box-sizing: border-box;
-  padding: 30px;
+  padding: 20px;
   position: relative; }
-  /* line 122, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 165, E:/Sites/urc/sabine/scss/styles.scss */
   #detail > div {
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.7);
     background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.7);
     box-sizing: border-box;
     border-radius: 40px;
     padding: 20px;
     overflow: hidden; }
-    /* line 131, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 174, E:/Sites/urc/sabine/scss/styles.scss */
     #detail > div h1 {
       font-size: 3em;
       line-height: 1em;
       margin: 0 0 20px 0; }
-    /* line 136, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 179, E:/Sites/urc/sabine/scss/styles.scss */
     #detail > div h2 {
       font-size: 2.5em; }
-  /* line 141, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 184, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .slider {
     height: 80%;
     overflow-x: scroll;
     overflow-y: hidden;
     position: relative; }
-    /* line 146, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 189, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .slider ul {
       list-style: none;
       margin: 0;
       padding: 0;
       height: 100%; }
-      /* line 151, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 194, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .slider ul li {
         float: left;
         height: 100%; }
-        /* line 154, E:/Sites/urc/sabine/scss/styles.scss */
+        /* line 197, E:/Sites/urc/sabine/scss/styles.scss */
         #detail .slider ul li figure {
           height: 100%;
           padding: 10px;
           margin: 0; }
-  /* line 165, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 208, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider img {
     min-height: 80%;
     max-height: 80%;
     height: 80%;
     margin: 0 auto;
     display: block; }
-  /* line 172, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 215, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .food .slider figcaption {
     height: 20%; }
-    /* line 174, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 217, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .food .slider figcaption h2 {
       margin: 0;
       font-size: 2.5em;
       text-align: center; }
-  /* line 185, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 228, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide h2 {
     font-size: 2em;
     margin: 0 0 0.5em 0; }
-  /* line 189, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 232, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide > img {
     min-width: 50%;
     max-width: 50%;
     width: 50%;
     float: left; }
-  /* line 195, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 238, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide figcaption {
     float: right; }
-    /* line 197, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 240, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .weather .slider .slide figcaption h3 {
       display: block;
       margin: 0 auto;
       font-size: 1.8em;
       margin-bottom: 20px; }
-      /* line 202, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 245, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .weather .slider .slide figcaption h3.rain {
         padding-left: 50px;
         background-image: url(../images/weather/rain.svg);
         background-position: left top;
         background-size: 35px;
         background-repeat: no-repeat; }
-  /* line 215, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 258, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .ampel {
     width: 120px;
     background-color: black;
@@ -546,40 +568,41 @@ body, html {
     border-radius: 10px;
     margin-right: 20px;
     float: left; }
-    /* line 222, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 265, E:/Sites/urc/sabine/scss/styles.scss */
     #detail .ampel > div {
       border-radius: 50%;
       height: 100px;
       width: 100px;
       margin: 10px;
       opacity: .3; }
-      /* line 228, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 271, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-1 {
         background-color: #2ecc71; }
-      /* line 231, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 274, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-2 {
         background-color: #f1c40f; }
-      /* line 234, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 277, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.ampel-3 {
         background-color: #c0392b; }
-      /* line 237, E:/Sites/urc/sabine/scss/styles.scss */
+      /* line 280, E:/Sites/urc/sabine/scss/styles.scss */
       #detail .ampel > div.active {
         opacity: 1;
         border: 4px solid white;
         width: 92px;
         height: 92px; }
-  /* line 247, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 290, E:/Sites/urc/sabine/scss/styles.scss */
   #detail .stresslevel > h2, #detail .noise > h2, #detail .airquality > h2 {
     max-width: 400px; }
   @media screen and (orientation: portrait) {
     #detail {
       width: 100%;
-      height: 50%; } }
+      height: 60%; } }
   @media screen and (orientation: landscape) {
     #detail {
       height: 100%;
+      width: 60%;
       float: left; } }
-  /* line 262, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 306, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;
     right: 40px;
@@ -589,12 +612,12 @@ body, html {
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 272, E:/Sites/urc/sabine/scss/styles.scss */
+    /* line 316, E:/Sites/urc/sabine/scss/styles.scss */
     #detail #clsBtn > img {
       width: 100%;
       height: 100%; }
 
-/* line 279, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 323, E:/Sites/urc/sabine/scss/styles.scss */
 #header {
   display: none;
   height: 10%;
@@ -602,63 +625,63 @@ body, html {
   box-sizing: border-box;
   padding: 10px;
   position: relative; }
-  /* line 287, E:/Sites/urc/sabine/scss/styles.scss */
+  /* line 331, E:/Sites/urc/sabine/scss/styles.scss */
   #header h1 {
     margin: 0;
     margin-right: 20px;
     float: left;
     color: white; }
 
-/* line 296, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 340, E:/Sites/urc/sabine/scss/styles.scss */
 .hide {
   display: none; }
 
-/* line 301, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 345, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   box-shadow: 0px 0px 25px 10px #3498db; }
 
-/* line 304, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 348, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 307, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 351, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   box-shadow: 0px 0px 25px 10px #f39c12; }
 
-/* line 310, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 354, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 316, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 360, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-1 > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 321, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 365, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-2 > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   box-shadow: 0px 0px 25px 10px #f1c40f; }
 
-/* line 326, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 370, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-3 > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 332, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 376, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-low > figure {
   box-shadow: 0px 0px 10px 10px #3498db; }
-/* line 335, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 379, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-good > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 338, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 382, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-warm > figure {
   box-shadow: 0px 0px 10px 10px #f39c12; }
-/* line 341, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 385, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-hot > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
-/* line 347, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 391, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-1 > figure, .active.stresslevel-1 > figure, .active.airquality-1 > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 352, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 396, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-2 > figure, .active.stresslevel-2 > figure, .active.airquality-2 > figure {
   box-shadow: 0px 0px 10px 10px #f1c40f; }
-/* line 357, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 401, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-3 > figure, .active.stresslevel-3 > figure, .active.airquality-3 > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
