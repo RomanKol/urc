@@ -34,23 +34,11 @@ body, html {
 	padding: 0;
 
 	&.detail {
-		@media screen and (orientation:portrait){
-			height: 40%;
-			.tile {
-				@include tilesL;
-			}
-		}
-
-		@media screen and (orientation:landscape){
-			float: left;
-			width: 40%;
-			.tile {
-				@include tilesP;
-			}
-		}
-
 		.tile {
 			padding: 20px;
+			figure {
+				background-position: center;
+			}
 			data {
 				display: none;
 			}
@@ -72,15 +60,6 @@ body, html {
   box-sizing: border-box;
   overflow: hidden;
 
-
-	@media screen and (orientation:portrait){
-		@include tilesP;
-	}
-
-	@media screen and (orientation:landscape){
-		@include tilesL;
-	}
-
 	figure {
 		@include fullsize;
 		transition-property: border-radius, box-shadow;
@@ -96,39 +75,29 @@ body, html {
 		background-position: center;
 		background-size: 80%;
 
-		data {
-			width: 100px;
-			height: 100px;
-			display: block;
-			font-size: 40px;
-			line-height: 100px;
-			text-align: center;
-			position: absolute;
-			margin: auto;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			right: 0;
+		display: table;
+		text-align: center;
 
-		  &.left {
-				right: 50%;
-		  }
-		  &.right {
-				left: 50%;
-		  }
-		}
-		img {
-			display: none;
-			width: 100%;
-			height: auto;
+		data {
+			line-height: normal;
+			font-size: 3em;
+			display: table-cell;
+			vertical-align: middle;
+			&.left {
+				padding-right: 50%;
+			}
+			&.right {
+				padding-left: 50%;
+			}
 		}
 
 	}
-		&#temperature {
-			figure {
-				background-image: url('../images/temperature.svg');
-			}
+	&#temperature {
+		figure {
+			background-image: url('../images/temperature.svg');
+			background-position: -50% center;
 		}
+	}
 	&#food {
 		figure {
 			background-image: url('../images/food.svg');
@@ -147,6 +116,7 @@ body, html {
 	&#noise {
 		figure {
 			background-image: url('../images/noise.svg');
+			background-position: 150% center;
 		}
 	}
 	&#airquality {
@@ -255,52 +225,10 @@ body, html {
 		}
 	}
 
-	.ampel {
-		width: 120px;
-		background-color: black;
-		padding: 10px;
-		border-radius: 10px;
-		margin-right: 20px;
-		float: left;
-		> div {
-			border-radius: 50%;
-			height: 100px;
-			width: 100px;
-			margin: 10px;
-			opacity: .3;
-			&.ampel-1 {
-				background-color: $emerland;
-			}
-			&.ampel-2 {
-				background-color: $sunflower;
-			}
-			&.ampel-3 {
-				background-color: $pomegranate;
-			}
-			&.active {
-				opacity: 1;
-				border: 4px solid white;
-				width: 92px;
-				height: 92px;
-			}
-		}
-	}
-
 	.stresslevel, .noise, .airquality {
 		> h2 {
 			max-width: 400px;
 		}
-	}
-
-	@media screen and (orientation:portrait){
-		width: 100%;
-		height: 60%;
-	}
-
-	@media screen and (orientation:landscape){
-		height: 100%;
-		width: 60%;
-		float: left;
 	}
 
 	#clsBtn {
@@ -320,22 +248,48 @@ body, html {
 
 }
 
-#header {
-	display: none;
-	height: 10%;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 10px;
-	position: relative;
-
-	h1 {
-		margin: 0;
-		margin-right: 20px;
-		float: left;
-		color: white;
+// MediaQueries
+@media screen and (orientation:portrait){
+	#detail {
+		width: 100%;
+		height: 60%;
 	}
-
+	#grid	{
+		&.detail {
+			height: 40%;
+			.tile {
+				@include tilesL;
+			}
+		}
+		.tile {
+			@include tilesP;
+		}
+	}
 }
+
+@media screen and (orientation:landscape){
+	#detail {
+		height: 100%;
+		width: 60%;
+		float: left;
+	}
+	#grid	{
+		&.detail {
+			float: left;
+			width: 40%;
+			.tile {
+				@include tilesP;
+			}
+		}
+		.tile {
+			@include tilesL;
+		}
+	}
+}
+
+
+
+
 
 .hide {
 	display: none;

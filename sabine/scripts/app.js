@@ -18,9 +18,6 @@ var idleTime = 0;
 getData();
 //setInterval(getData, 5 * 60 * 1000)
 
-// Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
-clock();
-setInterval( clock, 60 * 1000);
 
 // Eventlisteners
 gridEl.addEventListener('click', activate, false);
@@ -206,8 +203,6 @@ function setStresslevel(stresslevel){
 	// DetailView
 	dEl = detailEl.querySelector('.stresslevel');
 	dEl.querySelector('h2').innerText = stresslevel.message;
-	//dEl.querySelector('.ampel .active').classList.toggle('active');
-	dEl.querySelector('.ampel-' + stresslevel.indoor).classList.toggle('active');
 }
 
 // noise Element
@@ -231,8 +226,6 @@ function setNoise(noise){
 	// DetailView
 	dEl = detailEl.querySelector('.noise');
 	dEl.querySelector('data').innerText = noise.indoor + ' db';
-	//dEl.querySelector('.ampel .active').classList.toggle('active');
-	dEl.querySelector('.ampel-' + domClass).classList.toggle('active');
 }
 
 // Airquality Element
@@ -246,8 +239,6 @@ function setAirquality(airquality){
 	// DetailView
 	dEl = detailEl.querySelector('.airquality')
 	dEl.querySelector('h2').innerText = airquality.message;
-	//dEl.querySelector('.ampel .active').classList.toggle('active');
-	dEl.querySelector('.ampel-' + airquality.indoor).classList.toggle('active');
 }
 
 function foodListItem(data, itemWidth){
@@ -300,13 +291,6 @@ function weatherListItem(data, itemWidth, day){
 	item.appendChild(figure);
 
 	return item
-}
-
-// Clock
-function clock () {
-	var date = new Date();
-	document.getElementById('date').innerText = date.toLocaleDateString();
-	document.getElementById('time').innerText = date.toLocaleTimeString().substring(0,5);
 }
 
 // IdleTimer
