@@ -169,7 +169,7 @@ function setFood(food){
 
 	//DetailView
 	list = detailEl.querySelector('.food ul');
-	itemWidth = window.innerWidth * 0.60 - 60;
+	itemWidth = window.innerWidth * 0.60 - 80;
 	list.style.width = itemWidth * food.length + 'px';
 	for (var i = 0; food.length > i; i++) {
 		list.appendChild(foodListItem(food[i], itemWidth));
@@ -183,7 +183,7 @@ function setWeather(forecast){
 
 	// todo
 	list = detailEl.querySelector('.weather ul');
-	itemWidth = window.innerWidth * 0.60 - 60;
+	itemWidth = window.innerWidth * 0.60 - 80;
 	list.style.width = itemWidth * forecast.length + 'px';
 	day = ['Heute', 'Morgen', 'Übermorgen'];
 	for (var i = 0; forecast.length > i; i++) {
