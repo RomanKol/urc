@@ -84,7 +84,7 @@
 	"noise": {
 		"indoor": 62,
 		"flow_indoor": [1, 2, 3],
-		"origin": [ "box", "tv" , "other"]
+		"origin": [ "speaker", "tv" , "radio", "other"]
 	},
 	"pollen": {
 		"name": 1,
