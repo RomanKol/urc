@@ -6,6 +6,7 @@
 		"outdoor" : number, -> Wert (einfache AUsgabe)
 		"flow_outdoor" : array(number), -> Diagramm mit Verlauf
 		"message": string,
+		"unit" : string,
 		"origin": [
 			{property: number(1-10)), ...
 		], -> Säulendiagramm (property = iconname, number = wert im diagramm)
