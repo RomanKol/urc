@@ -91,6 +91,31 @@ http.createServer(function (req, res) {
 
 	// get is a simple wrapper for request()
 	// which sets the http method to GET
+	if(req.url=='/universal/index.html' || req.url=='/universal/') {
+		res.setHeader("Content-Type", "text/html");
+		var runningPath = 'universal/'
+			    var pathname = 'index.html';
+			  	//console.log(url.format(pathname));
+				//css(res,runningPath+"\\"+url.format(pathname))
+				var handler = function(error, content){
+
+				    if (error){
+				      console.log(error);
+				    }
+				    else{
+				      res.write(content);
+				      res.end()
+				    }
+				    //if(count == 1){
+				    //	response.end();
+				   // }
+				    
+				}
+
+			  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
+
+
+  	 }
 	if(req.url=='/index.html' || req.url=='/') {
 		res.setHeader("Content-Type", "text/html");
 		var runningPath = 'sabine/'
@@ -529,35 +554,53 @@ http.createServer(function (req, res) {
 							}
 							//-------------------------Devices from Openhab an their noise
 							var randomValue = randomIntInc(1,6);
-							var randomObject = new Object();
+							var randomArray = new Array();
 
 							switch(randomValue) {
    								case 1:
-   									randomObject["tv"] = 10;
+   									var obj = new Object()
+   									obj["tv"] = 10;
+   									randomArray.push(obj);
    								break
    								case 2:
-   									randomObject["box"] = 10;
+   									var obj = new Object()
+   									obj["box"] = 10;
+   									randomArray.push(obj);
    								break
    								case 3:
-   									randomObject["radio"] = 10;
+   									var obj = new Object()
+   									obj["radio"] = 10;
+   									randomArray.push(obj);
    								break
    								case 4:
-   									randomObject["tv"] = 7 ;
-									randomObject["radio"] = 5;
+   									var obj = new Object()
+   									obj["tv"] = 7;
+   									randomArray.push(obj);
+   									obj = new Object()
+   									obj["radio"] = 5;
+   									randomArray.push(obj);
    								break
    								case 5:
-   									randomObject["radio"] = 7 ;
-									randomObject["box"] = 5;
+   									var obj = new Object()
+   									obj["radio"] = 7;
+   									randomArray.push(obj);
+   									obj = new Object()
+   									obj["box"] = 5;
+   									randomArray.push(obj);
    								break
    								case 6:
-   									randomObject["box"] = 10 ;
-									randomObject["tv"] = 1;
-
+   									var obj = new Object()
+   									obj["box"] = 10;
+   									randomArray.push(obj);
+   									obj = new Object()
+   									obj["tv"] = 1;
+   									randomArray.push(obj);
+   									
    								break
    								default:
    									randomObject["unknownSource"] = 10;
    							}
-							returnObject.noise.origin = randomObject;
+							returnObject.noise.origin = randomArray;
 							//------start request for weather forcast
 							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.device.lng+"&lon="+returnObject.device.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
 							
@@ -639,6 +682,13 @@ http.createServer(function (req, res) {
 			else
 			{
 				var runningPath = 'sabine/'
+				var urlString = req.url;
+				if(req.url.indexOf('universal/') >= 1) {
+					runningPath = "./"
+				}
+
+
+				//var runningPath = 'sabine/'
 			    var pathname = req.url;
 				res.setHeader("Content-Type", "text/html");
 				var extension = pathname.split(".")[1];
