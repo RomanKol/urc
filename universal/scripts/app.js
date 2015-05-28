@@ -1,31 +1,49 @@
-// DON Elements
-var gridEl			= document.getElementById('theGrid'),
-	buttonEl		= document.getElementById('theButton'),
-	detailEl 		= document.getElementById('detail'),
-	headerEl		= document.getElementById('header'),
-	settingsEl 		= document.getElementById('settings'),
-	settingsBtnEl	= document.getElementById('settingsBtn'),
-	settingsImgEl = document.getElementById('settingsImg');
+// DOM Elements
 
-var listEl = document.getElementById('list'),
-	mainEl = document.getElementById('main');
-
+var mainEl = document.getElementById('main'),
+		navEl = document.getElementById('navbar'),
+		navBtnEl = document.getElementById('navBtn'),
+		navListEl = document.getElementById('navList'),
+		sttngBtnEl = document.getElementById('settingsBtn');
 
 var settings = {},
-	data = {};
+		data = {};
 
 // Initialize Functions
 update();
-loadSettings();
-clock();
+//loadSettings();
 
-// Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
-setInterval( clock, 1000);
+
 
 // Eventlisteners
-settingsBtnEl.addEventListener('click', modifySettings, false);
-settingsImgEl.addEventListener('click', toggleSettings, false);
-listEl.addEventListener('click', loadElement, false);
+
+	// Nav Toggle
+	navEl.addEventListener('click', function(evt){
+		var el = evt.target;
+
+		while(el.parentElement){
+			if(el.nodeName === 'LI'){
+
+				// Remove active from prev El
+				navToggle(el);
+
+				break;
+			} else if(el === navBtnEl){
+				//navEl.classList.remove('settings');
+				navEl.classList.toggle('active');
+				break;
+			} else if(el === sttngBtnEl){
+				navEl.classList.toggle('settings');
+			}
+			el = el.parentElement;
+		}
+	}, false);
+
+	function navToggle (element) {
+		var activeElement = navEl.querySelector('.active');
+		if(activeElement) activeElement.classList.remove('active');
+		element.classList.add('active');
+	}
 
 
 // Get NetAtmo Data
@@ -45,8 +63,7 @@ function update() {
     if (this.status >= 200 && this.status < 400){
       data = JSON.parse(this.response);
 
-      console.log(data);
-
+      build();
     } else {
       console.log('Fehler: ' + this);
     }
@@ -56,86 +73,63 @@ function update() {
 
 }
 
-
-// Clock
-function clock () {
-	var date = new Date();
-	headerEl.querySelector('#date').innerText = date.toLocaleDateString();
-	headerEl.querySelector('#time').innerText = date.toLocaleTimeString();
+function build(){
+	console.log(data);
+	buildNav();
+	buildMain();
 }
 
 
-// Load Settings
-function loadSettings(){
-	settings = JSON.parse(localStorage.getItem('settings'));
-
-	if(settings === null) settings = {};
-
-	//console.log(settings);
-
-	for( var setting in settings){
-		if(settings[setting] === true){
-			document.getElementById('settings_' + setting).checked = true;
-			addElement(setting);
-		} else {
-			document.getElementById('settings_' + setting).checked = false;
-		}
-	}
-
+// Navigation
+function buildNav(){
+	keys = Object.keys(data);
+	for (var i = 0; i < keys.length; i++) {
+		navListEl.appendChild(addNavListItem(keys[i]));
+	};
 }
 
+function addNavListItem(key){
 
-
-function addElement(key){
-
-	el = document.createElement('li');
+	li = document.createElement('li');
+	a = document.createElement('a');
+	a.href = '#' +  key;
 
 	img = document.createElement('img');
 	img.src = 'images/' + key + '.svg';
 
-	p = document.createElement('p');
-	p.innerText = key;
+	h = document.createElement('h3');
+	h.innerText = key;
 
-	el.appendChild(img);
-	el.appendChild(p);
+	a.appendChild(img);
+	a.appendChild(h);
+	li.appendChild(a);
 
-	listEl.appendChild(el);
+	return li;
 }
 
-// Setting Settings
-function modifySettings(){
-	var children = 	settingsEl.children;
+function buildMain(){
+	console.log('main');
+	for(item in data){
+		section = document.createElement('section');
+		section.id = item;
 
-	for (var i = 0; i < children.length; i++) {
-		if(children[i].tagName.toLowerCase() === 'input' && children[i].checked === true){
-			settings[children[i].id.substring(9)] = true;
-		} else if (children[i].tagName.toLowerCase() === 'input'){
-			settings[children[i].id.substring(9)] = false;
-		}
+		header = document.createElement('header');
 
+		h = document.createElement('h1');
+		h.innerText = item;
+
+		img = document.createElement('img');
+		img.src = 'images/' + item + '.svg';
+
+		console.log(item);
+		console.log(data[item]);
+
+		header.appendChild(img);
+		header.appendChild(h);
+		section.appendChild(header);
+
+		mainEl.appendChild(section);
 	};
-
-	// Remove All Child Elements Of ListElement
-	while (listEl.firstChild) {
-    listEl.removeChild(listEl.firstChild);
-	}
-
-	// Add Active Elements To ListElement
-	for( var setting in settings){
-		if(settings[setting] === true){
-			addElement(setting);
-		}
-	}
-
-	localStorage.setItem('settings', JSON.stringify(settings));
-
-	toggleSettings();
-
-}
-
-// Toggle Settings
-function toggleSettings(){
-	settingsEl.classList.toggle('active');
 }
 
 
@@ -231,10 +225,61 @@ function loadElement(evt){
 				mainEl.appendChild(ul);
 
 		}
-
-
-
-
 	}
 	evt.stopPropagation();
+}
+
+
+// Settings
+// Load Settings
+function loadSettings(){
+	settings = JSON.parse(localStorage.getItem('settings'));
+
+	if(settings === null) settings = {};
+
+	//console.log(settings);
+
+	for( var setting in settings){
+		if(settings[setting] === true){
+			document.getElementById('settings_' + setting).checked = true;
+			addElement(setting);
+		} else {
+			document.getElementById('settings_' + setting).checked = false;
+		}
+	}
+}
+
+// Toggle Settings
+function toggleSettings(){
+	settingsEl.classList.toggle('active');
+}
+
+// Setting Settings
+function modifySettings(){
+	var children = 	settingsEl.children;
+
+	for (var i = 0; i < children.length; i++) {
+		if(children[i].tagName.toLowerCase() === 'input' && children[i].checked === true){
+			settings[children[i].id.substring(9)] = true;
+		} else if (children[i].tagName.toLowerCase() === 'input'){
+			settings[children[i].id.substring(9)] = false;
+		}
+
+	};
+
+	// Remove All Child Elements Of ListElement
+	while (listEl.firstChild) {
+    listEl.removeChild(listEl.firstChild);
+	}
+
+	// Add Active Elements To ListElement
+	for( var setting in settings){
+		if(settings[setting] === true){
+			addElement(setting);
+		}
+	}
+
+	localStorage.setItem('settings', JSON.stringify(settings));
+
+	toggleSettings();
 }
