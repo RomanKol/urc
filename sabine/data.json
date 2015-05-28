@@ -1,109 +1,319 @@
 {
-	 "airquality":{
-      "indoor" : 2,
-      "message" : "Lorem Ipsum sed Dolor et ament doloris sunt."
+   "airquality":{
+      "indoor":2,
+      "percentage":0.6,
+      "origin":[
+         {
+            "temperature":1
+         },
+         {
+            "humidity":3
+         },
+         {
+            "co2":6
+         },
+         {
+            "noise":4
+         }
+      ],
+      "message":"Temp Message"
    },
-	"barometer": {
-		"indoor": 20,
-		"outdoor": 1,
-		"flow_indoor": [1, 2, 3],
-		"flow_outdoor": [1, 2, 3]
-	},
-	"co2": {
-		"indoor": 1,
-		"flow_indoor": [1, 2, 3]
-	},
-	"food": [
-		"Apfel",
-		"Rhabarber",
-		"Butterrueben",
-		"Champignons",
-		"Kartoffeln",
-		"Lauch Porree",
-		"Möhren Karotten",
-		"Pastinaken",
-		"Rote Bete",
-		"Rotkohl",
-		"Spargel",
-		"Spinat",
-		"Weisskohl",
-		"Chicoree",
-		"Feldsalat",
-		"Portulak"
-	],
-	"forecast": [
-    {
-			"dt": 1430218800,
-			"temp": {
-				"min": 3.07,
-				"max": 9.8
-			},
-			"weather": {
-				"id": 501,
-				"main": "Rain",
-				"description": "mäßiger Regen",
-				"icon": "10d"
-			},
-			"rain" :3.37
-		},
-		{
-			"dt": 1430305200,
-			"temp": {
-				"min": 5.04,
-				"max": 14.9
-			},
-			"weather": {
-				"id": 801,
-				"main": "Clouds",
-				"description": "ein paar Wolken",
-				"icon": "02d"
-			},
-			"rain" :0
-		},
-		{
-			"dt": 1430391600,
-			"temp": {
-				"min": 5.91,
-				"max": 10.92
-			},
-			"weather": {
-				"id": 501,
-				"main": "Rain",
-				"description": "mäßiger Regen",
-				"icon": "10d"
-			},
-			"rain": 4.36
-		}
-	],
-	"humidity": {
-		"indoor": 1,
-		"outdoor": 1,
-		"flow_indoor": [1, 2, 3],
-		"flow_outdoor": [1, 2, 3]
-	},
-	"noise": {
-		"indoor": 62,
-		"flow_indoor": [1, 2, 3],
-		"origin": [ "box", "tv" , "other"]
-	},
-	"pollen": {
-		"name": 1,
-		"name2": 2
-	},
-	"settings": {
-		"battery": 1,
-		"fstate": 1,
-		"lat": 1,
-		"lng": 1
-	},
-	"stresslevel": {
-   "indoor": 3,
-   "message":  "Lorem Ipsum sed Dolor et ament doloris sunt."
-  },
-	"temperature": {
-		"indoor": 14,
-		"outdoor": 1,
-		"flow_indoor": [1, 2, 3],
-		"flow_outdoor": [1, 2, 3]
-	}
+   "barometer":{
+      "indoor":1023.4,
+      "percentage":0.27,
+      "unit":"mb",
+      "message":"leichter Wind",
+      "flow_indoor":[
+         1015.1,
+         1024.4,
+         1024,
+         1023.4,
+         1022.1,
+         1021.3,
+         1020.7,
+         1019.5,
+         1016.9,
+         1014.7,
+         1014.6
+      ]
+   },
+   "co2":{
+      "indoor":1027,
+      "percentage":0.6,
+      "unit":"ppm",
+      "flow_indoor":[
+         256,
+         333,
+         921,
+         980,
+         2184,
+         3006,
+         727,
+         716,
+         412,
+         453,
+         1573
+      ]
+   },
+   "food":[
+      {
+         "Apfel":"http://www.chefkoch.de/rs/s0/Apfel/Rezepte.html"
+      },
+      {
+         "Erdbeeren":"http://www.chefkoch.de/rs/s0/Erdbeeren/Rezepte.html"
+      },
+      {
+         "Rhabarber":"http://www.chefkoch.de/rs/s0/Rhabarber/Rezepte.html"
+      },
+      {
+         "Blumenkohl":"http://www.chefkoch.de/rs/s0/Blumenkohl/Rezepte.html"
+      },
+      {
+         "Champignons":"http://www.chefkoch.de/rs/s0/Champignons/Rezepte.html"
+      },
+      {
+         "Kartoffeln":"http://www.chefkoch.de/rs/s0/Kartoffeln/Rezepte.html"
+      },
+      {
+         "Kohlrabi":"http://www.chefkoch.de/rs/s0/Kohlrabi/Rezepte.html"
+      },
+      {
+         "Lauch":"http://www.chefkoch.de/rs/s0/Lauch/Rezepte.html"
+      },
+      {
+         "Fruehlingszwiebeln":"http://www.chefkoch.de/rs/s0/Fruehlingszwiebeln/Rezepte.html"
+      },
+      {
+         "Mangold":"http://www.chefkoch.de/rs/s0/Mangold/Rezepte.html"
+      },
+      {
+         "Moehren":"http://www.chefkoch.de/rs/s0/Moehren/Rezepte.html"
+      },
+      {
+         "Radieschen":"http://www.chefkoch.de/rs/s0/Radieschen/Rezepte.html"
+      },
+      {
+         "Rotkohl":"http://www.chefkoch.de/rs/s0/Rotkohl/Rezepte.html"
+      },
+      {
+         "Spargel":"http://www.chefkoch.de/rs/s0/Spargel/Rezepte.html"
+      },
+      {
+         "Spinat":"http://www.chefkoch.de/rs/s0/Spinat/Rezepte.html"
+      },
+      {
+         "Spitzkohl":"http://www.chefkoch.de/rs/s0/Spitzkohl/Rezepte.html"
+      },
+      {
+         "Wirsingkohl":"http://www.chefkoch.de/rs/s0/Wirsingkohl/Rezepte.html"
+      },
+      {
+         "Batavia":"http://www.chefkoch.de/rs/s0/Batavia/Rezepte.html"
+      },
+      {
+         "Eichblattsalat":"http://www.chefkoch.de/rs/s0/Eichblattsalat/Rezepte.html"
+      },
+      {
+         "Endiviensalat":"http://www.chefkoch.de/rs/s0/Endiviensalat/Rezepte.html"
+      },
+      {
+         "Kopfsalat":"http://www.chefkoch.de/rs/s0/Kopfsalat/Rezepte.html"
+      },
+      {
+         "Lollo-Rosso":"http://www.chefkoch.de/rs/s0/Lollo-Rosso/Rezepte.html"
+      }
+   ],
+   "humidity":{
+      "indoor":56,
+      "unit":"%",
+      "flow_indoor":[
+         59,
+         60,
+         60,
+         59,
+         61,
+         62,
+         58,
+         57,
+         48,
+         48,
+         50
+      ],
+      "outdoor":51,
+      "flow_outdoor":[
+         22.5,
+         22.3,
+         21.9,
+         21.3,
+         21,
+         20.7,
+         20.4,
+         21.1,
+         21.8,
+         22.9,
+         22.8
+      ]
+   },
+   "noise":{
+      "indoor":44,
+      "percentage":0.4,
+      "origin":{
+         "radio":10
+      },
+      "unit":"dB",
+      "flow_indoor":[
+         41,
+         40,
+         47,
+         35,
+         35,
+         35,
+         44,
+         42,
+         35,
+         36,
+         50
+      ]
+   },
+   "pollen":{
+      "Erle":1,
+      "Hasel":1,
+      "Ulme":1,
+      "Weide":3,
+      "Pappel":2,
+      "Ahorn":3,
+      "Eibe":3,
+      "Birke":3,
+      "Eiche":3,
+      "Esche":3,
+      "Hainbuche":3,
+      "Raps":3,
+      "Flieder":3,
+      "Platane":3,
+      "Rotbuche":3,
+      "Spitzwegerich":3,
+      "Ampfer":3,
+      "Loewenzahn":3,
+      "Fichte":3,
+      "Walnuss":3,
+      "Hopfen":3,
+      "Akazie":3,
+      "Rosskastanie":3,
+      "Weizen":3,
+      "Graeser":3,
+      "Kiefer":3,
+      "Holunder":2,
+      "Hafer":2,
+      "Roggen":2,
+      "Tanne":2,
+      "Gerste":2,
+      "Linde":1,
+      "Gaensefuss":1,
+      "Beifuss":1,
+      "Goldrute":1,
+      "Brennessel":1,
+      "Mais":1,
+      "Nessel":1
+   },
+   "device":{
+      "battery":100,
+      "wifiState":2,
+      "fstate":3,
+      "lat":9.1032613,
+      "lng":48.7355183
+   },
+   "stresslevel":{
+      "indoor":2,
+      "percentage":0.6,
+      "origin":[
+         {
+            "temperature":1
+         },
+         {
+            "humidity":3
+         },
+         {
+            "co2":6
+         },
+         {
+            "noise":4
+         }
+      ],
+      "message":"Die Umgebung ist unruhig. Entspanne dich und genieÃŸe einen Tee"
+   },
+   "temperature":{
+      "indoor":19.4,
+      "unit":"C",
+      "flow_indoor":[
+         21.8,
+         22.2,
+         21.6,
+         21,
+         20.7,
+         20.3,
+         20.1,
+         20.9,
+         21.7,
+         22.8,
+         22.6
+      ],
+      "outdoor":19.3,
+      "flow_outdoor":[
+         51,
+         53,
+         53,
+         52,
+         55,
+         56,
+         51,
+         50,
+         41,
+         42,
+         44
+      ]
+   },
+   "forecast":[
+      {
+         "dt":1432724400,
+         "temp":{
+            "min":4.59,
+            "max":9.94
+         },
+         "weather":{
+            "id":800,
+            "main":"Clear",
+            "description":"klarer Himmel",
+            "icon":"01d"
+         },
+         "rain":0
+      },
+      {
+         "dt":1432810800,
+         "temp":{
+            "min":12.2,
+            "max":18.19
+         },
+         "weather":{
+            "id":803,
+            "main":"Clouds",
+            "description":"Ã¼berwiegend bewÃ¶lkt",
+            "icon":"04d"
+         },
+         "rain":0
+      },
+      {
+         "dt":1432810800,
+         "temp":{
+            "min":12.2,
+            "max":18.19
+         },
+         "weather":{
+            "id":803,
+            "main":"Clouds",
+            "description":"Ã¼berwiegend bewÃ¶lkt",
+            "icon":"04d"
+         },
+         "rain":0
+      }
+   ]
 }

@@ -172,7 +172,7 @@ function setFood(food){
 	itemWidth = window.innerWidth * 0.60 - 60;
 	list.style.width = itemWidth * food.length + 'px';
 	for (var i = 0; food.length > i; i++) {
-		list.appendChild(foodListItem(food[i], itemWidth));
+		list.appendChild(foodListItem(Object.keys(food[i])[0], itemWidth));
 	};
 }
 
