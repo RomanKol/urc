@@ -7,7 +7,7 @@ var mainEl = document.getElementById('main'),
 		sttngBtnEl = document.getElementById('settingsBtn');
 
 var settings = {},
-		data = {};
+		json = {};
 
 // Initialize Functions
 update();
@@ -61,7 +61,7 @@ function update() {
   // Status Handling
   request.onload = function() {
     if (this.status >= 200 && this.status < 400){
-      data = JSON.parse(this.response);
+      json = JSON.parse(this.response);
 
       build();
     } else {
@@ -74,21 +74,16 @@ function update() {
 }
 
 function build(){
-	console.log(data);
-	buildNav();
-	buildMain();
-}
 
+	for(item in json){
+		buildNavItem(item);
+		buildSection(item, json[item]);
+	}
+
+}
 
 // Navigation
-function buildNav(){
-	keys = Object.keys(data);
-	for (var i = 0; i < keys.length; i++) {
-		navListEl.appendChild(addNavListItem(keys[i]));
-	};
-}
-
-function addNavListItem(key){
+function buildNavItem(key){
 
 	li = document.createElement('li');
 	a = document.createElement('a');
@@ -104,32 +99,115 @@ function addNavListItem(key){
 	a.appendChild(h);
 	li.appendChild(a);
 
-	return li;
+	navListEl.appendChild(li);
 }
 
-function buildMain(){
-	console.log('main');
-	for(item in data){
-		section = document.createElement('section');
-		section.id = item;
+// Sections
+function buildSection(key, data){
+	section = document.createElement('section');
+	section.id = item;
 
-		header = document.createElement('header');
+	section.appendChild(addSectionHeader(item));
+	section.appendChild(addSectionContent(item, data));
 
-		h = document.createElement('h1');
-		h.innerText = item;
+	mainEl.appendChild(section);
+}
+
+function addSectionHeader(key){
+	header = document.createElement('header');
+
+	h = document.createElement('h1');
+	h.innerText = item;
+
+	img = document.createElement('img');
+	img.src = 'images/' + item + '.svg';
+
+	header.appendChild(img);
+	header.appendChild(h);
+
+	return header;
+}
+
+function addSectionContent(item, data){
+
+	main = undefined;
+
+	if(item === 'forecast' || item === 'device'){
+		// Cusom FORECAST || DEVICE
+		main = addCustom(item, data);
+	} else	if(typeof data === 'object' && Array.isArray(data) ){
+		// Food ||  Pollen
+		main = addArray(item, data);
+	} else {
+		// REST = airquality || barometer || co2 || humidity || noise || stresslevel || temperature
+		main = addObject(item, data);
+	}
+
+	return main;
+}
+
+
+function addCustom(item, data){
+
+	main = document.createElement('main');
+
+	console.log('FORECAST || DEVICE');
+	console.log(item);
+	console.log('************');
+
+	return main;
+}
+
+function addArray(item, data){
+
+	main = document.createElement('main');
+
+	console.log('FOOD');
+	console.log(item);
+	console.log('************');
+
+	data.forEach(function(value){
+		console.log(value);
+		main.appendChild(buildFigure(value));
+	});
+
+	return main;
+}
+
+function buildFigure(value){
+	for (key in value){
+		figure = document.createElement('figure');
 
 		img = document.createElement('img');
-		img.src = 'images/' + item + '.svg';
+		img.src = 'images/food/' + key + '.jpg';
 
-		console.log(item);
-		console.log(data[item]);
+		figcaption = document.createElement('figcaption');
+		h = document.createElement('h2');
+		h.innerText = key;
 
-		header.appendChild(img);
-		header.appendChild(h);
-		section.appendChild(header);
+		a = document.createElement('a');
+		a.href = value[key];
+		a.target = "_blank";
 
-		mainEl.appendChild(section);
-	};
+		figcaption.appendChild(h);
+		figcaption.appendChild(a);
+		figure.appendChild(img);
+		figure.appendChild(figcaption);
+	}
+
+	return figure;
+}
+
+
+function addObject(item, data){
+
+	main = document.createElement('main');
+
+	console.log('airquality || barometer || co2 || humidity || noise || stresslevel || temperature ||');
+	console.log(item);
+	console.log('************');
+
+	return main;
 }
 
 
@@ -209,7 +287,7 @@ function loadElement(evt){
 		// NUmber // Airquality
 		} else if(typeof data[element] === 'number'){
 
-			value = document.createElement('h2');
+			data = document.createElement('h2');
 			value.innerText = data[element];
 			mainEl.appendChild(value);
 

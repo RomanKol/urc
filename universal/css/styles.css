@@ -479,3 +479,28 @@ main#main {
       content: "";
       display: block;
       clear: both; }
+    /* line 140, E:/Sites/urc/universal/scss/styles.scss */
+    main#main > section > main > figure {
+      float: left;
+      width: 33.333%;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box; }
+      /* line 146, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section > main > figure > img {
+        width: 100%; }
+      /* line 149, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section > main > figure > figcaption {
+        position: relative; }
+        /* line 151, E:/Sites/urc/universal/scss/styles.scss */
+        main#main > section > main > figure > figcaption > a {
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+          height: 40px;
+          width: 40px;
+          background-image: url('../images/cook.svg');
+          background-size: 40px;
+          background-repeat: no-repeat;
+          background-postion: center; }

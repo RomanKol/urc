@@ -136,5 +136,32 @@ main#main {
 				clear: both;
 			}
 		}
+		> main {
+			> figure {
+				float: left;
+				width: 33.333%;
+				margin: 0;
+				padding: 10px;
+				box-sizing: border-box;
+				> img {
+					width: 100%;
+				}
+				> figcaption {
+					position: relative;
+					> a {
+						position: absolute;
+						right: 0;
+						top: 0;
+						display: block;
+						height: 40px;
+						width: 40px;
+						background-image: url('../images/cook.svg');
+						background-size: 40px;
+						background-repeat: no-repeat;
+						background-postion: center;
+					}
+				}
+			}
+		}
 	}
 }
