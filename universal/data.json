@@ -219,8 +219,8 @@
       "battery":100,
       "wifiState":2,
       "fstate":3,
-      "lat":9.1032613,
-      "lng":48.7355183
+      "lng":9.1032613,
+      "lat":48.7355183
    },
    "stresslevel":{
       "indoor":2,
@@ -243,7 +243,7 @@
    },
    "temperature":{
       "indoor":19.4,
-      "unit":"C",
+      "unit":"°C",
       "flow_indoor":[
          21.8,
          22.2,

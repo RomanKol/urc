@@ -79,20 +79,19 @@ function build(){
 		buildNavItem(item);
 		buildSection(item, json[item]);
 	}
-
 }
 
 // Navigation
 function buildNavItem(key){
 
-	li = document.createElement('li');
-	a = document.createElement('a');
+	var li = document.createElement('li');
+	var a = document.createElement('a');
 	a.href = '#' +  key;
 
-	img = document.createElement('img');
+	var img = document.createElement('img');
 	img.src = 'images/' + key + '.svg';
 
-	h = document.createElement('h3');
+	var h = document.createElement('h3');
 	h.innerText = key;
 
 	a.appendChild(img);
@@ -104,7 +103,7 @@ function buildNavItem(key){
 
 // Sections
 function buildSection(key, data){
-	section = document.createElement('section');
+	var section = document.createElement('section');
 	section.id = item;
 
 	section.appendChild(addSectionHeader(item));
@@ -114,12 +113,12 @@ function buildSection(key, data){
 }
 
 function addSectionHeader(key){
-	header = document.createElement('header');
+	var header = document.createElement('header');
 
-	h = document.createElement('h1');
+	var h = document.createElement('h1');
 	h.innerText = item;
 
-	img = document.createElement('img');
+	var img = document.createElement('img');
 	img.src = 'images/' + item + '.svg';
 
 	header.appendChild(img);
@@ -130,7 +129,7 @@ function addSectionHeader(key){
 
 function addSectionContent(item, data){
 
-	main = undefined;
+	var main = undefined;
 
 	if(item === 'forecast' || item === 'device'){
 		// Cusom FORECAST || DEVICE
@@ -149,25 +148,82 @@ function addSectionContent(item, data){
 
 function addCustom(item, data){
 
-	main = document.createElement('main');
+	var main = document.createElement('main');
 
 	console.log('FORECAST || DEVICE');
 	console.log(item);
 	console.log('************');
 
+	main.appendChild(buildDevice(item, data));
+	main.appendChild(buildMap(item, data));
+
 	return main;
 }
 
+function buildMap(item, data){
+
+	var section = document.createElement('section');
+	section.classList.add('map');
+
+	var map = document.createElement('div');
+
+	section.appendChild(map);
+
+	initMap(map, data.lat, data.lng);
+
+	return section;
+}
+
+function initMap(element, lat, lng){
+	var map;
+
+	var mapOptions = {
+	  zoom: 16
+	};
+
+	map = new google.maps.Map(element, mapOptions);
+
+	var pos = new google.maps.LatLng(lat, lng);
+
+	var marker = new google.maps.Marker({
+		position: pos,
+		map: map
+	});
+
+	map.setCenter(pos);
+
+}
+
+
+function buildDevice(item, data){
+
+	console.log(data);
+
+	var wifi = document.createElement('img');
+	wifi.src = 'images/wifistate_' + data.wifiState + '.svg';
+
+	var fstate = document.createElement('img');
+	fstate.src = 'images/fstate_' + data.fstate + '.svg';
+
+	var battery = document.createElement('data');
+	battery.classList.add('battery');
+	battery.innerText = data.battery + '%';
+
+	var section = document.createElement('section');
+	section.appendChild(wifi);
+	section.appendChild(fstate);
+	section.appendChild(battery);
+
+	return section;
+}
+
+
 function addArray(item, data){
 
-	main = document.createElement('main');
-
-	console.log('FOOD');
-	console.log(item);
-	console.log('************');
+	var main = document.createElement('main');
+	main.classList.add('list');
 
 	data.forEach(function(value){
-		console.log(value);
 		main.appendChild(buildFigure(value));
 	});
 
@@ -176,16 +232,16 @@ function addArray(item, data){
 
 function buildFigure(value){
 	for (key in value){
-		figure = document.createElement('figure');
+		var figure = document.createElement('figure');
 
-		img = document.createElement('img');
+		var img = document.createElement('img');
 		img.src = 'images/food/' + key + '.jpg';
 
-		figcaption = document.createElement('figcaption');
-		h = document.createElement('h2');
+		var figcaption = document.createElement('figcaption');
+		var h = document.createElement('h2');
 		h.innerText = key;
 
-		a = document.createElement('a');
+		var a = document.createElement('a');
 		a.href = value[key];
 		a.target = "_blank";
 
@@ -201,110 +257,42 @@ function buildFigure(value){
 
 function addObject(item, data){
 
-	main = document.createElement('main');
+	var main = document.createElement('main');
 
-	console.log('airquality || barometer || co2 || humidity || noise || stresslevel || temperature ||');
-	console.log(item);
-	console.log('************');
+	if(data.indoor){
+		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
+	}
+
+	if(data.outdoor){
+		main.appendChild(buildValue(data.outdoor, data.unit, 'outdoor'));
+	}
+
+	if(data.percentage){
+		main.appendChild(buildProgressBar(data.percentage))
+	}
 
 	return main;
 }
 
+function buildValue(value, unit, location){
 
-// Active Clicked List Element
-function loadElement(evt){
-	if(evt.target !== evt.currentTarget){
-		el = evt.target;
+	var data = document.createElement('data');
+	data.classList.add(location);
+	var text = value;
+	if(unit) text += unit;
+	data.innerText = text;
 
-		// Bubble To Clicked Tile Element
-		while( el.nodeName !== 'LI' ){
-			el = el.parentElement;
-		}
+	return data;
+}
 
-		// Remove Active Class From All Other Tiles
-		for (var i = 0; i < list.children.length; i++) {
-	  	if(list.children[i].classList.contains('active')){
-	  		list.children[i].classList.remove('active');
-	  	}
-		}
+function buildProgressBar(value){
 
-		// Add Active Class To Clicked Element
-		el.classList.add('active');
+	var progress = document.createElement('progress');
+	progress.min = 0;
+	progress.max = 1;
+	progress.value = value;
 
-		while (mainEl.firstChild) {
-	    mainEl.removeChild(mainEl.firstChild);
-		}
-
-		//Selected Element
-		element = el.querySelector('p').innerText;
-		console.log(element);
-
-		h1 = document.createElement('h1');
-		h1.innerText = element;
-
-		mainEl.appendChild(h1);
-
-		// Array // Food
-		if(typeof data[element] === 'object' && Array.isArray(data[element]) ){
-
-			ul = document.createElement('ul');
-
-			data[element].forEach(function(item){
-				li = document.createElement('li');
-				li.innerText = item;
-				ul.appendChild(li);
-			});
-
-			mainEl.appendChild(ul);
-
-		//
-		} else if(typeof data[element] === 'object'){
-
-			// Barometer, Co2, Humidity, Loudness, Temperature
-			if(data[element]['indoor']){
-				indoor = document.createElement('h2');
-				indoor.innerText = 'Indoor: ' + data[element]['indoor'];
-				mainEl.appendChild(indoor);
-			}
-
-			// Baromter, Humidity, Temperature
-			if(data[element]['outdoor']){
-				outdoor = document.createElement('h2');
-				outdoor.innerText = 'Outdoor: ' + data[element]['outdoor'];
-				mainEl.appendChild(outdoor);
-			}
-
-			// Pollen
-			if(!data[element]['indoor'] && !data[element]['outdoor']){
-				ul = document.createElement('ul');
-				for (item in data[element]) {
-			  	li = document.createElement('li');
-					li.innerText = item + ': ' + data[element][item];
-					ul.appendChild(li);
-				}
-				mainEl.appendChild(ul);
-			}
-		// NUmber // Airquality
-		} else if(typeof data[element] === 'number'){
-
-			data = document.createElement('h2');
-			value.innerText = data[element];
-			mainEl.appendChild(value);
-
-		// Settings
-		} else {
-
-			ul = document.createElement('ul');
-				for (item in data[element]) {
-			  	li = document.createElement('li');
-					li.innerText = item + ': ' + data[element][item];
-					ul.appendChild(li);
-				}
-				mainEl.appendChild(ul);
-
-		}
-	}
-	evt.stopPropagation();
+	return progress;
 }
 
 
