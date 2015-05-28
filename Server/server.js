@@ -139,16 +139,16 @@ http.createServer(function (req, res) {
 						var xml = buffer
 						var dataArray = new Array();
 						var returnObject = {
-							"airquality": {"indoor":0,"message":"Temp Message"},
-							"barometer": {"indoor" : 0,"message":windMessage, "flow_indoor": new Array()},
-							"co2": {"indoor" : 0, "flow_indoor": new Array()},
+							"airquality": {"indoor":0,"percentage" : 0, "origin" : new Array(),"message":"Temp Message"},
+							"barometer": {"indoor" : 0,"percentage" : 0,"unit" : "mb","message":windMessage, "flow_indoor": new Array()},
+							"co2": {"indoor" : 0,"percentage" : 0,"unit" : "ppm", "flow_indoor": new Array()},
 							"food": [],
-							"humidity": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
-						    "noise": {"indoor" : 0,"origin": new Array(),"flow_indoor": new Array()},
+							"humidity": {"indoor" : 0, "unit" : "%","flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						    "noise": {"indoor" : 0,"percentage" : 0,"origin" : new Array(),"unit" : "dB","origin": new Array(),"flow_indoor": new Array()},
 						    "pollen": new Object,
-						    "settings" : {"battery": 0,"fstate": 0,"lat": 0,"lng": 0},
-						    "stresslevel": {"indoor":0,"message":"Temp Message"},
-						    "temperature": {"indoor" : 0, "flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						    "device" : {"battery": 0,"wifiState" : 0,"alt":0,"fstate": 0,"lat": 0,"lng": 0},
+						    "stresslevel": {"indoor":0,"percentage" : 0,"origin" : new Array(),"message":"Temp Message"},
+						    "temperature": {"indoor" : 0, "unit" : "°C","flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
 						}
 						parseString(xml, function (err, result) {
 							
@@ -202,16 +202,22 @@ http.createServer(function (req, res) {
 									returnObject.humidity.flow_outdoor = flow_humidity_outdoor;
 								}
 								if(name.indexOf("Netatmo_Indoor_latitude") > -1){
-									returnObject.settings.lat = Number(result.items.item[it].state[0]);
+									returnObject.device.lng = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Indoor_longitude") > -1){
-									returnObject.settings.lng = Number(result.items.item[it].state[0]);
+									returnObject.device.lat = Number(result.items.item[it].state[0]);
+								}
+								if(name.indexOf("Netatmo_Indoor_altitude") > -1){
+									returnObject.device.alt = Number(result.items.item[it].state[0]);
+								}
+								if(name.indexOf("Netatmo_Indoor_wifi") > -1){
+									returnObject.device.wifiState = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Batteryvp") > -1){
-									returnObject.settings.battery = Number(result.items.item[it].state[0]);
+									returnObject.device.battery = Number(result.items.item[it].state[0]);
 								}
 								if(name.indexOf("Netatmo_Outdoor_Rfstatus") > -1){
-									returnObject.settings.fstate = Number(result.items.item[it].state[0]);
+									returnObject.device.fstate = Number(result.items.item[it].state[0]);
 								}
 
 							}
@@ -225,19 +231,29 @@ http.createServer(function (req, res) {
 							for (var obstIndex = 1; obstIndex < obst.length-1; obstIndex++){
 								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
 								if(obst[obstIndex][n] == 'ja' ||obst[obstIndex][n] == '(ja)' ){
-									returnObject.food.push(obst[obstIndex][0]);
+									var currentObst = obst[obstIndex][0];
+									var pushObject = new Object();
+
+									pushObject[currentObst] = "http://www.chefkoch.de/rs/s0/"+obst[obstIndex][0]+"/Rezepte.html";
+									returnObject.food.push(pushObject);
 								}
 							}
 							for (var gemueseIndex = 1; gemueseIndex < gemuese.length-1; gemueseIndex++){
 								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
 								if(gemuese[gemueseIndex][n] == 'ja' ||gemuese[gemueseIndex][n] == '(ja)' ){
-									returnObject.food.push(gemuese[gemueseIndex][0]);
+									var currentGemuese = gemuese[gemueseIndex][0];
+									var pushObject = new Object();
+									pushObject[currentGemuese] = "http://www.chefkoch.de/rs/s0/"+gemuese[gemueseIndex][0]+"/Rezepte.html" ;
+									returnObject.food.push(pushObject);
 								}
 							}
 							for (var salatIndex = 1; salatIndex < salat.length-1; salatIndex++){
 								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
 								if(salat[salatIndex][n] == 'ja' ||salat[salatIndex][n] == '(ja)' ){
-									returnObject.food.push(salat[salatIndex][0]);
+									var currentSalat = salat[salatIndex][0];
+									var pushObject = new Object()
+									pushObject[currentSalat] =  "http://www.chefkoch.de/rs/s0/"+salat[salatIndex][0]+"/Rezepte.html";
+									returnObject.food.push(pushObject);
 								}
 							}
 						
@@ -249,9 +265,15 @@ http.createServer(function (req, res) {
 							var co2 = Number(returnObject.co2.indoor);
 							var humidity_diff = Math.abs(feelgood_humidity - humidity_indoor);
 							var temp_diff = Math.abs(temparatur_indoor - feelgood_temp);
+
+							returnObject.barometer.percentage = 0.27;
 							//----normierung humidity
 							if(temp_diff>=15){
 								airquality = maxValue_airquality;
+								returnObject.airquality.percentage = 1;
+								var pushObject = new Object();
+								pushObject["temperature"] = 10;
+								returnObject.airquality.origin.push(pushObject);
 								if(temparatur_indoor >= feelgood_temp){
 									returnObject.airquality.message = "Misserable Qualität, es ist viel zu heiß hier drin";
 								}else{
@@ -260,15 +282,27 @@ http.createServer(function (req, res) {
 							}
 							else{
 								if(temp_diff>=10){
+									var pushObject = new Object();
+									pushObject["temperature"] = 6;
+									returnObject.airquality.origin.push(pushObject);
 									airquality+=4;
 								}
 								else{
 									if(temp_diff>=5){
+										var pushObject = new Object();
+										pushObject["temperature"] = 5;
+										returnObject.airquality.origin.push(pushObject);
 										airquality+=3;
 									}else{
 										if(temp_diff>=2){
+											var pushObject = new Object();
+											pushObject["temperature"] = 3;
+											returnObject.airquality.origin.push(pushObject)
 											airquality+=2;
 										}else{
+											var pushObject = new Object();
+											pushObject["temperature"] = 1;
+											returnObject.airquality.origin.push(pushObject)
 											airquality+=1;
 										}
 									}
@@ -278,19 +312,37 @@ http.createServer(function (req, res) {
 							//----normierung humidity
 							if(humidity_diff>=30){
 								airquality = maxValue_airquality;
+								returnObject.airquality.percentage = 1;
+								
+								var pushObject = new Object();
+								pushObject["humidity"] = 10;
+								returnObject.airquality.origin.push(pushObject)
+
 								returnObject.airquality.message = "Misserable Qualität, zu hohe Luftfeuchtigkeit im Raum, unbedingt Lüften";
 							}
 							else{
 								if(humidity_diff>=10){
+									var pushObject = new Object();
+									pushObject["humidity"] = 7;
+									returnObject.airquality.origin.push(pushObject)
 									airquality+=4;
 								}
 								else{
 									if(humidity_diff>=7){
+										var pushObject = new Object();
+										pushObject["humidity"] = 5;
+										returnObject.airquality.origin.push(pushObject)
 										airquality+=3;
 									}else{
 										if(humidity_diff>=3){
+											var pushObject = new Object();
+											pushObject["humidity"] = 3;
+											returnObject.airquality.origin.push(pushObject)
 											airquality+=2;
 										}else{
+											var pushObject = new Object();
+											pushObject["humidity"] = 1;
+											returnObject.airquality.origin.push(pushObject)
 											airquality+=1;
 										}
 									}
@@ -301,19 +353,43 @@ http.createServer(function (req, res) {
 							//----normierung Co2
 							if(co2>=2000){
 								airquality = maxValue_airquality;
+								returnObject.airquality.percentage = 1;
+								returnObject.co2.percentage = 1;
+								var pushObject = new Object();
+								pushObject["co2"] = 10;
+								returnObject.airquality.origin.push(pushObject)
+
 								returnObject.airquality.message = "Misserable Qualität, zu viel CO2 im Raum, unbedingt Lüften";
 							}
 							else{
 								if(co2>=1500){
+									var pushObject = new Object();
+									pushObject["co2"] = 8;
+									returnObject.airquality.origin.push(pushObject)
+
 									airquality+=8;
+									returnObject.co2.percentage = 0.75;
 								}
 								else{
 									if(co2>=1000){
+										var pushObject = new Object();
+										pushObject["co2"] = 6;
+										returnObject.airquality.origin.push(pushObject)
+
+										returnObject.co2.percentage = 0.6;
 										airquality+=6;
 									}else{
 										if(co2>=800){
+											var pushObject = new Object();
+											pushObject["co2"] = 5;
+											returnObject.airquality.origin.push(pushObject)
+											returnObject.co2.percentage = 0.5;
 											airquality+=4;
 										}else{
+											var pushObject = new Object();
+											pushObject["co2"] = 2;
+											returnObject.airquality.origin.push(pushObject)
+											returnObject.co2.percentage = 0.2;
 											airquality+=1;
 										}
 									}
@@ -323,17 +399,20 @@ http.createServer(function (req, res) {
 							var proz = 100/maxValue_airquality*airquality;
 							console.log("Proz Wert: "+proz);
 							if(proz<= 30){
+								returnObject.airquality.percentage = 0.3;
 								returnObject.airquality.indoor = Number(1);
 								if(returnObject.airquality.message.length == 0 ){
 									returnObject.airquality.message = "Ausgezeichnete Qualität, fast wie im tiefsten Urwald";
 								}
 							}else{
 								if(proz> 30 && proz<= 60){
+									returnObject.airquality.percentage = 0.6;
 									returnObject.airquality.indoor = Number(2);
 									if(returnObject.airquality.message.length == 0 ){
 										returnObject.airquality.message = "Mittelmaessige Qualität, denke daran in nächster Zeit zu lüften";
 									}
 								}else{
+									returnObject.airquality.percentage = 0.9;
 									returnObject.airquality.indoor = Number(3);
 									if(returnObject.airquality.message.length == 0 ){
 										returnObject.airquality.message = "Misserable Qualität, es ist unbedingt Zeit zum Lüften";
@@ -356,29 +435,64 @@ http.createServer(function (req, res) {
 							var stresslevel = airquality;
 							var maxValue_stresslevel = maxValue_airquality+12;
 							var noise = returnObject.noise.indoor;
+							returnObject.stresslevel.origin = returnObject.airquality.origin;
 							if(noise >=70){
+								returnObject.noise.percentage = 1;
 								stresslevel = maxValue_stresslevel;
+								
+								var pushObject = new Object();
+								pushObject["noise"] = 10;
+								returnObject.stresslevel.origin.push(pushObject)
+								
 								returnObject.stresslevel.message = "Die Umgebung ist unglaublich unruhig. Jetzt ist eine Ruhepause angesagt";
 							}else{
 								if(noise >=60){
+									returnObject.noise.percentage = 0.65;
 									stresslevel += 12;
+									var pushObject = new Object();
+									pushObject["noise"] = 8;
+									returnObject.stresslevel.origin.push(pushObject)
 								}else{
 									if(noise >=50){
+										returnObject.noise.percentage = 0.6;
 										stresslevel += 10;
+										var pushObject = new Object();
+										pushObject["noise"] = 7;
+										returnObject.stresslevel.origin.push(pushObject)
 									}else{
 										if(noise >=45){
+											returnObject.noise.percentage = 0.5;
 											stresslevel += 8;
+											var pushObject = new Object();
+											pushObject["noise"] = 5;
+											returnObject.stresslevel.origin.push(pushObject)
 										}else{
 											if(noise >=40){
+												returnObject.noise.percentage = 0.4;
 												stresslevel += 6;
+												var pushObject = new Object();
+												pushObject["noise"] = 4;
+												returnObject.stresslevel.origin.push(pushObject)
 											}else{
 												if(noise >=35){
+													returnObject.noise.percentage = 0.3;
 													stresslevel += 4;
+													var pushObject = new Object();
+													pushObject["noise"] = 3;
+													returnObject.stresslevel.origin.push(pushObject)
 												}else{
 													if(noise >=30){
+														returnObject.noise.percentage = 0.2;
 														stresslevel += 2;
+														var pushObject = new Object();
+														pushObject["noise"] = 2;
+														returnObject.stresslevel.origin.push(pushObject)
 													}else{
+														returnObject.noise.percentage = 0.0;
 														stresslevel += 1;
+														var pushObject = new Object();
+														pushObject["noise"] = 1;
+														returnObject.stresslevel.origin.push(pushObject)
 													}
 												}	
 											}
@@ -388,13 +502,16 @@ http.createServer(function (req, res) {
 							}
 							proz = 100/maxValue_stresslevel*stresslevel;
 							if(proz<= 30){
+								returnObject.stresslevel.percentage = 0.3;
 								returnObject.stresslevel.indoor = Number(1);
 								returnObject.stresslevel.message = "Du lässt dich von nichts aus der Ruhe bringen, du kannst ganz entspannt sein.";
 							}else{
 								if(proz> 30 && proz<= 60){
+									returnObject.stresslevel.percentage = 0.6;
 									returnObject.stresslevel.indoor = Number(2);
 									returnObject.stresslevel.message = "Die Umgebung ist unruhig. Entspanne dich und genieße einen Tee";
 								}else{
+									returnObject.stresslevel.percentage = 0.9;
 									returnObject.stresslevel.indoor = Number(3);
 									returnObject.stresslevel.message = "Die Umgebung ist sehr hektisch. Überprüfe deine Geräte und Luftqualität.";
 								}
@@ -412,32 +529,37 @@ http.createServer(function (req, res) {
 							}
 							//-------------------------Devices from Openhab an their noise
 							var randomValue = randomIntInc(1,6);
-							var randomArray = new Array();
+							var randomObject = new Object();
+
 							switch(randomValue) {
    								case 1:
-   									randomArray.push("tv")
+   									randomObject["tv"] = 10;
    								break
    								case 2:
-   									randomArray.push("box")
+   									randomObject["box"] = 10;
    								break
    								case 3:
-   									randomArray.push("other")
+   									randomObject["radio"] = 10;
    								break
    								case 4:
-   									randomArray.push("tv, other")
+   									randomObject["tv"] = 7 ;
+									randomObject["radio"] = 5;
    								break
    								case 5:
-   									randomArray.push("radio, other")
+   									randomObject["radio"] = 7 ;
+									randomObject["box"] = 5;
    								break
    								case 6:
-   									randomArray.push("radio, tv")
+   									randomObject["box"] = 10 ;
+									randomObject["tv"] = 1;
+
    								break
    								default:
-   									randomArray.push("unknownValue")
+   									randomObject["unknownSource"] = 10;
    							}
-							returnObject.noise.origin = randomArray;
+							returnObject.noise.origin = randomObject;
 							//------start request for weather forcast
-							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.settings.lng+"&lon="+returnObject.settings.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
+							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.device.lng+"&lon="+returnObject.device.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
 							
 							var request = http.get(urlOfweatherAPI, function (response) {	
 							    // data is streamed in chunks from the server
@@ -712,6 +834,10 @@ setInterval(function(){
 	    	var temp_accessToken= parsedJSON.access_token;
 	    	console.log("access_token: "+temp_accessToken)*/
 	    	var device_id = "70:ee:50:12:be:10";
+	    	var module_id = "02:00:00:12:d6:4c";
+	    	
+
+	    	//Request for indoor
 	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale=3hours";
 			console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
 			console.log("Measurement Request Counter : ["+RequestCounterForMeasurment+"]")
@@ -736,13 +862,13 @@ setInterval(function(){
 			    	}
 			    	else{
 						flow_barometer_indoor 	= [];
-						flow_barometer_outdoor 	= [];
+					
 					 	flow_co2			 	= [];
 						flow_humidity_indoor	= [];
-						flow_humidity_outdoor	= [];
+						
 						flow_noise				= [];
 						flow_temperatur_indoor 	= [];
-						flow_temperatur_outdoor	= [];
+					
 			    		
 				    	var parsedJSONFromMeasurement = JSON.parse(measurment);
 				    	for(var counter = 0; counter < parsedJSONFromMeasurement.body[0].value.length;counter++){
@@ -789,6 +915,45 @@ setInterval(function(){
 		                + currentdate.getMinutes() + ":" 
 		                + currentdate.getSeconds();
 					    	}
+			    });
+			 });
+
+
+			//Request for outdoor
+	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&module_id="+module_id+"&type=Temperature,Humidity&scale=3hours";
+			console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
+			console.log("Measurement Request Counter : ["+RequestCounterForMeasurment+"]")
+			RequestCounterForMeasurment += 1;				
+			var request = https.get(urlOfNetAtmoAPiForMeasurements, function (response) {	
+			    // data is streamed in chunks from the server
+			    // so we have to handle the "data" event    
+			    var measurment = ""
+			    //console.log('Start Request for measurment');
+			    response.on("data", function (chunk) {
+			        measurment += chunk;
+			    }); 
+
+			    response.on("end", function (err) {
+			    	console.log("Get Result from history API "+measurment);
+			    	if(measurment.indexOf('{"error":') === 0){
+			    		if(dataTimestampOfRequest.length == 0){
+			    			console.log("Can't retrieve data because of error, next try in 5 minutes last successfull request was never");
+			    		}else{
+			    			console.log("Can't retrieve data because of error, next try in 5 minutes last successfull request was:"+dataTimestampOfRequest);
+			    		}
+			    	}
+			    	else{
+						flow_humidity_outdoor	= [];
+						flow_temperatur_outdoor	= [];
+			    		
+				    	var parsedJSONFromMeasurement = JSON.parse(measurment);
+				    	for(var counter = 0; counter < parsedJSONFromMeasurement.body[0].value.length;counter++){
+				    		var step =  parsedJSONFromMeasurement.body[0].value[counter];
+				    		console.log("step"+step)
+				    		flow_humidity_outdoor.push(step[1]);
+				    		flow_temperatur_outdoor.push(step[0]);
+				    	}
+				    }
 			    });
 			 });
 //	    });
