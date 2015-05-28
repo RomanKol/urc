@@ -57,22 +57,6 @@ gulp.task('scss-build', function(){
 gulp.task('watch', function(){
   // Sass
   gulp.watch('../scss/**/*.scss', ['scss']);
-  // JS
-  gulp.watch('../js/source/**/*.js', ['scripts']);
-
-  gulp.src('../js/javascript.js')
-    .pipe(confirm({
-      question: 'Do you want to create minified css/js? (y/n)',
-      continue: function(answer) {
-        if(answer.toLowerCase() === 'y') {
-          gulp.start('build');
-          gulp.start('watch-minify');
-          return true;
-        }
-        return false;
-      }
-    }));
-
 });
 
 

@@ -1,31 +1,49 @@
-// DON Elements
-var gridEl			= document.getElementById('theGrid'),
-	buttonEl		= document.getElementById('theButton'),
-	detailEl 		= document.getElementById('detail'),
-	headerEl		= document.getElementById('header'),
-	settingsEl 		= document.getElementById('settings'),
-	settingsBtnEl	= document.getElementById('settingsBtn'),
-	settingsImgEl = document.getElementById('settingsImg');
+// DOM Elements
 
-var listEl = document.getElementById('list'),
-	mainEl = document.getElementById('main');
-
+var mainEl = document.getElementById('main'),
+		navEl = document.getElementById('navbar'),
+		navBtnEl = document.getElementById('navBtn'),
+		navListEl = document.getElementById('navList'),
+		sttngBtnEl = document.getElementById('settingsBtn');
 
 var settings = {},
-	data = {};
+		json = {};
 
 // Initialize Functions
 update();
-loadSettings();
-clock();
+//loadSettings();
 
-// Clock, Update Every 60 Seconds (60 * 1000 Milliseconds)
-setInterval( clock, 1000);
+
 
 // Eventlisteners
-settingsBtnEl.addEventListener('click', modifySettings, false);
-settingsImgEl.addEventListener('click', toggleSettings, false);
-listEl.addEventListener('click', loadElement, false);
+
+	// Nav Toggle
+	navEl.addEventListener('click', function(evt){
+		var el = evt.target;
+
+		while(el.parentElement){
+			if(el.nodeName === 'LI'){
+
+				// Remove active from prev El
+				navToggle(el);
+
+				break;
+			} else if(el === navBtnEl){
+				//navEl.classList.remove('settings');
+				navEl.classList.toggle('active');
+				break;
+			} else if(el === sttngBtnEl){
+				navEl.classList.toggle('settings');
+			}
+			el = el.parentElement;
+		}
+	}, false);
+
+	function navToggle (element) {
+		var activeElement = navEl.querySelector('.active');
+		if(activeElement) activeElement.classList.remove('active');
+		element.classList.add('active');
+	}
 
 
 // Get NetAtmo Data
@@ -43,10 +61,9 @@ function update() {
   // Status Handling
   request.onload = function() {
     if (this.status >= 200 && this.status < 400){
-      data = JSON.parse(this.response);
+      json = JSON.parse(this.response);
 
-      console.log(data);
-
+      build();
     } else {
       console.log('Fehler: ' + this);
     }
@@ -56,15 +73,230 @@ function update() {
 
 }
 
+function build(){
 
-// Clock
-function clock () {
-	var date = new Date();
-	headerEl.querySelector('#date').innerText = date.toLocaleDateString();
-	headerEl.querySelector('#time').innerText = date.toLocaleTimeString();
+	for(item in json){
+		buildNavItem(item);
+		buildSection(item, json[item]);
+	}
+}
+
+// Navigation
+function buildNavItem(key){
+
+	var li = document.createElement('li');
+	var a = document.createElement('a');
+	a.href = '#' +  key;
+
+	var img = document.createElement('img');
+	img.src = 'images/' + key + '.svg';
+
+	var h = document.createElement('h3');
+	h.innerText = key;
+
+	a.appendChild(img);
+	a.appendChild(h);
+	li.appendChild(a);
+
+	navListEl.appendChild(li);
+}
+
+// Sections
+function buildSection(key, data){
+	var section = document.createElement('section');
+	section.id = item;
+
+	section.appendChild(addSectionHeader(item));
+	section.appendChild(addSectionContent(item, data));
+
+	mainEl.appendChild(section);
+}
+
+function addSectionHeader(key){
+	var header = document.createElement('header');
+
+	var h = document.createElement('h1');
+	h.innerText = item;
+
+	var img = document.createElement('img');
+	img.src = 'images/' + item + '.svg';
+
+	header.appendChild(img);
+	header.appendChild(h);
+
+	return header;
+}
+
+function addSectionContent(item, data){
+
+	var main = undefined;
+
+	if(item === 'forecast' || item === 'device'){
+		// Cusom FORECAST || DEVICE
+		main = addCustom(item, data);
+	} else	if(typeof data === 'object' && Array.isArray(data) ){
+		// Food ||  Pollen
+		main = addArray(item, data);
+	} else {
+		// REST = airquality || barometer || co2 || humidity || noise || stresslevel || temperature
+		main = addObject(item, data);
+	}
+
+	return main;
 }
 
 
+function addCustom(item, data){
+
+	var main = document.createElement('main');
+
+	console.log('FORECAST || DEVICE');
+	console.log(item);
+	console.log('************');
+
+	main.appendChild(buildDevice(item, data));
+	main.appendChild(buildMap(item, data));
+
+	return main;
+}
+
+function buildMap(item, data){
+
+	var section = document.createElement('section');
+	section.classList.add('map');
+
+	var map = document.createElement('div');
+
+	section.appendChild(map);
+
+	initMap(map, data.lat, data.lng);
+
+	return section;
+}
+
+function initMap(element, lat, lng){
+	var map;
+
+	var mapOptions = {
+	  zoom: 16
+	};
+
+	map = new google.maps.Map(element, mapOptions);
+
+	var pos = new google.maps.LatLng(lat, lng);
+
+	var marker = new google.maps.Marker({
+		position: pos,
+		map: map
+	});
+
+	map.setCenter(pos);
+
+}
+
+
+function buildDevice(item, data){
+
+	console.log(data);
+
+	var wifi = document.createElement('img');
+	wifi.src = 'images/wifistate_' + data.wifiState + '.svg';
+
+	var fstate = document.createElement('img');
+	fstate.src = 'images/fstate_' + data.fstate + '.svg';
+
+	var battery = document.createElement('data');
+	battery.classList.add('battery');
+	battery.innerText = data.battery + '%';
+
+	var section = document.createElement('section');
+	section.appendChild(wifi);
+	section.appendChild(fstate);
+	section.appendChild(battery);
+
+	return section;
+}
+
+
+function addArray(item, data){
+
+	var main = document.createElement('main');
+	main.classList.add('list');
+
+	data.forEach(function(value){
+		main.appendChild(buildFigure(value));
+	});
+
+	return main;
+}
+
+function buildFigure(value){
+	for (key in value){
+		var figure = document.createElement('figure');
+
+		var img = document.createElement('img');
+		img.src = 'images/food/' + key + '.jpg';
+
+		var figcaption = document.createElement('figcaption');
+		var h = document.createElement('h2');
+		h.innerText = key;
+
+		var a = document.createElement('a');
+		a.href = value[key];
+		a.target = "_blank";
+
+		figcaption.appendChild(h);
+		figcaption.appendChild(a);
+		figure.appendChild(img);
+		figure.appendChild(figcaption);
+	}
+
+	return figure;
+}
+
+
+function addObject(item, data){
+
+	var main = document.createElement('main');
+
+	if(data.indoor){
+		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
+	}
+
+	if(data.outdoor){
+		main.appendChild(buildValue(data.outdoor, data.unit, 'outdoor'));
+	}
+
+	if(data.percentage){
+		main.appendChild(buildProgressBar(data.percentage))
+	}
+
+	return main;
+}
+
+function buildValue(value, unit, location){
+
+	var data = document.createElement('data');
+	data.classList.add(location);
+	var text = value;
+	if(unit) text += unit;
+	data.innerText = text;
+
+	return data;
+}
+
+function buildProgressBar(value){
+
+	var progress = document.createElement('progress');
+	progress.min = 0;
+	progress.max = 1;
+	progress.value = value;
+
+	return progress;
+}
+
+
+// Settings
 // Load Settings
 function loadSettings(){
 	settings = JSON.parse(localStorage.getItem('settings'));
@@ -81,25 +313,11 @@ function loadSettings(){
 			document.getElementById('settings_' + setting).checked = false;
 		}
 	}
-
 }
 
-
-
-function addElement(key){
-
-	el = document.createElement('li');
-
-	img = document.createElement('img');
-	img.src = 'images/' + key + '.svg';
-
-	p = document.createElement('p');
-	p.innerText = key;
-
-	el.appendChild(img);
-	el.appendChild(p);
-
-	listEl.appendChild(el);
+// Toggle Settings
+function toggleSettings(){
+	settingsEl.classList.toggle('active');
 }
 
 // Setting Settings
@@ -130,111 +348,4 @@ function modifySettings(){
 	localStorage.setItem('settings', JSON.stringify(settings));
 
 	toggleSettings();
-
-}
-
-// Toggle Settings
-function toggleSettings(){
-	settingsEl.classList.toggle('active');
-}
-
-
-// Active Clicked List Element
-function loadElement(evt){
-	if(evt.target !== evt.currentTarget){
-		el = evt.target;
-
-		// Bubble To Clicked Tile Element
-		while( el.nodeName !== 'LI' ){
-			el = el.parentElement;
-		}
-
-		// Remove Active Class From All Other Tiles
-		for (var i = 0; i < list.children.length; i++) {
-	  	if(list.children[i].classList.contains('active')){
-	  		list.children[i].classList.remove('active');
-	  	}
-		}
-
-		// Add Active Class To Clicked Element
-		el.classList.add('active');
-
-		while (mainEl.firstChild) {
-	    mainEl.removeChild(mainEl.firstChild);
-		}
-
-		//Selected Element
-		element = el.querySelector('p').innerText;
-		console.log(element);
-
-		h1 = document.createElement('h1');
-		h1.innerText = element;
-
-		mainEl.appendChild(h1);
-
-		// Array // Food
-		if(typeof data[element] === 'object' && Array.isArray(data[element]) ){
-
-			ul = document.createElement('ul');
-
-			data[element].forEach(function(item){
-				li = document.createElement('li');
-				li.innerText = item;
-				ul.appendChild(li);
-			});
-
-			mainEl.appendChild(ul);
-
-		//
-		} else if(typeof data[element] === 'object'){
-
-			// Barometer, Co2, Humidity, Loudness, Temperature
-			if(data[element]['indoor']){
-				indoor = document.createElement('h2');
-				indoor.innerText = 'Indoor: ' + data[element]['indoor'];
-				mainEl.appendChild(indoor);
-			}
-
-			// Baromter, Humidity, Temperature
-			if(data[element]['outdoor']){
-				outdoor = document.createElement('h2');
-				outdoor.innerText = 'Outdoor: ' + data[element]['outdoor'];
-				mainEl.appendChild(outdoor);
-			}
-
-			// Pollen
-			if(!data[element]['indoor'] && !data[element]['outdoor']){
-				ul = document.createElement('ul');
-				for (item in data[element]) {
-			  	li = document.createElement('li');
-					li.innerText = item + ': ' + data[element][item];
-					ul.appendChild(li);
-				}
-				mainEl.appendChild(ul);
-			}
-		// NUmber // Airquality
-		} else if(typeof data[element] === 'number'){
-
-			value = document.createElement('h2');
-			value.innerText = data[element];
-			mainEl.appendChild(value);
-
-		// Settings
-		} else {
-
-			ul = document.createElement('ul');
-				for (item in data[element]) {
-			  	li = document.createElement('li');
-					li.innerText = item + ': ' + data[element][item];
-					ul.appendChild(li);
-				}
-				mainEl.appendChild(ul);
-
-		}
-
-
-
-
-	}
-	evt.stopPropagation();
 }
