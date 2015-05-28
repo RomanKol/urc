@@ -216,6 +216,7 @@
       "Nessel":1
    },
    "device":{
+      "alt":454,
       "battery":100,
       "wifiState":2,
       "fstate":3,

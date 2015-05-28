@@ -118,7 +118,7 @@ main#main {
 	margin-left: 50px;
 	padding: 10px;
 	> section {
-		margin-bottom: 80px;
+		margin-bottom: 140px;
 		> header {
 			> img {
 				float: left;
@@ -149,6 +149,9 @@ main#main {
 				}
 				> figcaption {
 					position: relative;
+					> h2 {
+						margin: 0.5em 0;
+					}
 					> a {
 						position: absolute;
 						right: 0;
@@ -196,6 +199,18 @@ main#main {
 					margin-left: 20px;
 				}
 			}
+			> section.origins {
+				> figure {
+					width: 25%;
+					> img {
+						width: 100%;
+					}
+					> figcaption {
+						font-size: 1.5em;
+
+					}
+				}
+			}
 			&.list {
 				&:after {
 					display: block;
@@ -210,6 +225,8 @@ main#main {
 					> img {
 						width: 33.33%;
 						float: left;
+						padding: 20px;
+						box-sizing: border-box;
 					}
 					> data.battery {
 						display: block;
@@ -237,9 +254,21 @@ main#main {
 							margin: 0;
 							padding: 0;
 						}
+						> data {
+							margin: 20px 0;
+							width: 33.333%;
+							font-size: 3em;
+							display: block;
+							float: left;
+						}
 					}
 				}
 			}
+		}
+		&:after {
+			clear: both;
+			content: '';
+			display: block;
 		}
 	}
 }

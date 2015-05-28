@@ -153,9 +153,10 @@ function addCustom(item, data){
 	console.log('FORECAST || DEVICE');
 	console.log(item);
 	console.log('************');
-
-	main.appendChild(buildDevice(item, data));
-	main.appendChild(buildMap(item, data));
+	if(item === 'device'){
+		main.appendChild(buildDevice(item, data));
+		main.appendChild(buildMap(item, data));
+	}
 
 	return main;
 }
@@ -167,7 +168,17 @@ function buildMap(item, data){
 
 	var map = document.createElement('div');
 
+	var alt = document.createElement('data');
+	alt.innerText = 'Alt: ' + data.alt + 'm';
+	var lat = document.createElement('data');
+	lat.innerText = 'Lat: ' + data.lat.toFixed(3);
+	var lng = document.createElement('data');
+	lng.innerText = 'Lng: ' + data.lng.toFixed(3);
+
 	section.appendChild(map);
+	section.appendChild(alt);
+	section.appendChild(lat);
+	section.appendChild(lng);
 
 	initMap(map, data.lat, data.lng);
 
@@ -191,7 +202,6 @@ function initMap(element, lat, lng){
 	});
 
 	map.setCenter(pos);
-
 }
 
 
@@ -200,7 +210,7 @@ function buildDevice(item, data){
 	console.log(data);
 
 	var wifi = document.createElement('img');
-	wifi.src = 'images/wifistate_' + data.wifiState + '.svg';
+	wifi.src = 'images/wifi_' + data.wifiState + '.svg';
 
 	var fstate = document.createElement('img');
 	fstate.src = 'images/fstate_' + data.fstate + '.svg';
@@ -271,8 +281,14 @@ function addObject(item, data){
 		main.appendChild(buildProgressBar(data.percentage))
 	}
 
+	if(data.origin){
+		console.log('Origins');
+		//main.appendChild(buildOrigin(item, data.origin));
+	}
+
 	return main;
 }
+
 
 function buildValue(value, unit, location){
 
@@ -293,6 +309,46 @@ function buildProgressBar(value){
 	progress.value = value;
 
 	return progress;
+}
+
+function buildOrigin(item, value){
+
+	var origins = document.createElement('canvas');
+	origins.width = window.innerWidth - 70;
+	origins.height = Math.round(origins.width / 1.778, 2);
+	origins.classList.add('origins');
+	var ctx = origins.getContext('2d');
+
+	console.log(origins);
+
+	if(Array.isArray(value)){
+
+		var data = {
+		    labels: [],
+		    datasets: [
+		        {
+		            label: item,
+		            fillColor: "rgba(220,220,220,0.5)",
+		            strokeColor: "rgba(220,220,220,0.8)",
+		            highlightFill: "rgba(220,220,220,0.75)",
+		            highlightStroke: "rgba(220,220,220,1)",
+		            data: []
+		        }
+		    ]
+		};
+
+		value.forEach(function(origin){
+			for(key in origin){
+				data.labels.push(key);
+				data.datasets[0].data.push(origin[key]);
+			}
+		});
+
+		var myBarChart = new Chart(ctx).Bar(data);
+
+	}
+
+	return origins;
 }
 
 
