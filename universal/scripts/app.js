@@ -8,15 +8,17 @@ var mainEl = document.getElementById('main'),
 
 var settings = {},
 		json = {},
-		charts = {};
+		barCharts = {},
+		lineCharts = {};
 
-Chart.defaults.global.animation = false;
-Chart.defaults.global.scaleLineColor = "#000";
-Chart.defaults.global.scaleLineWidth = 1;
-Chart.defaults.global.scaleFontFamily = "'Segoe UI', Arial, sans-serif",
-Chart.defaults.global.scaleFontSize = 24;
-Chart.defaults.global.scaleFontStyle = "bold";
-Chart.defaults.global.scaleFontColor = '#fff';
+		// Global Charts Options
+		Chart.defaults.global.animation = false;
+		Chart.defaults.global.scaleLineColor = "#000";
+		Chart.defaults.global.scaleLineWidth = 1;
+		Chart.defaults.global.scaleFontFamily = "'Segoe UI', Arial, sans-serif",
+		Chart.defaults.global.scaleFontSize = 24;
+		Chart.defaults.global.scaleFontStyle = "bold";
+		Chart.defaults.global.scaleFontColor = '#fff';
 
 // Initialize Functions
 update();
@@ -56,27 +58,27 @@ function navToggle (element) {
 function update() {
 
 	// AJAX Request
-  var	request = new XMLHttpRequest();
-      request.open('GET', 'data.json');
+	var	request = new XMLHttpRequest();
+			request.open('GET', 'data.json');
 
-  // ErrorHandling
-  request.onerror = function() {
-    console.log('Fehler beim Senden der Daten');
-  };
+	// ErrorHandling
+	request.onerror = function() {
+		console.log('Fehler beim Senden der Daten');
+	};
 
-  // Status Handling
-  request.onload = function() {
-    if (this.status >= 200 && this.status < 400){
-      json = JSON.parse(this.response);
+	// Status Handling
+	request.onload = function() {
+		if (this.status >= 200 && this.status < 400){
+			json = JSON.parse(this.response);
 
-      build();
+			build();
 
-    } else {
-      console.log('Fehler: ' + this);
-    }
-  }
+		} else {
+			console.log('Fehler: ' + this);
+		}
+	}
 
-  request.send();
+	request.send();
 }
 
 function build(){
@@ -91,7 +93,8 @@ function build(){
 		scaleShowVerticalLines: false
 	}
 
-	initCharts(options);
+	initBarCharts(options);
+	initLineCharts(options);
 }
 
 // Navigation
@@ -99,7 +102,7 @@ function buildNavItem(key){
 
 	var li = document.createElement('li');
 	var a = document.createElement('a');
-	a.href = '#' +  key;
+	a.href = '#' +	key;
 
 	var img = document.createElement('img');
 	img.src = 'images/' + key + '.svg';
@@ -148,7 +151,7 @@ function addSectionContent(item, data){
 		// Cusom FORECAST || DEVICE
 		main = addCustom(item, data);
 	} else	if(typeof data === 'object' && Array.isArray(data) ){
-		// Food ||  Pollen
+		// Food ||	Pollen
 		main = addArray(item, data);
 	} else {
 		// REST = airquality || barometer || co2 || humidity || noise || stresslevel || temperature
@@ -234,9 +237,9 @@ function initMap(element, lat, lng){
 	var map;
 
 	var mapOptions = {
-	  zoom: 16,
-	  mapTypeControl: false,
-	  scrollwheel: false
+		zoom: 16,
+		mapTypeControl: false,
+		scrollwheel: false
 	};
 
 	map = new google.maps.Map(element, mapOptions);
@@ -315,8 +318,16 @@ function addObject(item, data){
 		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
 	}
 
+	if(data.flow_indoor){
+		main.appendChild(buildFlow(item, data.flow_indoor, data.unit, 'indoor'));
+	}
+
 	if(data.outdoor){
 		main.appendChild(buildValue(data.outdoor, data.unit, 'outdoor'));
+	}
+
+	if(data.flow_outdoor){
+		main.appendChild(buildFlow(item, data.flow_outdoor, data.unit, 'outdoor'));
 	}
 
 	if(data.percentage){
@@ -353,25 +364,25 @@ function buildProgressBar(value){
 
 function buildOrigin(item, value){
 
-	var origins = document.createElement('canvas');
-	origins.width = window.innerWidth - 90;
-	origins.height = Math.round(origins.width / 1.778, 2);
-	origins.classList.add('origins');
+	var canvas = document.createElement('canvas');
+	canvas.classList.add('origin');
+	canvas.width = window.innerWidth - 90;
+	canvas.height = Math.round(canvas.width / 1.778, 2);
 
 	if(Array.isArray(value)){
 
 		var data = {
-		    labels: [],
-		    datasets: [
-		        {
-		            label: item,
-		            fillColor: "rgba(220,220,220,0.7)",
-		            strokeColor: "rgba(220,220,220, 0.9)",
-		            highlightFill: "rgba(220,220,220,0.75)",
-		            highlightStroke: "rgba(220,220,220,1)",
-		            data: []
-		        }
-		    ]
+				labels: [],
+				datasets: [
+						{
+								label: item,
+								fillColor: "rgba(220,220,220,0.7)",
+								strokeColor: "rgba(220,220,220, 0.9)",
+								highlightFill: "rgba(220,220,220,0.75)",
+								highlightStroke: "rgba(220,220,220,1)",
+								data: []
+						}
+				]
 		};
 
 		value.forEach(function(origin){
@@ -381,18 +392,68 @@ function buildOrigin(item, value){
 			}
 		});
 
-		charts[item] = data;
+		barCharts[item] = data;
 
 	}
 
-	return origins;
+	return canvas;
 }
 
-function initCharts(options){
-	for (chart in charts){
+function buildFlow(item, value, unit, location){
+
+	var canvas = document.createElement('canvas');
+	canvas.classList.add('flow', location);
+	canvas.width = window.innerWidth - 90;
+	canvas.height = Math.round(canvas.width / 1.778, 2);
+
+
+	if(Array.isArray(value)){
+
+		var data = {
+				labels: [],
+				datasets: [
+						{
+								label: item,
+								fillColor: "rgba(220,220,220,0.7)",
+								strokeColor: "rgba(220,220,220, 0.9)",
+								highlightFill: "rgba(220,220,220,0.75)",
+								highlightStroke: "rgba(220,220,220,1)",
+								data: []
+						}
+				],
+				unit: unit
+		};
+
+		for (var i = value.length - 1; i >= 0; i--) {
+			data.labels.push('t-' + i);
+			data.datasets[0].data.push(value[i]);
+		};
+
+		lineCharts[item + '-' + location ] = data;
+
+	}
+
+	return canvas;
+}
+
+function initBarCharts(options){
+	for (chart in barCharts){
+		var ctx = document.querySelector('#' + chart + ' .origin' ).getContext("2d"),
+				chart = new Chart(ctx).Bar(barCharts[chart], options);
+	}
+}
+
+function initLineCharts(options){
+	console.log(lineCharts);
+	for (chart in lineCharts){
+
+		var classes = chart.split('-');
+
 		console.log(chart);
-		var ctx = document.querySelector('#' + chart + ' canvas' ).getContext("2d"),
-				chart = new Chart(ctx).Bar(charts[chart], options);
+		console.log('#' + classes[0] + ' .flow.' + classes[1]);
+
+		var ctx = document.querySelector('#' + classes[0] + ' .flow.' + classes[1]).getContext("2d"),
+				chart = new Chart(ctx).Line(lineCharts[chart], options);
 	}
 }
 
@@ -435,7 +496,7 @@ function modifySettings(){
 
 	// Remove All Child Elements Of ListElement
 	while (listEl.firstChild) {
-    listEl.removeChild(listEl.firstChild);
+		listEl.removeChild(listEl.firstChild);
 	}
 
 	// Add Active Elements To ListElement
