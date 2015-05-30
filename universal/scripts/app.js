@@ -156,9 +156,48 @@ function addCustom(item, data){
 	if(item === 'device'){
 		main.appendChild(buildDevice(item, data));
 		main.appendChild(buildMap(item, data));
+	} else if(item === 'forecast'){
+		data.forEach(function(day){
+			main.appendChild(buildForecast(day));
+		});
 	}
 
 	return main;
+}
+
+
+function buildForecast(data){
+
+	console.log(data);
+
+	var section = document.createElement('section'),
+			h = document.createElement('h2'),
+			figure = document.createElement('figure'),
+			img = document.createElement('img'),
+			figcaption = document.createElement('figcaption'),
+			hTemp = document.createElement('h3'),
+			hDescr = document.createElement('h3'),
+			hRain = document.createElement('h3'),
+			date = date = new Date(data.dt * 1000);
+
+	h.innerText = date.toLocaleDateString();
+	img.src = 'images/weather/' + data.weather.icon + '.svg';
+	hTemp.innerText = Math.floor(data.temp.max) + '°C / ' + Math.floor(data.temp.min) + '°C';
+	hDescr.innerText = data.weather.description;
+	hRain.innerText = Math.floor(data.rain) + '%';
+	hRain.classList.add('rain');
+
+
+	figure.appendChild(h);
+	figcaption.appendChild(hTemp);
+	figcaption.appendChild(hDescr);
+	figcaption.appendChild(hRain);
+	figure.appendChild(img);
+	figure.appendChild(figcaption);
+	section.appendChild(h);
+	section.appendChild(figure);
+
+	return section
 }
 
 function buildMap(item, data){
@@ -204,7 +243,6 @@ function initMap(element, lat, lng){
 	map.setCenter(pos);
 }
 
-
 function buildDevice(item, data){
 
 	console.log(data);
@@ -226,7 +264,6 @@ function buildDevice(item, data){
 
 	return section;
 }
-
 
 function addArray(item, data){
 

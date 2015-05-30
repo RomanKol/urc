@@ -595,7 +595,25 @@ main#main {
         font-size: 3em;
         display: block;
         float: left; }
-    /* line 268, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 270, E:/Sites/urc/universal/scss/styles.scss */
+    main#main > section#forecast > main > section {
+      width: 33.333%;
+      float: left;
+      padding: 10px;
+      box-sizing: border-box; }
+      /* line 275, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section#forecast > main > section > figure {
+        margin: 0;
+        padding: 0; }
+        /* line 278, E:/Sites/urc/universal/scss/styles.scss */
+        main#main > section#forecast > main > section > figure > img {
+          width: 100%; }
+    /* line 283, E:/Sites/urc/universal/scss/styles.scss */
+    main#main > section#forecast > main:after {
+      display: block;
+      content: '';
+      clear: both; }
+    /* line 290, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section:after {
       clear: both;
       content: '';
