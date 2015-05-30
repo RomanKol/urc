@@ -7,44 +7,50 @@ var mainEl = document.getElementById('main'),
 		sttngBtnEl = document.getElementById('settingsBtn');
 
 var settings = {},
-		json = {};
+		json = {},
+		charts = {};
+
+Chart.defaults.global.animation = false;
+Chart.defaults.global.scaleLineColor = "#000";
+Chart.defaults.global.scaleLineWidth = 1;
+Chart.defaults.global.scaleFontFamily = "'Segoe UI', Arial, sans-serif",
+Chart.defaults.global.scaleFontSize = 24;
+Chart.defaults.global.scaleFontStyle = "bold";
+Chart.defaults.global.scaleFontColor = '#fff';
 
 // Initialize Functions
 update();
 //loadSettings();
 
-
-
 // Eventlisteners
 
-	// Nav Toggle
-	navEl.addEventListener('click', function(evt){
-		var el = evt.target;
+// Nav Toggle
+navEl.addEventListener('click', function(evt){
+	var el = evt.target;
 
-		while(el.parentElement){
-			if(el.nodeName === 'LI'){
+	while(el.parentElement){
+		if(el.nodeName === 'LI'){
 
-				// Remove active from prev El
-				navToggle(el);
+			// Remove active from prev El
+			navToggle(el);
 
-				break;
-			} else if(el === navBtnEl){
-				//navEl.classList.remove('settings');
-				navEl.classList.toggle('active');
-				break;
-			} else if(el === sttngBtnEl){
-				navEl.classList.toggle('settings');
-			}
-			el = el.parentElement;
+			break;
+		} else if(el === navBtnEl){
+			//navEl.classList.remove('settings');
+			navEl.classList.toggle('active');
+			break;
+		} else if(el === sttngBtnEl){
+			navEl.classList.toggle('settings');
 		}
-	}, false);
-
-	function navToggle (element) {
-		var activeElement = navEl.querySelector('.active');
-		if(activeElement) activeElement.classList.remove('active');
-		element.classList.add('active');
+		el = el.parentElement;
 	}
+}, false);
 
+function navToggle (element) {
+	var activeElement = navEl.querySelector('.active');
+	if(activeElement) activeElement.classList.remove('active');
+	element.classList.add('active');
+}
 
 // Get NetAtmo Data
 function update() {
@@ -64,13 +70,13 @@ function update() {
       json = JSON.parse(this.response);
 
       build();
+
     } else {
       console.log('Fehler: ' + this);
     }
   }
 
   request.send();
-
 }
 
 function build(){
@@ -79,6 +85,13 @@ function build(){
 		buildNavItem(item);
 		buildSection(item, json[item]);
 	}
+
+	var options = {
+		scaleShowHorizontalLines: false,
+		scaleShowVerticalLines: false
+	}
+
+	initCharts(options);
 }
 
 // Navigation
@@ -145,14 +158,10 @@ function addSectionContent(item, data){
 	return main;
 }
 
-
 function addCustom(item, data){
 
 	var main = document.createElement('main');
 
-	console.log('FORECAST || DEVICE');
-	console.log(item);
-	console.log('************');
 	if(item === 'device'){
 		main.appendChild(buildDevice(item, data));
 		main.appendChild(buildMap(item, data));
@@ -165,10 +174,7 @@ function addCustom(item, data){
 	return main;
 }
 
-
 function buildForecast(data){
-
-	console.log(data);
 
 	var section = document.createElement('section'),
 			h = document.createElement('h2'),
@@ -247,8 +253,6 @@ function initMap(element, lat, lng){
 
 function buildDevice(item, data){
 
-	console.log(data);
-
 	var wifi = document.createElement('img');
 	wifi.src = 'images/wifi_' + data.wifiState + '.svg';
 
@@ -303,7 +307,6 @@ function buildFigure(value){
 	return figure;
 }
 
-
 function addObject(item, data){
 
 	var main = document.createElement('main');
@@ -321,13 +324,11 @@ function addObject(item, data){
 	}
 
 	if(data.origin){
-		console.log('Origins');
-		//main.appendChild(buildOrigin(item, data.origin));
+		main.appendChild(buildOrigin(item, data.origin));
 	}
 
 	return main;
 }
-
 
 function buildValue(value, unit, location){
 
@@ -353,12 +354,9 @@ function buildProgressBar(value){
 function buildOrigin(item, value){
 
 	var origins = document.createElement('canvas');
-	origins.width = window.innerWidth - 70;
+	origins.width = window.innerWidth - 90;
 	origins.height = Math.round(origins.width / 1.778, 2);
 	origins.classList.add('origins');
-	var ctx = origins.getContext('2d');
-
-	console.log(origins);
 
 	if(Array.isArray(value)){
 
@@ -367,8 +365,8 @@ function buildOrigin(item, value){
 		    datasets: [
 		        {
 		            label: item,
-		            fillColor: "rgba(220,220,220,0.5)",
-		            strokeColor: "rgba(220,220,220,0.8)",
+		            fillColor: "rgba(220,220,220,0.7)",
+		            strokeColor: "rgba(220,220,220, 0.9)",
 		            highlightFill: "rgba(220,220,220,0.75)",
 		            highlightStroke: "rgba(220,220,220,1)",
 		            data: []
@@ -378,18 +376,25 @@ function buildOrigin(item, value){
 
 		value.forEach(function(origin){
 			for(key in origin){
-				data.labels.push(key);
+				data.labels.push(key.charAt(0).toUpperCase() + key.slice(1));
 				data.datasets[0].data.push(origin[key]);
 			}
 		});
 
-		var myBarChart = new Chart(ctx).Bar(data);
+		charts[item] = data;
 
 	}
 
 	return origins;
 }
 
+function initCharts(options){
+	for (chart in charts){
+		console.log(chart);
+		var ctx = document.querySelector('#' + chart + ' canvas' ).getContext("2d"),
+				chart = new Chart(ctx).Bar(charts[chart], options);
+	}
+}
 
 // Settings
 // Load Settings

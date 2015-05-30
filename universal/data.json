@@ -157,9 +157,12 @@
    "noise":{
       "indoor":44,
       "percentage":0.4,
-      "origin":{
-         "radio":10
-      },
+      "origin":[
+         {
+            "tv": 9,
+            "radio": 1
+         }
+      ],
       "unit":"dB",
       "flow_indoor":[
          41,

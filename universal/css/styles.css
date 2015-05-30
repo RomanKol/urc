@@ -540,27 +540,21 @@ main#main {
       /* line 197, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > data.outdoor {
         margin-left: 20px; }
-    /* line 202, E:/Sites/urc/universal/scss/styles.scss */
-    main#main > section > main > section.origins > figure {
-      width: 25%; }
-      /* line 204, E:/Sites/urc/universal/scss/styles.scss */
-      main#main > section > main > section.origins > figure > img {
-        width: 100%; }
-      /* line 207, E:/Sites/urc/universal/scss/styles.scss */
-      main#main > section > main > section.origins > figure > figcaption {
-        font-size: 1.5em; }
-    /* line 214, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 201, E:/Sites/urc/universal/scss/styles.scss */
+    main#main > section > main > canvas.origins {
+      margin: 0 10px; }
+    /* line 205, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main.list:after {
       display: block;
       content: '';
       clear: both; }
-    /* line 224, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 215, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section > img {
       width: 33.33%;
       float: left;
       padding: 20px;
       box-sizing: border-box; }
-    /* line 230, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 221, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section > data.battery {
       display: block;
       float: left;
@@ -571,48 +565,48 @@ main#main {
       background-image: url('../images/battery.svg');
       background-size: contain;
       background-repeat: no-repeat; }
-    /* line 241, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 232, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section:after {
       clear: both;
       content: '';
       display: block; }
-    /* line 246, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 237, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section.map {
       height: 400px;
       margin: 40px 10px;
       padding: 0;
       display: block; }
-      /* line 251, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 242, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#device main > section.map > div {
         height: 100%;
         margin: 0;
         padding: 0; }
-      /* line 256, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 247, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#device main > section.map > data {
         margin: 20px 0;
         width: 33.333%;
         font-size: 3em;
         display: block;
         float: left; }
-    /* line 269, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 260, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main > section {
       width: 33.333%;
       float: left;
       padding: 10px;
       box-sizing: border-box; }
-      /* line 274, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 265, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#forecast > main > section > figure {
         margin: 0;
         padding: 0; }
-        /* line 277, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 268, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section#forecast > main > section > figure > img {
           width: 100%; }
-    /* line 282, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 273, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main:after {
       display: block;
       content: '';
       clear: both; }
-    /* line 289, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 280, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section:after {
       clear: both;
       content: '';
