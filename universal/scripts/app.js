@@ -228,7 +228,9 @@ function initMap(element, lat, lng){
 	var map;
 
 	var mapOptions = {
-	  zoom: 16
+	  zoom: 16,
+	  mapTypeControl: false,
+	  scrollwheel: false
 	};
 
 	map = new google.maps.Map(element, mapOptions);

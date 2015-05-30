@@ -5,6 +5,7 @@
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
 	background-color: $emerland;
+	text-transform: capitalize;
 }
 
 // List Reset
@@ -84,7 +85,6 @@ nav#navbar {
 					float: left;
 					margin: 0 20px 0;
 					line-height: 50px;
-					text-transform: uppercase;
 				}
 				&:after {
 					content: "";
@@ -128,7 +128,6 @@ main#main {
 			> h1 {
 				float: left;
 				line-height: 60px;
-				text-transform: uppercase;
 				margin: 0 40px 0;
 			}
 			&:after {
