@@ -269,7 +269,8 @@ body, html {
 					display: block;
 					margin: 0 auto;
 					font-size: 1.8em;
-					margin-bottom: 20px;;
+					margin-bottom: 20px;
+					word-wrap: break-word;
 					&.rain {
 						padding-left: 50px;
 						background-image: url(../images/weather/rain.svg);
