@@ -290,7 +290,8 @@ function buildFigure(value){
 		var figure = document.createElement('figure');
 
 		var img = document.createElement('img');
-		img.src = 'images/food/' + key + '.jpg';
+		var path = 'images/food/' + key.replace(' ', '-').replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue') + '.jpg';
+		img.src = path;
 
 		var figcaption = document.createElement('figcaption');
 		var h = document.createElement('h2');
