@@ -405,109 +405,109 @@
     },
     "pollen": [
         {
-            "Pappel": 1
+            "Pappel": 0.33
         },
         {
-            "Ahorn": 2
+            "Ahorn": 0.50
         },
         {
-            "Eibe": 2
+            "Eibe": 0.50
         },
         {
-            "Birke": 1
+            "Birke": 0.33
         },
         {
-            "Eiche": 1
+            "Eiche": 0.33
         },
         {
-            "Esche": 1
+            "Esche": 0.33
         },
         {
-            "Hainbuche": 1
+            "Hainbuche": 0.33
         },
         {
-            "Raps": 3
+            "Raps": 0.66
         },
         {
-            "Esche": 1
+            "Esche": 0.33
         },
         {
-            "Flieder": 1
+            "Flieder": 0.33
         },
         {
-            "Platane": 1
+            "Platane": 0.33
         },
         {
-            "Rotbuche": 1
+            "Rotbuche": 0.33
         },
         {
-            "Spitzwegerich": 3
+            "Spitzwegerich": 0.66
         },
         {
-            "Ampfer": 3
+            "Ampfer": 0.66
         },
         {
-            "Loewenzahn": 3
+            "Loewenzahn": 0.66
         },
         {
-            "Fichte": 3
+            "Fichte": 0.66
         },
         {
-            "Walnuss": 2
+            "Walnuss": 0.50
         },
         {
-            "Hopfen": 1
+            "Hopfen": 0.33
         },
         {
-            "Akazie": 3
+            "Akazie": 0.66
         },
         {
-            "Rosskastanie": 3
+            "Rosskastanie": 0.66
         },
         {
-            "Weizen": 3
+            "Weizen": 0.66
         },
         {
-            "Graeser": 3
+            "Graeser": 0.66
         },
         {
-            "Kiefer": 3
+            "Kiefer": 0.66
         },
         {
-            "Holunder": 3
+            "Holunder": 0.66
         },
         {
-            "Hafer": 3
+            "Hafer": 0.66
         },
         {
-            "Roggen": 3
+            "Roggen": 0.66
         },
         {
-            "Tanne": 3
+            "Tanne": 0.66
         },
         {
-            "Gerste": 3
+            "Gerste": 0.66
         },
         {
-            "Linde": 3
+            "Linde": 0.66
         },
         {
-            "Gaensefuss": 3
+            "Gaensefuss": 0.66
         },
         {
-            "Beifuss": 3
+            "Beifuss": 0.66
         },
         {
-            "Goldrute": 3
+            "Goldrute": 0.66
         },
         {
-            "Brennessel": 3
+            "Brennessel": 0.66
         },
         {
-            "Mais": 2
+            "Mais": 0.50
         },
         {
-            "Nessel": 2
+            "Nessel": 0.50
         }
     ],
     "device": {

@@ -100,15 +100,15 @@ function build(){
 // Navigation
 function buildNavItem(key){
 
-	var li = document.createElement('li');
-	var a = document.createElement('a');
+	var li = document.createElement('li'),
+			a = document.createElement('a');
 	a.href = '#' +	key;
 
 	var img = document.createElement('img');
 	img.src = 'images/' + key + '.svg';
 
 	var h = document.createElement('h3');
-	h.innerText = key;
+	h.innerText = key.replace('_', ' ');
 
 	a.appendChild(img);
 	a.appendChild(h);
@@ -132,7 +132,7 @@ function addSectionHeader(key){
 	var header = document.createElement('header');
 
 	var h = document.createElement('h1');
-	h.innerText = item;
+	h.innerText = item.replace('_', ' ');
 
 	var img = document.createElement('img');
 	img.src = 'images/' + item + '.svg';
@@ -161,6 +161,7 @@ function addSectionContent(item, data){
 	return main;
 }
 
+// Custom Sections
 function addCustom(item, data){
 
 	var main = document.createElement('main');
@@ -208,6 +209,26 @@ function buildForecast(data){
 	return section
 }
 
+function buildDevice(item, data){
+
+	var wifi = document.createElement('img');
+	wifi.src = 'images/wifi_' + data.wifiState + '.svg';
+
+	var fstate = document.createElement('img');
+	fstate.src = 'images/fstate_' + data.fstate + '.svg';
+
+	var battery = document.createElement('data');
+	battery.classList.add('battery');
+	battery.innerText = data.battery + '%';
+
+	var section = document.createElement('section');
+	section.appendChild(wifi);
+	section.appendChild(fstate);
+	section.appendChild(battery);
+
+	return section;
+}
+
 function buildMap(item, data){
 
 	var section = document.createElement('section');
@@ -253,33 +274,22 @@ function initMap(element, lat, lng){
 	map.setCenter(pos);
 }
 
-function buildDevice(item, data){
-
-	var wifi = document.createElement('img');
-	wifi.src = 'images/wifi_' + data.wifiState + '.svg';
-
-	var fstate = document.createElement('img');
-	fstate.src = 'images/fstate_' + data.fstate + '.svg';
-
-	var battery = document.createElement('data');
-	battery.classList.add('battery');
-	battery.innerText = data.battery + '%';
-
-	var section = document.createElement('section');
-	section.appendChild(wifi);
-	section.appendChild(fstate);
-	section.appendChild(battery);
-
-	return section;
-}
+// Array Sections
 
 function addArray(item, data){
 
 	var main = document.createElement('main');
 	main.classList.add('list');
 
-	data.forEach(function(value){
-		main.appendChild(buildFigure(value));
+	data.forEach(function(obj){
+		for (value in obj){
+			if(typeof obj[value] === 'string'){
+				main.appendChild(buildFigure(obj));
+			} else if(typeof obj[value] === 'number'){
+				main.appendChild(buildProgressBar(obj[value], value));
+			}
+		}
+
 	});
 
 	return main;
@@ -310,11 +320,15 @@ function buildFigure(value){
 	return figure;
 }
 
+
+//Object Sections
 function addObject(item, data){
 
 	var main = document.createElement('main');
 
-	if(data.indoor && data.unit){
+	if(data.indoor && data.outdoor){
+		main.appendChild(buildDoubleValue(data.indoor, data.outdoor, data.unit));
+	} else if(data.indoor && data.unit){
 		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
 	}
 
@@ -322,16 +336,10 @@ function addObject(item, data){
 		main.appendChild(buildProgressBar(data.percentage))
 	}
 
-	if(data.flow_indoor){
+	if(data.flow_indoor && data.flow_outdoor){
+		main.appendChild(buildDoubleFlow(item, data.flow_indoor, data.flow_outdoor, data.unit));
+	} else if(data.flow_indoor){
 		main.appendChild(buildFlow(item, data.flow_indoor, data.unit, 'indoor'));
-	}
-
-	if(data.outdoor){
-		main.appendChild(buildValue(data.outdoor, data.unit, 'outdoor'));
-	}
-
-	if(data.flow_outdoor){
-		main.appendChild(buildFlow(item, data.flow_outdoor, data.unit, 'outdoor'));
 	}
 
 	if(data.origin){
@@ -339,6 +347,17 @@ function addObject(item, data){
 	}
 
 	return main;
+}
+
+function buildDoubleValue(indoor, outdoor, unit){
+
+	var data = document.createElement('data');
+	data.classList.add(location);
+	var unit = unit ? unit : '';
+	var text = indoor + unit + ' | ' + outdoor + unit;
+	data.innerText = text;
+
+	return data;
 }
 
 function buildValue(value, unit, location){
@@ -352,14 +371,24 @@ function buildValue(value, unit, location){
 	return data;
 }
 
-function buildProgressBar(value){
+function buildProgressBar(value, label){
+
+	var div = document.createElement('div');
+
+	if(label){
+		var headline = document.createElement('h3');
+		headline.innerText = label;
+		div.appendChild(headline);
+	}
 
 	var progress = document.createElement('progress');
 	progress.min = 0;
 	progress.max = 1;
 	progress.value = value;
 
-	return progress;
+	div.appendChild(progress)
+
+	return div;
 }
 
 function buildOrigin(item, value){
@@ -399,13 +428,58 @@ function buildOrigin(item, value){
 	return canvas;
 }
 
-function buildFlow(item, value, unit, location){
+function buildDoubleFlow(item, indoor, outdoor, unit){
 
 	var canvas = document.createElement('canvas');
 	canvas.classList.add('flow', location);
 	canvas.width = window.innerWidth - 90;
 	canvas.height = Math.round(canvas.width / 1.778, 2);
 
+	if(Array.isArray(indoor) && Array.isArray(outdoor)){
+
+		var data = {
+				labels: [],
+				datasets: [
+						{
+								label: 'Indoor',
+								fillColor: "rgba(52, 152, 219, 0.7)",
+								strokeColor: "rgba(52, 152, 219, 0.9)",
+								highlightFill: "rgba(52, 152, 219, 0.75)",
+								highlightStroke: "rgba(52, 152, 219, 1)",
+								data: []
+						},
+						{
+								label: 'Outdoor',
+								fillColor: "rgba(22, 160, 133, 0.7)",
+								strokeColor: "rgba(22, 160, 133, 0.9)",
+								highlightFill: "rgba(22, 160, 133, 0.75)",
+								highlightStroke: "rgba(22, 160, 133, 1)",
+								data: []
+						}
+				],
+				unit: unit
+		};
+
+		for (var i = indoor.length - 1; i >= 0; i--) {
+			//data.labels.push('t-' + i);
+			data.labels.push('');
+			data.datasets[0].data.push(indoor[i]);
+			data.datasets[1].data.push(outdoor[i]);
+		};
+
+		lineCharts[item + '-' + location ] = data;
+
+	}
+
+	return canvas;
+}
+
+function buildFlow(item, value, unit, location){
+
+	var canvas = document.createElement('canvas');
+	canvas.classList.add('flow', location);
+	canvas.width = window.innerWidth - 90;
+	canvas.height = Math.round(canvas.width / 1.778, 2);
 
 	if(Array.isArray(value)){
 
@@ -425,7 +499,8 @@ function buildFlow(item, value, unit, location){
 		};
 
 		for (var i = value.length - 1; i >= 0; i--) {
-			data.labels.push('t-' + i);
+			//data.labels.push('t-' + i);
+			data.labels.push('');
 			data.datasets[0].data.push(value[i]);
 		};
 
@@ -452,7 +527,7 @@ function initLineCharts(options){
 		console.log(chart);
 		console.log('#' + classes[0] + ' .flow.' + classes[1]);
 
-		var ctx = document.querySelector('#' + classes[0] + ' .flow.' + classes[1]).getContext("2d"),
+		var ctx = document.querySelector('#' + classes[0] + ' .flow').getContext("2d"),
 				chart = new Chart(ctx).Line(lineCharts[chart], options);
 	}
 }
