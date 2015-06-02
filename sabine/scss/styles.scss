@@ -21,8 +21,7 @@
 body, html {
 	font-family: 'Segoe UI', Arial, sans-serif ;
 	@include fullsize;
-	background-color: #aaaaaa;
-	background-image: url('../images/background.jpg');
+	background-color: #ccc;
 	background-size: cover;
 }
 
@@ -45,6 +44,7 @@ body, html {
 			&.active {
 				figure {
 				  border-radius: 0 20%;
+				  background-color: rgba(0,0,0,0.001);
 				}
 			}
 		}
@@ -62,7 +62,7 @@ body, html {
 
 	figure {
 		@include fullsize;
-		transition-property: border-radius, box-shadow;
+		transition-property: border-radius, box-shadow, background-color;
 		transition-duration: 250ms;
 
 		margin: 0;
@@ -262,6 +262,9 @@ body, html {
 			}
 			figcaption {
 				float: right;
+				width: 50%;
+				padding: 20px;
+				box-sizing: border-box;
 				h3 {
 					display: block;
 					margin: 0 auto;

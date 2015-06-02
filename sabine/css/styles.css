@@ -366,28 +366,28 @@ body, html {
   font-family: 'Segoe UI', Arial, sans-serif;
   width: 100%;
   height: 100%;
-  background-color: #aaaaaa;
-  background-image: url('../images/background.jpg');
+  background-color: #ccc;
   background-size: cover; }
 
 /* Grid For Tiles */
-/* line 31, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 30, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 #grid {
   height: 100%;
   width: 100%;
   padding: 0; }
-  /* line 37, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 36, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #grid.detail .tile {
     padding: 20px; }
-    /* line 39, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 38, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile figure {
       background-position: center; }
-    /* line 42, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 41, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile data {
       display: none; }
-    /* line 46, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 45, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile.active figure {
-      border-radius: 0 20%; }
+      border-radius: 0 20%;
+      background-color: rgba(0, 0, 0, 0.001); }
 
 /* Tiles List View*/
 /* line 56, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
@@ -401,7 +401,7 @@ body, html {
   .tile figure {
     width: 100%;
     height: 100%;
-    transition-property: border-radius, box-shadow;
+    transition-property: border-radius, box-shadow, background-color;
     transition-duration: 250ms;
     margin: 0;
     position: relative;
@@ -567,50 +567,53 @@ body, html {
     float: left; }
   /* line 263, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail .weather .slider .slide figcaption {
-    float: right; }
-    /* line 265, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    float: right;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box; }
+    /* line 268, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #detail .weather .slider .slide figcaption h3 {
       display: block;
       margin: 0 auto;
       font-size: 1.8em;
       margin-bottom: 20px; }
-      /* line 270, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 273, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
       #detail .weather .slider .slide figcaption h3.rain {
         padding-left: 50px;
         background-image: url(../images/weather/rain.svg);
         background-position: left top;
         background-size: 35px;
         background-repeat: no-repeat; }
-  /* line 284, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 287, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail .noise .ampel {
     float: left; }
-  /* line 287, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 290, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail .noise data {
     line-height: 140px;
     margin: 40px;
     display: inline-block; }
-    /* line 291, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 294, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #detail .noise data:after {
       clear: both; }
-  /* line 295, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 298, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail .noise .devices {
     margin: 0;
     margin-top: 10%;
     padding: 0;
     list-style-type: none;
     width: 100%; }
-    /* line 301, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 304, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #detail .noise .devices > li {
       margin: 0;
       float: left;
       width: 25%;
       padding: 10px;
       box-sizing: border-box; }
-      /* line 308, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+      /* line 311, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
       #detail .noise .devices > li > img {
         width: 100%;
         height: auto; }
-  /* line 317, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 320, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;
     right: 40px;
@@ -620,105 +623,105 @@ body, html {
     border: none;
     padding: 5px;
     background-color: transparent; }
-    /* line 327, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 330, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #detail #clsBtn > img {
       width: 100%;
       height: 100%; }
 
 @media screen and (orientation: portrait) {
-  /* line 336, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 339, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail {
     width: 100%;
     height: 60%; }
-  /* line 341, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 344, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #grid.detail {
     height: 40%; }
-    /* line 343, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 346, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile {
       height: 50%;
       width: 33.33%; }
-  /* line 347, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 350, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #grid .tile {
     height: 33%;
     width: 50%; } }
 
 @media screen and (orientation: landscape) {
-  /* line 354, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 357, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #detail {
     height: 100%;
     width: 60%;
     float: left; }
-  /* line 360, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 363, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #grid.detail {
     float: left;
     width: 40%; }
-    /* line 363, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+    /* line 366, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
     #grid.detail .tile {
       height: 33%;
       width: 50%; }
-  /* line 367, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+  /* line 370, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
   #grid .tile {
     height: 50%;
     width: 33.33%; } }
 
-/* line 377, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 380, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .hide {
   display: none; }
 
-/* line 383, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 386, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 #temperature data:after, .temperature data:after {
   content: '°C'; }
 
-/* line 389, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 392, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 #noise data:after, .noise data:after {
   content: 'db'; }
 
-/* line 395, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 398, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   box-shadow: 0px 0px 25px 10px #3498db; }
 
-/* line 398, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 401, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 401, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 404, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   box-shadow: 0px 0px 25px 10px #f39c12; }
 
-/* line 404, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 407, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 410, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 413, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .noise-1 > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 415, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 418, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .noise-2 > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   box-shadow: 0px 0px 25px 10px #f1c40f; }
 
-/* line 420, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 423, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .noise-3 > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 426, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 429, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.temp-low > figure {
   box-shadow: 0px 0px 10px 10px #3498db; }
-/* line 429, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 432, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.temp-good > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 432, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 435, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.temp-warm > figure {
   box-shadow: 0px 0px 10px 10px #f39c12; }
-/* line 435, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 438, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.temp-hot > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
-/* line 441, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 444, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.noise-1 > figure, .active.stresslevel-1 > figure, .active.airquality-1 > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 446, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 449, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.noise-2 > figure, .active.stresslevel-2 > figure, .active.airquality-2 > figure {
   box-shadow: 0px 0px 10px 10px #f1c40f; }
-/* line 451, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
+/* line 454, C:/Users/Roman/Sites/urc/sabine/scss/styles.scss */
 .active.noise-3 > figure, .active.stresslevel-3 > figure, .active.airquality-3 > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }

@@ -196,7 +196,6 @@ function buildForecast(data){
 	hRain.innerText = Math.floor(data.rain) + '%';
 	hRain.classList.add('rain');
 
-
 	figure.appendChild(h);
 	figcaption.appendChild(hTemp);
 	figcaption.appendChild(hDescr);
@@ -228,7 +227,7 @@ function buildMap(item, data){
 	section.appendChild(lat);
 	section.appendChild(lng);
 
-	initMap(map, data.lat, data.lng);
+	//initMap(map, data.lat, data.lng);
 
 	return section;
 }
@@ -314,8 +313,12 @@ function addObject(item, data){
 
 	var main = document.createElement('main');
 
-	if(data.indoor){
+	if(data.indoor && data.unit){
 		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
+	}
+
+	if(data.percentage){
+		main.appendChild(buildProgressBar(data.percentage))
 	}
 
 	if(data.flow_indoor){
@@ -328,10 +331,6 @@ function addObject(item, data){
 
 	if(data.flow_outdoor){
 		main.appendChild(buildFlow(item, data.flow_outdoor, data.unit, 'outdoor'));
-	}
-
-	if(data.percentage){
-		main.appendChild(buildProgressBar(data.percentage))
 	}
 
 	if(data.origin){
