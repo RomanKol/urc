@@ -1,6 +1,7 @@
 var http = require('http')
 	, domain = require('domain')
   	, serverDomain = domain.create()
+  	, fs = require('fs');
 var https = require('https');
 var url  = require('url')
 var fs = require('fs');
@@ -12,14 +13,16 @@ var pollen = new Array();
 var feelgood_temp = 20.1;
 var feelgood_humidity = 50;
 var feelgood_co2 = 650;
-var flow_barometer_indoor 	= [];
-var flow_barometer_outdoor 	= [];
+var flow_air_pressure_indoor 	= [];
+var flow_air_pressure_outdoor 	= [];
 var flow_co2			 	= [];
 var flow_humidity_indoor	= [];
 var flow_humidity_outdoor	= [];
 var flow_noise				= [];
 var flow_temperatur_indoor 	= [];
 var flow_temperatur_outdoor	= [];
+var flow_time_indoor = 0;
+var flow_time_outdoor = 0;
 var RequestCounter = 0;
 var RequestCounterForMeasurment = 0;
 var accessToken = "";
@@ -85,7 +88,7 @@ fs.readFile('Server/obst_gemuese/salat.csv','utf-8', handler_salat);
 fs.readFile('Server/pollen/pollen.csv','utf-8', handler_pollen);
 //-------------------Create Server --------------
 http.createServer(function (req, res) {
-  res.setHeader("Content-Type", "text/html");
+  
   var http = require("http");
     urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
 
@@ -111,13 +114,13 @@ http.createServer(function (req, res) {
 				   // }
 				    
 				}
-
+			  res.setHeader("Content-Type", "text/html");
 			  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
 
 
   	 }
 	if(req.url=='/index.html' || req.url=='/') {
-		res.setHeader("Content-Type", "text/html");
+		
 		var runningPath = 'sabine/'
 			    var pathname = 'index.html';
 			  	//console.log(url.format(pathname));
@@ -136,7 +139,7 @@ http.createServer(function (req, res) {
 				   // }
 				    
 				}
-
+			  res.setHeader("Content-Type", "text/html");
 			  fs.readFile(runningPath+"\\"+url.format(pathname), handler);
 
 
@@ -145,7 +148,8 @@ http.createServer(function (req, res) {
 
 			//if(req.url=='/update' ){
 			if(req.url.indexOf('/update') > -1  ){
-				res.setHeader('Content-Type','application/json');
+				res.setHeader('Content-Type','application/json',"charset=utf-8");
+				//res.header("Content-Type", "application/json"; );
 				var http = require("http");
 			     urlOfOpenHab = "http://192.168.33.33:8080/rest/items";
 				var request = http.get(urlOfOpenHab, function (response) {	
@@ -165,15 +169,15 @@ http.createServer(function (req, res) {
 						var dataArray = new Array();
 						var returnObject = {
 							"airquality": {"indoor":0,"percentage" : 0, "origin" : new Array(),"message":"Temp Message"},
-							"barometer": {"indoor" : 0,"percentage" : 0,"unit" : "mb","message":windMessage, "flow_indoor": new Array()},
-							"co2": {"indoor" : 0,"percentage" : 0,"unit" : "ppm", "flow_indoor": new Array()},
+							"air_pressure": {"indoor" : 0,"percentage" : 0,"unit" : "mb","message":windMessage,"flow_time_indoor" : flow_time_indoor, "flow_indoor": new Array()},
+							"co2": {"indoor" : 0,"percentage" : 0,"unit" : "ppm","flow_time_indoor" : flow_time_indoor, "flow_indoor": new Array()},
 							"food": [],
-							"humidity": {"indoor" : 0, "unit" : "%","flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
-						    "noise": {"indoor" : 0,"percentage" : 0,"origin" : new Array(),"unit" : "dB","origin": new Array(),"flow_indoor": new Array()},
-						    "pollen": new Object,
+							"humidity": {"indoor" : 0, "unit" : "%","flow_time_indoor" : flow_time_indoor,"flow_indoor": new Array(), "outdoor" : 0,"flow_time_outdoor" : flow_time_outdoor, "flow_outdoor": new Array()},
+						    "noise": {"indoor" : 0,"percentage" : 0,"origin" : new Array(),"unit" : "dB","origin": new Array(),"flow_time_indoor" : flow_time_indoor,"flow_indoor": new Array()},
+						    "pollen": new Array(),
 						    "device" : {"battery": 0,"wifiState" : 0,"alt":0,"fstate": 0,"lat": 0,"lng": 0},
 						    "stresslevel": {"indoor":0,"percentage" : 0,"origin" : new Array(),"message":"Temp Message"},
-						    "temperature": {"indoor" : 0, "unit" : "°C","flow_indoor": new Array(), "outdoor" : 0, "flow_outdoor": new Array()},
+						    "temperature": {"indoor" : 0, "unit" : "°C","flow_time_indoor" : flow_time_indoor,"flow_indoor": new Array(), "outdoor" : 0,"flow_time_outdoor" : flow_time_outdoor, "flow_outdoor": new Array()},
 						}
 						parseString(xml, function (err, result) {
 							
@@ -207,8 +211,8 @@ http.createServer(function (req, res) {
 									returnObject.temperature.flow_outdoor = flow_temperatur_outdoor;
 								}
 								if(name.indexOf("Netatmo_Indoor_Pressure") > -1){
-									returnObject.barometer.indoor = Number(result.items.item[it].state[0]);
-									returnObject.barometer.flow_indoor = flow_barometer_indoor;
+									returnObject.air_pressure.indoor = Number(result.items.item[it].state[0]);
+									returnObject.air_pressure.flow_indoor = flow_air_pressure_indoor;
 								}
 								if(name.indexOf("Netatmo_Indoor_Noise") > -1){
 									returnObject.noise.indoor = Number(result.items.item[it].state[0]);
@@ -291,7 +295,7 @@ http.createServer(function (req, res) {
 							var humidity_diff = Math.abs(feelgood_humidity - humidity_indoor);
 							var temp_diff = Math.abs(temparatur_indoor - feelgood_temp);
 
-							returnObject.barometer.percentage = 0.27;
+							returnObject.air_pressure.percentage = 0.27;
 							//----normierung humidity
 							if(temp_diff>=15){
 								airquality = maxValue_airquality;
@@ -549,7 +553,20 @@ http.createServer(function (req, res) {
 							for (var pollenIndex = 1; pollenIndex < pollen.length-1; pollenIndex++){
 								//console.log(obst[obstIndex]+"-->"+obst[obstIndex][n])
 								if(pollen[pollenIndex][n] == '1' || pollen[pollenIndex][n] == '2' ||pollen[pollenIndex][n] == '3' ){
-									returnObject.pollen[pollen[pollenIndex][0]] = Number(pollen[pollenIndex][n]);
+									var setObject = new Object();
+									if(pollen[pollenIndex][n] == '1'){
+										setObject[pollen[pollenIndex][0]] = Number(0.2);
+									}
+									if(pollen[pollenIndex][n] == '2'){
+										setObject[pollen[pollenIndex][0]] = Number(0.6);
+									}
+									if(pollen[pollenIndex][n] == '3'){
+										setObject[pollen[pollenIndex][0]] = Number(0.9);
+									}
+
+									
+									returnObject.pollen.push(setObject);
+									//returnObject.pollen[pollen[pollenIndex][0]] = Number(pollen[pollenIndex][n]);
 								}
 							}
 							//-------------------------Devices from Openhab an their noise
@@ -602,7 +619,7 @@ http.createServer(function (req, res) {
    							}
 							returnObject.noise.origin = randomArray;
 							//------start request for weather forcast
-							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.device.lng+"&lon="+returnObject.device.lat+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
+							var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+returnObject.device.lat+"&lon="+returnObject.device.lng+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
 							
 							var request = http.get(urlOfweatherAPI, function (response) {	
 							    // data is streamed in chunks from the server
@@ -662,8 +679,17 @@ http.createServer(function (req, res) {
 							    	returnObject["forecast"] = returnForcast;
 							    	//returnObject["forcast"] = JSON.parse(buffer2);
 
-						
-								    res.write(JSON.stringify(returnObject));
+							    	//res.setEncoding('utf-8');
+							    	//console.log(JSON.stringify(returnObject))
+									//res.setHeader('Content-Type', 'application/json');
+									fs.writeFile("./data.json", JSON.stringify(returnObject, null, 4), function(err) {
+									    if(err) {
+									        return console.log(err);
+									    }
+
+									    console.log("The file was saved!");
+									}); 
+								    res.write(JSON.stringify(returnObject),"utf8");
 									res.end()
 							    });
 							 });	
@@ -888,7 +914,7 @@ setInterval(function(){
 	    	
 
 	    	//Request for indoor
-	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale=3hours";
+	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale=30min&limit=48";
 			console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
 			console.log("Measurement Request Counter : ["+RequestCounterForMeasurment+"]")
 			RequestCounterForMeasurment += 1;				
@@ -902,6 +928,7 @@ setInterval(function(){
 			    }); 
 
 			    response.on("end", function (err) {
+			    	response.setEncoding("utf8"); 
 			    	console.log("Get Result from history API "+measurment);
 			    	if(measurment.indexOf('{"error":') === 0){
 			    		if(dataTimestampOfRequest.length == 0){
@@ -911,28 +938,29 @@ setInterval(function(){
 			    		}
 			    	}
 			    	else{
-						flow_barometer_indoor 	= [];
+						flow_air_pressure_indoor 	= [];
 					
 					 	flow_co2			 	= [];
 						flow_humidity_indoor	= [];
 						
 						flow_noise				= [];
 						flow_temperatur_indoor 	= [];
-					
+						flow_time_indoor = 0;
 			    		
 				    	var parsedJSONFromMeasurement = JSON.parse(measurment);
+				    	flow_time_indoor = parsedJSONFromMeasurement.body[0].beg_time;
 				    	for(var counter = 0; counter < parsedJSONFromMeasurement.body[0].value.length;counter++){
 				    		var step =  parsedJSONFromMeasurement.body[0].value[counter];
 				    		console.log("step"+step)
 				    		flow_temperatur_indoor.push(step[0]);
 				    		flow_humidity_indoor.push(step[1]);
 				    		flow_co2.push(step[2]);
-				    		flow_barometer_indoor.push(step[3]);
+				    		flow_air_pressure_indoor.push(step[3]);
 				    		flow_noise.push(step[4]);
 				    	}
-				    	if(flow_barometer_indoor.length > 3)
+				    	if(flow_air_pressure_indoor.length > 3)
 				    	{
-					    	var pressureDiff = flow_barometer_indoor[flow_barometer_indoor.length-1] - flow_barometer_indoor[flow_barometer_indoor.length-2]
+					    	var pressureDiff = flow_air_pressure_indoor[flow_air_pressure_indoor.length-1] - flow_air_pressure_indoor[flow_air_pressure_indoor.length-2]
 					    	if(pressureDiff < -6){
 					    		windMessage = "Achtung Orkan! beachte die genaue Wettervorhersage und achte auf Meldungen"
 					    	}else
@@ -970,13 +998,14 @@ setInterval(function(){
 
 
 			//Request for outdoor
-	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&module_id="+module_id+"&type=Temperature,Humidity&scale=3hours";
+	    	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&module_id="+module_id+"&type=Temperature,Humidity&&scale=30min&limit=48";
 			console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
 			console.log("Measurement Request Counter : ["+RequestCounterForMeasurment+"]")
 			RequestCounterForMeasurment += 1;				
 			var request = https.get(urlOfNetAtmoAPiForMeasurements, function (response) {	
 			    // data is streamed in chunks from the server
-			    // so we have to handle the "data" event    
+			    // so we have to handle the "data" event 
+			    response.setEncoding("binary");   
 			    var measurment = ""
 			    //console.log('Start Request for measurment');
 			    response.on("data", function (chunk) {
@@ -997,6 +1026,7 @@ setInterval(function(){
 						flow_temperatur_outdoor	= [];
 			    		
 				    	var parsedJSONFromMeasurement = JSON.parse(measurment);
+				    	flow_time_outdoor = parsedJSONFromMeasurement.body[0].beg_time;
 				    	for(var counter = 0; counter < parsedJSONFromMeasurement.body[0].value.length;counter++){
 				    		var step =  parsedJSONFromMeasurement.body[0].value[counter];
 				    		console.log("step"+step)
