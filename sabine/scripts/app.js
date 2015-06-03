@@ -164,12 +164,16 @@ function setTemperature(temperature){
 // Food Element
 function setFood(food){
 
-	// Tile
-	// toDo?
-
 	//DetailView
 	list = detailEl.querySelector('.food ul');
-	itemWidth = window.innerWidth * 0.60 - 80;
+
+	// Detecting Portriat/Landscape
+	if(window.innerWidth > window.innerHeight){
+		itemWidth = window.innerWidth * 0.60 - 80;
+	} else {
+		itemWidth = window.innerWidth - 80;
+	}
+
 	list.style.width = itemWidth * food.length + 'px';
 	for (var i = 0; food.length > i; i++) {
 		list.appendChild(foodListItem(Object.keys(food[i])[0], itemWidth));
@@ -177,13 +181,19 @@ function setFood(food){
 }
 
 // Weather Element
-// TODO
 function setWeather(forecast){
 	el = document.querySelector('#weather figcaption');
 
-	// todo
+	//DetailView
 	list = detailEl.querySelector('.weather ul');
-	itemWidth = window.innerWidth * 0.60 - 80;
+
+	// Detecting Portriat/Landscape
+	if(window.innerWidth > window.innerHeight){
+		itemWidth = window.innerWidth * 0.60 - 80;
+	} else {
+		itemWidth = window.innerWidth - 80;
+	}
+
 	list.style.width = itemWidth * forecast.length + 'px';
 	day = ['Heute', 'Morgen', 'Übermorgen'];
 	for (var i = 0; forecast.length > i; i++) {
@@ -234,9 +244,10 @@ function setNoise(noise){
 	list = dEl.querySelector('.devices');
 
 	for (var i = 0; i < noise.origin.length; i++) {
-		list.appendChild(noiseListItem(noise.origin[i]));
-	};
-
+		for(device in noise.origin[i]){
+			list.appendChild(noiseListItem(device));
+		}
+	}
 }
 
 // Airquality Element
@@ -257,7 +268,7 @@ function setAirquality(airquality){
 function noiseListItem(data){
 	item = document.createElement('li');
 	img = document.createElement('img');
-	img.src = 'images/noise/' + data + '.png';
+	img.src = 'images/noise/' + data + '.svg';
 	item.appendChild(img);
 	return item;
 }
