@@ -338,16 +338,21 @@ function slide(evt){
 	el = evt.target;
 	if(el.nodeName === 'BUTTON'){
 		slider = el.parentElement;
-		console.log(slider);
-
 		if(el.classList.contains('left')){
 			if(parseInt(slider.dataset.position) > 0){
 				slider.dataset.position = parseInt(slider.dataset.position) - 1;
 			}
 		} else if(el.classList.contains('right')){
-			if(parseInt(slider.dataset.position) < slider.querySelectorAll('li').length){
+			if(parseInt(slider.dataset.position) < (slider.querySelectorAll('li').length - 1)){
 				slider.dataset.position = parseInt(slider.dataset.position) + 1;
 			}
+		}
+		if(parseInt(slider.dataset.position) == 0){
+			slider.classList.add('limit-left');
+		} else if(parseInt(slider.dataset.position) == (slider.querySelectorAll('li').length - 1)){
+			slider.classList.add('limit-right');
+		} else {
+			slider.classList.remove('limit-left', 'limit-right');
 		}
 		slider.querySelector('ul').style.right = slider.getBoundingClientRect().width * slider.dataset.position + 'px';
 	}
