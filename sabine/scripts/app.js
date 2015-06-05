@@ -22,7 +22,7 @@ getData();
 // Eventlisteners
 gridEl.addEventListener('click', activate, false);
 buttonEl.addEventListener('click', deactivate, false);
-
+detailEl.addEventListener('click', slide, false);
 
 // Functions
 // Active Tile  For Detail View
@@ -201,7 +201,6 @@ function setWeather(forecast){
 	};
 }
 
-
 // Stresslevel Element
 function setStresslevel(stresslevel){
 
@@ -332,5 +331,29 @@ function timerIncrement(){
 		deactivate();
 	}
 }
+
+// Slider
+
+function slide(evt){
+	el = evt.target;
+	if(el.nodeName === 'BUTTON'){
+		slider = el.parentElement;
+		console.log(slider);
+
+		if(el.classList.contains('left')){
+			if(parseInt(slider.dataset.position) > 0){
+				slider.dataset.position = parseInt(slider.dataset.position) - 1;
+			}
+		} else if(el.classList.contains('right')){
+			if(parseInt(slider.dataset.position) < slider.querySelectorAll('li').length){
+				slider.dataset.position = parseInt(slider.dataset.position) + 1;
+			}
+		}
+		slider.querySelector('ul').style.right = slider.getBoundingClientRect().width * slider.dataset.position + 'px';
+	}
+
+}
+
+
 
 });
