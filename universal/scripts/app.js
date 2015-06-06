@@ -11,14 +11,6 @@ var settings = {},
 		barCharts = {},
 		lineCharts = {};
 
-		// Global Charts Options
-		Chart.defaults.global.animation = false;
-		Chart.defaults.global.scaleLineColor = "#000";
-		Chart.defaults.global.scaleLineWidth = 1;
-		Chart.defaults.global.scaleFontFamily = "'Segoe UI', Arial, sans-serif",
-		Chart.defaults.global.scaleFontSize = 24;
-		Chart.defaults.global.scaleFontStyle = "bold";
-		Chart.defaults.global.scaleFontColor = '#fff';
 
 // Initialize Functions
 update();
@@ -90,13 +82,8 @@ function build(){
 		buildSection(item, json[item]);
 	}
 
-	var options = {
-		scaleShowHorizontalLines: false,
-		scaleShowVerticalLines: false
-	}
-
-	initBarCharts(options);
-	initLineCharts(options);
+	initBarCharts();
+	initLineCharts();
 }
 
 // Navigation
@@ -334,7 +321,7 @@ function addObject(item, data){
 	var main = document.createElement('main');
 
 	if(data.indoor && data.outdoor){
-		main.appendChild(buildDoubleValue(data.indoor, data.outdoor, data.unit));
+		main.appendChild(buildDoubleValue(data.indoor, data.outdoor, data.unit, data.time));
 	} else if(data.indoor && data.unit){
 		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
 	}
@@ -343,10 +330,8 @@ function addObject(item, data){
 		main.appendChild(buildProgressBar(data.percentage))
 	}
 
-	if(data.flow_indoor && data.flow_outdoor){
-		main.appendChild(buildDoubleFlow(item, data.flow_indoor, data.flow_outdoor, data.unit));
-	} else if(data.flow_indoor){
-		main.appendChild(buildFlow(item, data.flow_indoor, data.unit, 'indoor'));
+	if(data.flow_indoor){
+		main.appendChild(buildFlow(item, data.flow_indoor, data.flow_outdoor, data.unit, data.flow_time_indoor));
 	}
 
 	if(data.origin){
@@ -400,138 +385,141 @@ function buildProgressBar(value, label){
 
 function buildOrigin(item, value){
 
-	var canvas = document.createElement('canvas');
-	canvas.classList.add('origin');
-	canvas.width = window.innerWidth - 90;
-	canvas.height = Math.round(canvas.width / 1.778, 2);
+	var container = document.createElement('div');
+	container.id = item + '_bar';
+
 
 	if(Array.isArray(value)){
 
 		var data = {
-				labels: [],
-				datasets: [
-						{
-								label: item,
-								fillColor: "rgba(220,220,220,0.7)",
-								strokeColor: "rgba(220,220,220, 0.9)",
-								highlightFill: "rgba(220,220,220,0.75)",
-								highlightStroke: "rgba(220,220,220,1)",
-								data: []
-						}
-				]
-		};
+			chart: {
+				renderTo: item + '_bar',
+				type: 'column'
+			},
+			title: {
+				text: item,
+				x: -20 //center
+			},
+			xAxis: {
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: item
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				borderWidth: 0
+			},
+			series: [
+				{
+					name: 'Origins',
+					data: []
+				}
+			]
+		}
 
 		value.forEach(function(origin){
 			for(key in origin){
-				data.labels.push(key.charAt(0).toUpperCase() + key.slice(1));
-				data.datasets[0].data.push(origin[key]);
+				data.xAxis.categories.push(key.charAt(0).toUpperCase() + key.slice(1));
+				data.series[0].data.push(origin[key]);
 			}
 		});
 
-		barCharts[item] = data;
+		barCharts[item + '_bar'] = data;
 
 	}
 
-	return canvas;
+	return container;
 }
 
-function buildDoubleFlow(item, indoor, outdoor, unit){
+function buildFlow(item, indoor, outdoor, unit, time){
 
-	var canvas = document.createElement('canvas');
-	canvas.classList.add('flow', location);
-	canvas.width = window.innerWidth - 90;
-	canvas.height = Math.round(canvas.width / 1.778, 2);
+	var container = document.createElement('div');
+	container.id = item + '_flow';
+
 
 	if(Array.isArray(indoor) && Array.isArray(outdoor)){
 
 		var data = {
-				labels: [],
-				datasets: [
-						{
-								label: 'Indoor',
-								fillColor: "rgba(52, 152, 219, 0.7)",
-								strokeColor: "rgba(52, 152, 219, 0.9)",
-								highlightFill: "rgba(52, 152, 219, 0.75)",
-								highlightStroke: "rgba(52, 152, 219, 1)",
-								data: []
-						},
-						{
-								label: 'Outdoor',
-								fillColor: "rgba(22, 160, 133, 0.7)",
-								strokeColor: "rgba(22, 160, 133, 0.9)",
-								highlightFill: "rgba(22, 160, 133, 0.75)",
-								highlightStroke: "rgba(22, 160, 133, 1)",
-								data: []
-						}
-				],
-				unit: unit
-		};
+			chart: {
+				renderTo: item + '_flow'
+			},
+			title: {
+				text: item,
+				x: -20 //center
+			},
+			xAxis: {
+				categories: [],
+				crosshair: true
+			},
+			yAxis: {
+				title: {
+					text: (item + ' (' + unit + ')')
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			tooltip: {
+				valueSuffix: unit,
+        crosshairs: true,
+        shared: true
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				borderWidth: 0
+			},
+			series: [
+				{
+					name: 'Indoor',
+					data: []
+				}
+			]
+		}
+
+		if(outdoor){
+			data.series.push({name: 'Outdoor', data: []});
+		}
 
 		for (var i = indoor.length - 1; i >= 0; i--) {
-			//data.labels.push('t-' + i);
-			data.labels.push('');
-			data.datasets[0].data.push(indoor[i]);
-			data.datasets[1].data.push(outdoor[i]);
+			var date = new Date(time * 1000 - 30 * 60 * 1000 * i);
+			data.xAxis.categories.push(date.getHours() + ':' + date.getMinutes());
+
+			data.series[0].data.push(indoor[i]);
+
+			if(outdoor){
+				data.series[1].data.push(outdoor[i]);
+			}
 		};
 
-		lineCharts[item + '-' + location ] = data;
-
+		lineCharts[item + '_flow'] = data;
 	}
 
-	return canvas;
-}
-
-function buildFlow(item, value, unit, location){
-
-	var canvas = document.createElement('canvas');
-	canvas.classList.add('flow', location);
-	canvas.width = window.innerWidth - 90;
-	canvas.height = Math.round(canvas.width / 1.778, 2);
-
-	if(Array.isArray(value)){
-
-		var data = {
-				labels: [],
-				datasets: [
-						{
-								label: item,
-								fillColor: "rgba(220,220,220,0.7)",
-								strokeColor: "rgba(220,220,220, 0.9)",
-								highlightFill: "rgba(220,220,220,0.75)",
-								highlightStroke: "rgba(220,220,220,1)",
-								data: []
-						}
-				],
-				unit: unit
-		};
-
-		for (var i = value.length - 1; i >= 0; i--) {
-			//data.labels.push('t-' + i);
-			data.labels.push('');
-			data.datasets[0].data.push(value[i]);
-		};
-
-		lineCharts[item + '-' + location ] = data;
-
-	}
-
-	return canvas;
+	return container;
 }
 
 function initBarCharts(options){
-	for (chart in barCharts){
-		var ctx = document.querySelector('#' + chart + ' .origin' ).getContext("2d"),
-				chart = new Chart(ctx).Bar(barCharts[chart], options);
+	for (barChart in barCharts){
+		var chart = new Highcharts.Chart(barCharts[barChart]);
 	}
 }
 
 function initLineCharts(options){
-	for (chart in lineCharts){
-
-		var classes = chart.split('-');
-
-		var ctx = document.querySelector('#' + classes[0] + ' .flow').getContext("2d"),
-				chart = new Chart(ctx).Line(lineCharts[chart], options);
+	for (lineChart in lineCharts){
+		var chart = new Highcharts.Chart(lineCharts[lineChart]);
 	}
 }
 
