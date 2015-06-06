@@ -562,7 +562,7 @@ main#main {
           border-right: 2px solid black; }
     /* line 221, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > data {
-      font-size: 4em;
+      font-size: 5em;
       line-height: 120px;
       margin: 0 10px;
       display: block;
@@ -594,7 +594,7 @@ main#main {
       float: left;
       width: 33.333%;
       font-size: 4em;
-      line-height: 5em;
+      line-height: 3em;
       text-align: center;
       background-image: url('../images/battery.svg');
       background-size: contain;
@@ -605,46 +605,82 @@ main#main {
       content: '';
       display: block; }
     /* line 271, E:/Sites/urc/universal/scss/styles.scss */
-    main#main > section#device main > section.map {
-      height: 400px;
-      margin: 40px 10px;
-      padding: 0;
-      display: block; }
-      /* line 276, E:/Sites/urc/universal/scss/styles.scss */
-      main#main > section#device main > section.map > div {
-        height: 100%;
+    main#main > section#device main > section.mapWrapper {
+      margin: 40px 10px; }
+      /* line 273, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section#device main > section.mapWrapper > .map {
+        height: 400px;
         margin: 0;
-        padding: 0; }
-      /* line 281, E:/Sites/urc/universal/scss/styles.scss */
-      main#main > section#device main > section.map > data {
-        margin: 20px 0;
-        width: 33.333%;
+        padding: 0;
+        display: block; }
+        /* line 278, E:/Sites/urc/universal/scss/styles.scss */
+        main#main > section#device main > section.mapWrapper > .map > div {
+          height: 100%;
+          margin: 0;
+          padding: 0; }
+        @media (min-width: 768px) {
+          main#main > section#device main > section.mapWrapper > .map {
+            height: 800px; } }
+      /* line 287, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section#device main > section.mapWrapper > data {
+        margin: 20px 0px;
         font-size: 3em;
-        display: block;
-        float: left; }
-    /* line 294, E:/Sites/urc/universal/scss/styles.scss */
+        display: block; }
+        @media (min-width: 768px) {
+          main#main > section#device main > section.mapWrapper > data {
+            width: 33.333%;
+            float: left; } }
+    /* line 302, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main > section {
-      width: 33.333%;
+      width: 100%;
       float: left;
       padding: 10px;
       box-sizing: border-box; }
-      /* line 299, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 307, E:/Sites/urc/universal/scss/styles.scss */
+      main#main > section#forecast > main > section > h2 {
+        text-align: center;
+        font-size: 4em; }
+      @media (min-width: 768px) {
+        main#main > section#forecast > main > section {
+          width: 33.333%; }
+          /* line 313, E:/Sites/urc/universal/scss/styles.scss */
+          main#main > section#forecast > main > section > h2 {
+            font-size: 3em;
+            text-align: left; } }
+      /* line 318, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#forecast > main > section > figure {
         margin: 0;
         padding: 0; }
-        /* line 302, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 321, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section#forecast > main > section > figure > img {
           width: 100%; }
-    /* line 307, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 325, E:/Sites/urc/universal/scss/styles.scss */
+        main#main > section#forecast > main > section > figure > figcaption > h3 {
+          font-size: 2em;
+          text-align: center; }
+          /* line 328, E:/Sites/urc/universal/scss/styles.scss */
+          main#main > section#forecast > main > section > figure > figcaption > h3.rain {
+            background-image: url(../images/weather/rain.svg);
+            background-position: 40% center;
+            background-size: 40px;
+            background-repeat: no-repeat; }
+          @media (min-width: 768px) {
+            main#main > section#forecast > main > section > figure > figcaption > h3 {
+              text-align: left; }
+              /* line 336, E:/Sites/urc/universal/scss/styles.scss */
+              main#main > section#forecast > main > section > figure > figcaption > h3.rain {
+                padding-left: 50px;
+                background-position: left center; } }
+    /* line 345, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main:after {
       display: block;
       content: '';
       clear: both; }
-    /* line 314, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 352, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section:after {
       clear: both;
       content: '';
       display: block; }
-    /* line 319, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 357, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section.hide {
       display: none; }

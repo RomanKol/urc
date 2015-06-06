@@ -239,9 +239,11 @@ function buildDevice(item, data){
 function buildMap(item, data){
 
 	var section = document.createElement('section');
-	section.classList.add('map');
+	section.classList.add('mapWrapper');
 
 	var map = document.createElement('div');
+	map.classList.add('map');
+
 
 	var alt = document.createElement('data');
 	alt.innerText = 'Alt: ' + data.alt + 'm';

@@ -219,7 +219,7 @@ main#main {
 				}
 			}
 			> data {
-				font-size: 4em;
+				font-size: 5em;
 				line-height: 120px;
 				margin: 0 10px;
 				display: block;
@@ -257,7 +257,7 @@ main#main {
 						float: left;
 						width: 33.333%;
 						font-size: 4em;
-						line-height: 5em;
+						line-height: 3em;
 						text-align: center;
 						background-image: url('../images/battery.svg');
 						background-size: contain;
@@ -268,22 +268,30 @@ main#main {
 						content: '';
 						display: block;
 					}
-					&.map {
-						height: 400px;
+					&.mapWrapper {
 						margin: 40px 10px;
-						padding: 0;
-						display: block;
-						> div {
-							height: 100%;
+						> .map {
+							height: 400px;
 							margin: 0;
 							padding: 0;
+							display: block;
+							> div {
+								height: 100%;
+								margin: 0;
+								padding: 0;
+							}
+							@media (min-width: 768px) {
+								height: 800px;
+							}
 						}
 						> data {
-							margin: 20px 0;
-							width: 33.333%;
+							margin: 20px 0px;
 							font-size: 3em;
 							display: block;
-							float: left;
+							@media (min-width: 768px) {
+								width: 33.333%;
+								float: left;
+							}
 						}
 					}
 				}
@@ -292,15 +300,45 @@ main#main {
 		&#forecast {
 			> main {
 				> section {
-					width: 33.333%;
+					width: 100%;
 					float: left;
 					padding: 10px;
  					box-sizing: border-box;
+					> h2 {
+						text-align: center;
+						font-size: 4em;
+					}
+					@media (min-width: 768px) {
+						width: 33.333%;
+						> h2 {
+							font-size: 3em;
+							text-align: left;
+						}
+					}
 					> figure {
 						margin: 0;
 						padding: 0;
 						> img {
 							width: 100%;
+						}
+						> figcaption {
+							> h3 {
+								font-size: 2em;
+								text-align: center;
+								&.rain {
+									background-image: url(../images/weather/rain.svg);
+									background-position: 40% center;
+									background-size: 40px;
+									background-repeat: no-repeat;
+								}
+								@media (min-width: 768px) {
+									text-align: left;
+									&.rain {
+										padding-left: 50px;
+										background-position: left center;
+									}
+								}
+							}
 						}
 					}
 				}
