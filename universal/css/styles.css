@@ -414,76 +414,92 @@ nav#navbar {
     /* line 69, E:/Sites/urc/universal/scss/styles.scss */
     nav#navbar > ul > li {
       width: 300px;
+      height: 50px;
       background-color: transparent;
       border-width: 0;
-      transition-property: background-color, border-width;
+      overflow: hidden;
+      transition-property: background-color, border-width, height;
       transition-duration: 500ms; }
-      /* line 75, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 77, E:/Sites/urc/universal/scss/styles.scss */
       nav#navbar > ul > li > a {
         text-decoration: none;
         color: white;
-        display: block; }
-        /* line 78, E:/Sites/urc/universal/scss/styles.scss */
+        display: inline-block;
+        width: 250px; }
+        /* line 81, E:/Sites/urc/universal/scss/styles.scss */
         nav#navbar > ul > li > a > img {
           float: left;
           width: 30px;
           height: 30px;
           margin: 10px; }
-        /* line 84, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 87, E:/Sites/urc/universal/scss/styles.scss */
         nav#navbar > ul > li > a > h3 {
           float: left;
           margin: 0 20px 0;
           line-height: 50px; }
-        /* line 89, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 92, E:/Sites/urc/universal/scss/styles.scss */
         nav#navbar > ul > li > a:after {
           content: "";
           display: block;
           clear: both; }
-      /* line 95, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 98, E:/Sites/urc/universal/scss/styles.scss */
+      nav#navbar > ul > li > input {
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+        float: right; }
+      /* line 104, E:/Sites/urc/universal/scss/styles.scss */
       nav#navbar > ul > li.active {
         background-color: rgba(255, 255, 255, 0.2);
         border-left: 5px solid rgba(255, 255, 255, 0.5); }
-        /* line 98, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 107, E:/Sites/urc/universal/scss/styles.scss */
         nav#navbar > ul > li.active > a > img {
           margin-left: 5px; }
-  /* line 105, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 111, E:/Sites/urc/universal/scss/styles.scss */
+      nav#navbar > ul > li.hide {
+        height: 0px; }
+  /* line 117, E:/Sites/urc/universal/scss/styles.scss */
   nav#navbar.active {
     width: 240px; }
-    /* line 107, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 119, E:/Sites/urc/universal/scss/styles.scss */
     nav#navbar.active.settings {
       width: 300px; }
-      /* line 109, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 121, E:/Sites/urc/universal/scss/styles.scss */
       nav#navbar.active.settings #settingsBtn {
         left: 250px; }
+      /* line 124, E:/Sites/urc/universal/scss/styles.scss */
+      nav#navbar.active.settings li.hide {
+        height: 60px;
+        background-color: rgba(1, 1, 1, 0.2); }
 
-/* line 116, E:/Sites/urc/universal/scss/styles.scss */
+/* line 132, E:/Sites/urc/universal/scss/styles.scss */
 main#main {
   position: relative;
   margin-left: 50px;
   padding: 10px; }
-  /* line 120, E:/Sites/urc/universal/scss/styles.scss */
+  /* line 136, E:/Sites/urc/universal/scss/styles.scss */
   main#main > section {
     margin-bottom: 140px; }
-    /* line 122, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 138, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > header {
       margin: 40px 0px 60px 0; }
-      /* line 124, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 140, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > header > img {
         float: left;
         width: 100px;
         height: 100px; }
-      /* line 129, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 145, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > header > h1 {
         font-size: 5em;
         float: left;
         line-height: 100px;
         margin: 0 40px 0; }
-      /* line 135, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 151, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > header:after {
         content: "";
         display: block;
         clear: both; }
-    /* line 142, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 158, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > figure {
       float: left;
       width: 50%;
@@ -496,17 +512,17 @@ main#main {
       @media (min-width: 1280px) {
         main#main > section > main > figure {
           width: 25%; } }
-      /* line 154, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 170, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > figure > img {
         width: 100%; }
-      /* line 157, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 173, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > figure > figcaption {
         position: relative;
         min-height: 80px; }
-        /* line 160, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 176, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section > main > figure > figcaption > h2 {
           margin: 0.5em 0; }
-        /* line 163, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 179, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section > main > figure > figcaption > a {
           position: absolute;
           right: 0;
@@ -518,11 +534,11 @@ main#main {
           background-size: 40px;
           background-repeat: no-repeat;
           background-postion: center; }
-    /* line 178, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 194, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > div > h3 {
       margin: 0 10px;
       font-size: 1.5em; }
-    /* line 182, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 198, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > div > progress {
       display: block;
       box-sizing: border-box;
@@ -530,21 +546,21 @@ main#main {
       width: 100%;
       height: 40px;
       padding: 0 10px; }
-      /* line 189, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 205, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > div > progress[value] {
         -webkit-appearance: none;
         appearance: none; }
-        /* line 192, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 208, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section > main > div > progress[value]::-webkit-progress-bar {
           background: -webkit-linear-gradient(left, green, yellow, red);
           background: -o-linear-gradient(left, green, yellow, red);
           background: linear-gradient(to right, green, yellow, red);
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; }
-        /* line 198, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 214, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section > main > div > progress[value]::-webkit-progress-value {
           background-color: rgba(255, 255, 255, 0.4);
           border-right: 2px solid black; }
-    /* line 205, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 221, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > data {
       font-size: 4em;
       line-height: 120px;
@@ -552,27 +568,27 @@ main#main {
       display: block;
       text-align: center;
       margin-bottom: 60px; }
-      /* line 212, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 228, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > data.indoor {
         margin-right: 20px; }
-      /* line 215, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 231, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section > main > data.outdoor {
         margin-left: 20px; }
-    /* line 219, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 235, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main > canvas.origins {
       margin: 0 10px; }
-    /* line 223, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 239, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section > main.list:after {
       display: block;
       content: '';
       clear: both; }
-    /* line 233, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 249, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section > img {
       width: 33.33%;
       float: left;
       padding: 20px;
       box-sizing: border-box; }
-    /* line 239, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 255, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section > data.battery {
       display: block;
       float: left;
@@ -583,49 +599,52 @@ main#main {
       background-image: url('../images/battery.svg');
       background-size: contain;
       background-repeat: no-repeat; }
-    /* line 250, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 266, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section:after {
       clear: both;
       content: '';
       display: block; }
-    /* line 255, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 271, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#device main > section.map {
       height: 400px;
       margin: 40px 10px;
       padding: 0;
       display: block; }
-      /* line 260, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 276, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#device main > section.map > div {
         height: 100%;
         margin: 0;
         padding: 0; }
-      /* line 265, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 281, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#device main > section.map > data {
         margin: 20px 0;
         width: 33.333%;
         font-size: 3em;
         display: block;
         float: left; }
-    /* line 278, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 294, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main > section {
       width: 33.333%;
       float: left;
       padding: 10px;
       box-sizing: border-box; }
-      /* line 283, E:/Sites/urc/universal/scss/styles.scss */
+      /* line 299, E:/Sites/urc/universal/scss/styles.scss */
       main#main > section#forecast > main > section > figure {
         margin: 0;
         padding: 0; }
-        /* line 286, E:/Sites/urc/universal/scss/styles.scss */
+        /* line 302, E:/Sites/urc/universal/scss/styles.scss */
         main#main > section#forecast > main > section > figure > img {
           width: 100%; }
-    /* line 291, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 307, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section#forecast > main:after {
       display: block;
       content: '';
       clear: both; }
-    /* line 298, E:/Sites/urc/universal/scss/styles.scss */
+    /* line 314, E:/Sites/urc/universal/scss/styles.scss */
     main#main > section:after {
       clear: both;
       content: '';
       display: block; }
+    /* line 319, E:/Sites/urc/universal/scss/styles.scss */
+    main#main > section.hide {
+      display: none; }

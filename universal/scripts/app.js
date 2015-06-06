@@ -4,7 +4,7 @@ var mainEl = document.getElementById('main'),
 		navEl = document.getElementById('navbar'),
 		navBtnEl = document.getElementById('navBtn'),
 		navListEl = document.getElementById('navList'),
-		sttngBtnEl = document.getElementById('settingsBtn');
+		settingBtnEl = document.getElementById('settingsBtn');
 
 var settings = {},
 		json = {},
@@ -22,7 +22,7 @@ var settings = {},
 
 // Initialize Functions
 update();
-//loadSettings();
+
 
 // Eventlisteners
 
@@ -37,12 +37,14 @@ navEl.addEventListener('click', function(evt){
 			navToggle(el);
 
 			break;
-		} else if(el === navBtnEl){
+		} else if(el.nodeName === 'INPUT'){
+			editSettings(el);
+		}else if(el === navBtnEl){
 			//navEl.classList.remove('settings');
 			navEl.classList.toggle('active');
 			break;
-		} else if(el === sttngBtnEl){
-			navEl.classList.toggle('settings');
+		} else if(el === settingBtnEl){
+			toggleSettings();
 		}
 		el = el.parentElement;
 	}
@@ -72,7 +74,7 @@ function update() {
 			json = JSON.parse(this.response);
 
 			build();
-
+			loadSettings();
 		} else {
 			console.log('Fehler: ' + this);
 		}
@@ -110,9 +112,14 @@ function buildNavItem(key){
 	var h = document.createElement('h3');
 	h.innerText = key.replace('_', ' ');
 
+	var checkbox = document.createElement('input');
+	checkbox.type = 'checkbox';
+	checkbox.name = key;
+
 	a.appendChild(img);
 	a.appendChild(h);
 	li.appendChild(a);
+	li.appendChild(checkbox);
 
 	navListEl.appendChild(li);
 }
@@ -248,7 +255,7 @@ function buildMap(item, data){
 	section.appendChild(lat);
 	section.appendChild(lng);
 
-	//initMap(map, data.lat, data.lng);
+	initMap(map, data.lat, data.lng);
 
 	return section;
 }
@@ -275,7 +282,6 @@ function initMap(element, lat, lng){
 }
 
 // Array Sections
-
 function addArray(item, data){
 
 	var main = document.createElement('main');
@@ -319,7 +325,6 @@ function buildFigure(value){
 
 	return figure;
 }
-
 
 //Object Sections
 function addObject(item, data){
@@ -519,13 +524,9 @@ function initBarCharts(options){
 }
 
 function initLineCharts(options){
-	console.log(lineCharts);
 	for (chart in lineCharts){
 
 		var classes = chart.split('-');
-
-		console.log(chart);
-		console.log('#' + classes[0] + ' .flow.' + classes[1]);
 
 		var ctx = document.querySelector('#' + classes[0] + ' .flow').getContext("2d"),
 				chart = new Chart(ctx).Line(lineCharts[chart], options);
@@ -535,53 +536,34 @@ function initLineCharts(options){
 // Settings
 // Load Settings
 function loadSettings(){
+
 	settings = JSON.parse(localStorage.getItem('settings'));
 
-	if(settings === null) settings = {};
-
-	//console.log(settings);
-
-	for( var setting in settings){
-		if(settings[setting] === true){
-			document.getElementById('settings_' + setting).checked = true;
-			addElement(setting);
-		} else {
-			document.getElementById('settings_' + setting).checked = false;
+	if(settings === null){
+		settings = {};
+		for (key in json){
+			settings[key] = true;
 		}
 	}
+
+	for(setting in settings){
+		if(settings[setting] === true){
+			navEl.querySelector('input[name=' + setting + ']').checked = true;
+		} else {
+			navEl.querySelector('input[name=' + setting + ']').parentElement.classList.add('hide');
+			document.getElementById(setting).classList.add('hide');
+		}
+	}
+}
+
+function editSettings(el){
+	settings[el.name] = el.checked;
+	localStorage.setItem('settings', JSON.stringify(settings));
+	navList.querySelector('input[name=' + el.name + ']').parentElement.classList.toggle('hide');
+	document.getElementById(el.name).classList.toggle('hide');
 }
 
 // Toggle Settings
 function toggleSettings(){
-	settingsEl.classList.toggle('active');
-}
-
-// Setting Settings
-function modifySettings(){
-	var children = 	settingsEl.children;
-
-	for (var i = 0; i < children.length; i++) {
-		if(children[i].tagName.toLowerCase() === 'input' && children[i].checked === true){
-			settings[children[i].id.substring(9)] = true;
-		} else if (children[i].tagName.toLowerCase() === 'input'){
-			settings[children[i].id.substring(9)] = false;
-		}
-
-	};
-
-	// Remove All Child Elements Of ListElement
-	while (listEl.firstChild) {
-		listEl.removeChild(listEl.firstChild);
-	}
-
-	// Add Active Elements To ListElement
-	for( var setting in settings){
-		if(settings[setting] === true){
-			addElement(setting);
-		}
-	}
-
-	localStorage.setItem('settings', JSON.stringify(settings));
-
-	toggleSettings();
+	navEl.classList.toggle('settings');
 }
