@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -720,60 +719,52 @@ body, html {
 .hide {
   display: none; }
 
-/* line 438, E:/Sites/urc/sabine/scss/styles.scss */
-#temperature data:after, .temperature data:after {
-  content: '°C'; }
-
-/* line 444, E:/Sites/urc/sabine/scss/styles.scss */
-#noise data:after, .noise data:after {
-  content: 'db'; }
-
-/* line 450, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 437, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-low > figure {
   box-shadow: 0px 0px 25px 10px #3498db; }
 
-/* line 453, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 440, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-good > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 456, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 443, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-warm > figure {
   box-shadow: 0px 0px 25px 10px #f39c12; }
 
-/* line 459, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 446, E:/Sites/urc/sabine/scss/styles.scss */
 .temp-hot > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 465, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 452, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-1 > figure, .stresslevel-1 > figure, .airquality-1 > figure {
   box-shadow: 0px 0px 25px 10px #2ecc71; }
 
-/* line 470, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 457, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-2 > figure, .stresslevel-2 > figure, .airquality-2 > figure {
   box-shadow: 0px 0px 25px 10px #f1c40f; }
 
-/* line 475, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 462, E:/Sites/urc/sabine/scss/styles.scss */
 .noise-3 > figure, .stresslevel-3 > figure, .airquality-3 > figure {
   box-shadow: 0px 0px 25px 10px #c0392b; }
 
-/* line 481, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 468, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-low > figure {
   box-shadow: 0px 0px 10px 10px #3498db; }
-/* line 484, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 471, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-good > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 487, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 474, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-warm > figure {
   box-shadow: 0px 0px 10px 10px #f39c12; }
-/* line 490, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 477, E:/Sites/urc/sabine/scss/styles.scss */
 .active.temp-hot > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }
-/* line 496, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 483, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-1 > figure, .active.stresslevel-1 > figure, .active.airquality-1 > figure {
   box-shadow: 0px 0px 10px 10px #2ecc71; }
-/* line 501, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 488, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-2 > figure, .active.stresslevel-2 > figure, .active.airquality-2 > figure {
   box-shadow: 0px 0px 10px 10px #f1c40f; }
-/* line 506, E:/Sites/urc/sabine/scss/styles.scss */
+/* line 493, E:/Sites/urc/sabine/scss/styles.scss */
 .active.noise-3 > figure, .active.stresslevel-3 > figure, .active.airquality-3 > figure {
   box-shadow: 0px 0px 10px 10px #c0392b; }

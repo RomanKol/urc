@@ -142,7 +142,7 @@ function setTemperature(temperature){
  	// Tile
 	el = document.getElementById('temperature');
 
-	el.querySelector('data').innerText = temperature.indoor;
+	el.querySelector('data').innerText = temperature.indoor + 'C';
 	el.classList.remove('temp-low', 'temp-good', 'temp-warm', 'temp-hot');
 
 	// Temperature less than 15
@@ -157,8 +157,8 @@ function setTemperature(temperature){
 	}
 
 	// DetailView
-	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor;
-	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor;
+	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor + 'C';
+	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor + 'C';
 }
 
 // Food Element
@@ -236,7 +236,7 @@ function setNoise(noise){
 
 	// DetailView
 	dEl = detailEl.querySelector('.noise');
-	dEl.querySelector('data').innerText = noise.indoor;
+	dEl.querySelector('data').innerText = noise.indoor + 'Dezibel';
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ domClass);
 
