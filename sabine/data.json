@@ -133,7 +133,7 @@
     },
     "food": [
         {
-            "Blaubeeren-Heidelbeeren": "http://www.chefkoch.de/rs/s0/Blaubeeren-Heidelbeeren/Rezepte.html"
+            "Heidelbeeren": "http://www.chefkoch.de/rs/s0/Heidelbeeren/Rezepte.html"
         },
         {
             "Erdbeeren": "http://www.chefkoch.de/rs/s0/Erdbeeren/Rezepte.html"
@@ -164,9 +164,6 @@
         },
         {
             "Champignons": "http://www.chefkoch.de/rs/s0/Champignons/Rezepte.html"
-        },
-        {
-            "Erbsen": "http://www.chefkoch.de/rs/s0/Erbsen/Rezepte.html"
         },
         {
             "Fenchel": "http://www.chefkoch.de/rs/s0/Fenchel/Rezepte.html"
@@ -217,13 +214,7 @@
             "Zuckerschoten": "http://www.chefkoch.de/rs/s0/Zuckerschoten/Rezepte.html"
         },
         {
-            "Batavia": "http://www.chefkoch.de/rs/s0/Batavia/Rezepte.html"
-        },
-        {
             "Eichblattsalat": "http://www.chefkoch.de/rs/s0/Eichblattsalat/Rezepte.html"
-        },
-        {
-            "Eisbergsalat": "http://www.chefkoch.de/rs/s0/Eisbergsalat/Rezepte.html"
         },
         {
             "Endiviensalat": "http://www.chefkoch.de/rs/s0/Endiviensalat/Rezepte.html"

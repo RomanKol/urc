@@ -195,9 +195,9 @@ function setWeather(forecast){
 	}
 
 	list.style.width = itemWidth * forecast.length + 'px';
-	day = ['Heute', 'Morgen', 'Übermorgen'];
+	day = ['heute', 'morgen', 'ubermorgen'];
 	for (var i = 0; forecast.length > i; i++) {
-		list.appendChild(weatherListItem(forecast[i], itemWidth, day[i]));
+		list.appendChild(weatherListItem(forecast[i], itemWidth, i,  day[i]));
 	};
 }
 
@@ -292,14 +292,13 @@ function foodListItem(data, itemWidth){
 	return item
 }
 
-function weatherListItem(data, itemWidth, day){
+function weatherListItem(data, itemWidth, position, id){
 	item = document.createElement('li');
 	item.style.width = itemWidth + 'px';
+	item.id = id;
+	item.dataset.position = itemWidth * position;
 	figure = document.createElement('figure');
 	figure.classList.add('slide');
-	h2Day = document.createElement('h2');
-	date = new Date(data.dt * 1000);
-	h2Day.innerText = day;
 
 	imgWeather = document.createElement('img');
 	imgWeather.src = 'images/weather/' + data.weather.icon + '.svg';
@@ -313,7 +312,6 @@ function weatherListItem(data, itemWidth, day){
 	h3Rain.innerText = Math.floor(data.rain) + '%';
 	h3Rain.classList.add('rain');
 
-	figure.appendChild(h2Day);
 	figcaption.appendChild(h3Temp);
 	figcaption.appendChild(h3Descr);
 	figcaption.appendChild(h3Rain);
@@ -355,6 +353,16 @@ function slide(evt){
 			slider.classList.remove('limit-left', 'limit-right');
 		}
 		slider.querySelector('ul').style.right = slider.getBoundingClientRect().width * slider.dataset.position + 'px';
+	} else if(el.nodeName === 'A'){
+		evt.preventDefault();
+
+		for (var i = 0; i < el.parentElement.children.length; i++) {
+			el.parentElement.children[i].classList.remove('active')
+		};
+		el.classList.add('active');
+
+		var slider = el.parentElement.parentElement.querySelector('ul');
+		slider.style.right = document.getElementById(el.getAttribute('href')).dataset.position + 'px';
 	}
 
 }
