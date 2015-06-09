@@ -1,4 +1,4 @@
-Zutat (Gemüse);Jan;Feb;Mär;Apr;Mai;Jun;Jul;Aug;Sep;Okt;Nov;Dez
+﻿Zutat (Gemüse);Jan;Feb;Mär;Apr;Mai;Jun;Jul;Aug;Sep;Okt;Nov;Dez
 Aubergine;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
 Blumenkohl;nein;nein;nein;nein;ja;ja;ja;ja;ja;ja;nein;nein
 gruene-Bohnen,;nein;nein;nein;nein;nein;nein;ja;ja;ja;ja;nein;nein
@@ -6,7 +6,6 @@ dicke-Bohnen;nein;nein;nein;nein;nein;ja;ja;ja;nein;nein;nein;nein
 Brokkoli;nein;nein;nein;nein;nein;ja;ja;ja;ja;ja;nein;nein
 Butterrüben;(ja);(ja);(ja);(ja);nein;nein;nein;ja;ja;ja;ja;ja
 Champignons;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja;ja
-Erbsen;nein;nein;nein;nein;nein;ja;ja;ja;nein;nein;nein;nein
 Fenchel;nein;nein;nein;nein;nein;ja;ja;ja;ja;ja;ja;nein
 Grünkohl;ja;ja;nein;nein;nein;nein;nein;nein;nein;nein;ja;ja
 Gurke;nein;nein;nein;nein;nein;ja;ja;ja;ja;ja;nein;nein
