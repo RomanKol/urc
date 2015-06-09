@@ -432,7 +432,7 @@ body, html {
     background-position: -50% center; }
   /* line 102, E:/Sites/urc/sabine/scss/styles.scss */
   .tile#food figure {
-    background-image: url('../images/food.svg'); }
+    background-image: url('../images/market.svg'); }
   /* line 107, E:/Sites/urc/sabine/scss/styles.scss */
   .tile#weather figure {
     background-image: url('../images/weather.svg'); }
