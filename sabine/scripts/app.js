@@ -142,7 +142,7 @@ function setTemperature(temperature){
  	// Tile
 	el = document.getElementById('temperature');
 
-	el.querySelector('data').innerText = temperature.indoor + 'C';
+	el.querySelector('data').innerText = Math.floor(temperature.indoor) + '°C';
 	el.classList.remove('temp-low', 'temp-good', 'temp-warm', 'temp-hot');
 
 	// Temperature less than 15
@@ -157,8 +157,8 @@ function setTemperature(temperature){
 	}
 
 	// DetailView
-	detailEl.querySelector('.temperature .indoor').innerText = temperature.indoor + 'C';
-	detailEl.querySelector('.temperature .outdoor').innerText = temperature.outdoor + 'C';
+	detailEl.querySelector('.temperature .indoor').innerText = Math.floor(temperature.indoor) + '°C';
+	detailEl.querySelector('.temperature .outdoor').innerText = Math.floor(temperature.outdoor) + '°C';
 }
 
 // Food Element
@@ -221,7 +221,7 @@ function setNoise(noise){
 
 	// Tile
 	el = document.getElementById('noise');
-	el.querySelector('data').innerText = noise.indoor;
+	el.querySelector('data').innerText = noise.indoor + 'db';
 	el.classList.remove('noise-low', 'noise-medium', 'noise-height');
 
 	if(noise.indoor <= 63){
@@ -236,15 +236,20 @@ function setNoise(noise){
 
 	// DetailView
 	dEl = detailEl.querySelector('.noise');
-	dEl.querySelector('data').innerText = noise.indoor + 'Dezibel';
+	dEl.querySelector('data').innerText = noise.indoor + 'db';
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ domClass);
 
 	list = dEl.querySelector('.devices');
+	items = list.querySelectorAll('img');
 
 	for (var i = 0; i < noise.origin.length; i++) {
 		for(device in noise.origin[i]){
-			list.appendChild(noiseListItem(device));
+			for (var i = 0; i < items.length; i++) {
+				if(items[i].getAttribute('alt').toLowerCase() === device){
+					items[i].classList.add('active');
+				}
+			};
 		}
 	}
 }
@@ -262,14 +267,6 @@ function setAirquality(airquality){
 	dEl.querySelector('h2').innerText = airquality.message;
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ airquality.indoor);
-}
-
-function noiseListItem(data){
-	item = document.createElement('li');
-	img = document.createElement('img');
-	img.src = 'images/noise/' + data + '.svg';
-	item.appendChild(img);
-	return item;
 }
 
 function foodListItem(data, itemWidth){
