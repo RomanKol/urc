@@ -6,6 +6,9 @@ var mainEl = document.getElementById('main'),
 		navListEl = document.getElementById('navList'),
 		settingBtnEl = document.getElementById('settingsBtn');
 
+var sectionsEls = [],
+		currentEl;
+
 var settings = {},
 		json = {},
 		barCharts = {},
@@ -84,6 +87,9 @@ function build(){
 
 	initBarCharts();
 	initLineCharts();
+
+	console.log(sectionsEls);
+	currentEl = navListEl.querySelector('li:not(.hide)');
 }
 
 // Navigation
@@ -120,6 +126,7 @@ function buildSection(key, data){
 	section.appendChild(addSectionContent(item, data));
 
 	mainEl.appendChild(section);
+	sectionsEls.push(section);
 }
 
 function addSectionHeader(key){
@@ -575,3 +582,28 @@ function editSettings(el){
 function toggleSettings(){
 	navEl.classList.toggle('settings');
 }
+
+window.addEventListener('scroll', function(evt){
+	var currPos = window.scrollY + window.innerHeight * 0.33;
+
+	for (var i = 0; i < sectionsEls.length ; i++) {
+
+		var el = sectionsEls[i],
+				parent = el;
+
+		var top = parent.offsetTop,
+				bottom = 0;
+
+		// Here not needed >> parents have no padding or margin
+		/*while(parent = parent.offsetParent){
+			top += parent.offsetTop;
+		}*/
+
+		bottom = top + sectionsEls[i].offsetHeight;
+
+		if (currPos >= top && currPos <= bottom && currentEl.id != el.id) {
+			navToggle(navEl.querySelector('[href="#'+el.id+'"]').parentElement);
+			currentEl = el;
+		}
+	};
+}, false);
