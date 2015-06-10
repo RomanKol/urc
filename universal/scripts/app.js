@@ -205,20 +205,43 @@ function buildForecast(data){
 
 function buildDevice(item, data){
 
+	var section = document.createElement('section');
+	var baseRow = document.createElement('div');
+	var stationRow = document.createElement('div');
+
+	var base = 	document.createElement('img');
+	base.src = 'images/netatmo_base.svg';
+	base.classList.add('left');
+
+	var station = 	document.createElement('img');
+	station.src = 'images/netatmo_station.svg';
+	station.classList.add('left');
+
 	var wifi = document.createElement('img');
 	wifi.src = 'images/wifi_' + data.wifiState + '.svg';
 
 	var fstate = document.createElement('img');
 	fstate.src = 'images/fstate_' + data.fstate + '.svg';
 
-	var battery = document.createElement('data');
-	battery.classList.add('battery');
-	battery.innerText = data.battery + '%';
+	var battery = document.createElement('figure'),
+			batteryimg = document.createElement('img'),
+			batteryfc = document.createElement('figcaption'),
+			batteryvalue = document.createElement('data');
 
-	var section = document.createElement('section');
-	section.appendChild(wifi);
-	section.appendChild(fstate);
-	section.appendChild(battery);
+	batteryimg.src = 'images/battery.svg';
+	batteryvalue.innerText  = data.battery + '%';
+
+	batteryfc.appendChild(batteryvalue);
+	battery.appendChild(batteryimg);
+	battery.appendChild(batteryfc);
+
+	baseRow.appendChild(base)
+	baseRow.appendChild(wifi);
+	stationRow.appendChild(station);
+	stationRow.appendChild(fstate);
+	stationRow.appendChild(battery);
+	section.appendChild(baseRow);
+	section.appendChild(stationRow)
 
 	return section;
 }
@@ -320,10 +343,8 @@ function addObject(item, data){
 
 	var main = document.createElement('main');
 
-	if(data.indoor && data.outdoor){
-		main.appendChild(buildDoubleValue(data.indoor, data.outdoor, data.unit, data.time));
-	} else if(data.indoor && data.unit){
-		main.appendChild(buildValue(data.indoor, data.unit, 'indoor'));
+	if(data.indoor && data.unit){
+		main.appendChild(buildValue(data.indoor, data.outdoor, data.unit));
 	}
 
 	if(data.percentage){
@@ -341,27 +362,25 @@ function addObject(item, data){
 	return main;
 }
 
-function buildDoubleValue(indoor, outdoor, unit){
+function buildValue(indoor, outdoor, unit){
 
-	var data = document.createElement('data');
-	data.classList.add(location);
-	var unit = unit ? unit : '';
-	var text = indoor + unit + ' | ' + outdoor + unit;
-	data.innerText = text;
+	console.log(indoor, outdoor, unit);
 
-	return data;
+	if(outdoor && outdoor != undefined){
+		var data = document.createElement('data');
+		var unit = unit ? unit : '';
+		var text = indoor + unit + ' | ' + outdoor + unit;
+		data.innerText = text;
+		return data;
+	} else {
+		var data = document.createElement('data');
+		var text = indoor;
+		if(unit) text += unit;
+		data.innerText = text;
+		return data;
+	}
 }
 
-function buildValue(value, unit, location){
-
-	var data = document.createElement('data');
-	data.classList.add(location);
-	var text = value;
-	if(unit) text += unit;
-	data.innerText = text;
-
-	return data;
-}
 
 function buildProgressBar(value, label){
 
@@ -443,15 +462,10 @@ function buildOrigin(item, value){
 
 function buildFlow(item, indoor, outdoor, unit, time){
 
-	console.log(item);
-
 	var container = document.createElement('div');
 	container.id = item + '_flow';
 
-
 	if(Array.isArray(indoor)){
-
-		console.log('tick');
 
 		var data = {
 			chart: {
@@ -522,7 +536,6 @@ function initBarCharts(options){
 }
 
 function initLineCharts(options){
-	console.log(lineCharts);
 	for (lineChart in lineCharts){
 		var chart = new Highcharts.Chart(lineCharts[lineChart]);
 	}
