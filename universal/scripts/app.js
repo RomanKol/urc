@@ -443,11 +443,15 @@ function buildOrigin(item, value){
 
 function buildFlow(item, indoor, outdoor, unit, time){
 
+	console.log(item);
+
 	var container = document.createElement('div');
 	container.id = item + '_flow';
 
 
-	if(Array.isArray(indoor) && Array.isArray(outdoor)){
+	if(Array.isArray(indoor)){
+
+		console.log('tick');
 
 		var data = {
 			chart: {
@@ -518,6 +522,7 @@ function initBarCharts(options){
 }
 
 function initLineCharts(options){
+	console.log(lineCharts);
 	for (lineChart in lineCharts){
 		var chart = new Highcharts.Chart(lineCharts[lineChart]);
 	}
