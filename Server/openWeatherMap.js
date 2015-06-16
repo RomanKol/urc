@@ -1,9 +1,9 @@
 module.exports = {
-getOpenWeatherMapData: function (device_lat, device_lng, callback) {
+getOpenWeatherMapData: function (device_lat, device_lng,app_id, callback) {
 	var http = require("http")
 	var returnObject = new Object();
 	
-	var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+device_lat+"&lon="+device_lng+"&APPID=a1226a9bd9130f264545304f7738c10c&units=metric&lang=de&cnt=3";
+	var urlOfweatherAPI = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+device_lat+"&lon="+device_lng+"&APPID="+app_id+"&units=metric&lang=de&cnt=3";
 							
 		var request = http.get(urlOfweatherAPI, function (response) {	
 		    // data is streamed in chunks from the server

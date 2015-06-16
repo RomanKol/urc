@@ -1,9 +1,9 @@
 // openhabCommunicataion.js
 // ========
 module.exports = {
-  getOpenhabData: function (callback) {
+  getOpenhabData: function (ip_adress_and_port,callback) {
   	var http = require("http")
-     var urlOfOpenHab = "http://192.168.33.33:8080/rest/items?type=json";
+     var urlOfOpenHab = "http://"+ip_adress_and_port+"/rest/items?type=json";
      var windMessage = "";
      var flow_time_indoor = 0;
      var flow_time_outdoor = 0;

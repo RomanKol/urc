@@ -1,11 +1,11 @@
 module.exports = {
- retrieveAccessTokenInital: function(callback){
+ retrieveAccessTokenInital: function(client_id,client_secret,username,pw,callback){
  		var https = require('https')
 		console.log("retrieveAccessTokenInital called")
 		//var url = "https://api.netatmo.net/oauth2/token/"
 		//var grant = "grant_type=password&clienat_id=552d1ba21e7759ef905d9b6a&client_secret=ghffFwPKUKLGhlGX8mY5dwwX4UGFa9mk&username=kk114%40hdm-stuttgart.de&password=HdMurc2015zPq7!&scope=read_station";
 		//var urlOfNetAtmoAPiForMeasurements = url + grant;
-		var post_data = "grant_type=password&client_id=552d1ba21e7759ef905d9b6a&client_secret=ghffFwPKUKLGhlGX8mY5dwwX4UGFa9mk&username=kk114%40hdm-stuttgart.de&password=HdMurc2015zPq7!&scope=read_station"
+		var post_data = "grant_type=password&client_id="+client_id+"&client_secret="+client_secret+"&username="+username+"&password="+pw+"&scope=read_station"
 		var post_options = {
 	      host: 'api.netatmo.net',
 	      port: '443',
@@ -46,10 +46,10 @@ module.exports = {
 	  	post_req.end();
  },
 
- refreshAccessToken: function(resfreshToken,callback){
+ refreshAccessToken: function(resfreshToken,client_id,client_secret,callback){
  	var https = require('https')
 	console.log("inside refresh Token function!!")
-		var post_data_refresh = "grant_type=refresh_token&refresh_token="+resfreshToken+"&client_id=552d1ba21e7759ef905d9b6a&client_secret=ghffFwPKUKLGhlGX8mY5dwwX4UGFa9mk"
+		var post_data_refresh = "grant_type=refresh_token&refresh_token="+resfreshToken+"&client_id="+client_id+"&client_secret="+client_secret
 		var post_options_refresh = {
 	      host: 'api.netatmo.net',
 	      port: '443',
@@ -90,10 +90,10 @@ module.exports = {
 	post_req.end(); 
  },
 
- getHistoryDataForIndoor: function(accessToken, device_id, callback){
+ getHistoryDataForIndoor: function(accessToken, device_id,scale,limit, callback){
 	var https = require('https')
 	//Request for indoor
-	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale=30min&limit=48";
+	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&type=Temperature,Humidity,Co2,Pressure,Noise&scale="+scale+"&limit="+limit;
 	console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
 	var request = https.get(urlOfNetAtmoAPiForMeasurements, function (response) {	
 	    // data is streamed in chunks from the server
@@ -182,10 +182,10 @@ module.exports = {
 	    });
 	 });
  },
- getHistoryDataForOutdoor: function(accessToken, device_id, module_id, callback){
+ getHistoryDataForOutdoor: function(accessToken, device_id, module_id,scale,limit, callback){
 	var https = require('https')
 //Request for outdoor
-	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&module_id="+module_id+"&type=Temperature,Humidity&&scale=30min&limit=48";
+	var urlOfNetAtmoAPiForMeasurements = "https://api.netatmo.net/api/getmeasure?access_token="+accessToken+"&device_id="+device_id+"&module_id="+module_id+"&type=Temperature,Humidity&&scale="+scale+"&limit="+limit;
 	console.log("do request to get history: "+urlOfNetAtmoAPiForMeasurements)
 			
 	var request = https.get(urlOfNetAtmoAPiForMeasurements, function (response) {	

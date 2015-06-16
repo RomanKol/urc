@@ -21,10 +21,13 @@ var http = require('http')
 ,  resfreshToken = ""
 ,  historyIndoor = new Object()
 ,  historyOutdoor = new Object()
-,  firstRun = true;
+,  firstRun = true
+,  configSettings = JSON.parse(fs.readFileSync("config.json", "utf8"));
+
 getFoodData();
 getPollenData();
 getNewNetAtmoAccessToken();
+
 
 http.createServer(function (req, res) {
 	
@@ -142,7 +145,7 @@ http.createServer(function (req, res) {
 			}
 	}
 
-}).listen(1337, 'localhost');
+}).listen(configSettings.server_port, 'localhost');
 
 console.log('Server running at http://localhost:1337/');
 
@@ -151,7 +154,7 @@ console.log('Server running at http://localhost:1337/');
 //-----------------------retrieve data from opnehab----------------------
 setInterval(function(){
 	console.log("communicate with Openhab")
-	openhabCom.getOpenhabData(function(result) {
+	openhabCom.getOpenhabData(configSettings.openhab_ip_and_port,function(result) {
 	    openhabData = result;
 	    openhabData = calcData.getData(openhabData)
 	    openhabData.food = food;
@@ -226,7 +229,7 @@ function retrieveOpenWeatherMapData(){
 	console.log("communicate with OpenweatherMap")
 	if ( typeof openhabData.device !== 'undefined' && openhabData.device)
 	{
-		weatherData.getOpenWeatherMapData(openhabData.device.lat,openhabData.device.lng, function(result) {
+		weatherData.getOpenWeatherMapData(openhabData.device.lat,openhabData.device.lng,configSettings.openWeatherMap_app_id, function(result) {
 		   forecast = result;
 	 	});
 	}
@@ -234,14 +237,23 @@ function retrieveOpenWeatherMapData(){
 
 
 function retrieveHistroyData(){
-	var device_id = "70:ee:50:12:be:10";
-	var module_id = "02:00:00:12:d6:4c";
+	//var device_id = "70:ee:50:12:be:10";
+	//var module_id = "02:00:00:12:d6:4c";
 	if(accessToken.length != 0){
-		netatmo.getHistoryDataForIndoor(accessToken,device_id,function(result){
-			historyIndoor = result;
+		netatmo.getHistoryDataForIndoor(accessToken,
+			configSettings.device_id,
+			configSettings.netAtmo_history_scale,
+			configSettings.netAtmo_limit_of_entry,
+			function(result){
+				historyIndoor = result;
 		});
-		netatmo.getHistoryDataForOutdoor(accessToken,device_id,module_id,function(result){
-			historyOutdoor = result;
+		netatmo.getHistoryDataForOutdoor(accessToken,
+			configSettings.device_id,
+			configSettings.module_id,
+			configSettings.netAtmo_history_scale,
+			configSettings.netAtmo_limit_of_entry,
+			function(result){
+				historyOutdoor = result;
 		});
 	}
 	
@@ -249,12 +261,19 @@ function retrieveHistroyData(){
 
 function getNewNetAtmoAccessToken(){
 	if(resfreshToken.length == 0){
-		netatmo.retrieveAccessTokenInital(function(result){
-			setNetAtmoData(result);
+		netatmo.retrieveAccessTokenInital(configSettings.netAtmo_client_id,
+			configSettings.netAtmo_client_secret,
+			configSettings.netAtmo_username,
+			configSettings.netAtmo_password,
+			function(result){
+				setNetAtmoData(result);
 		});
 	}
 	else{
-		netatmo.refreshAccessToken(resfreshToken, function(result){
+		netatmo.refreshAccessToken(resfreshToken,
+		 configSettings.netAtmo_client_id,
+		 configSettings.netAtmo_client_secret,
+		 function(result){
 			setNetAtmoData(result);
 		});
 	}
