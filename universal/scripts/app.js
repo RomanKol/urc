@@ -56,7 +56,8 @@ function update() {
 
 	// AJAX Request
 	var	request = new XMLHttpRequest();
-			request.open('GET', 'data.json');
+		request.open('GET', 'update');
+		//request.open('GET', 'data.json');
 
 	// ErrorHandling
 	request.onerror = function() {
