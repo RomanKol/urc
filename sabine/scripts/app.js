@@ -16,8 +16,11 @@ var idleTime = 0;
 
 // Initialize Interface and load Data
 getData();
-//setInterval(getData, 5 * 60 * 1000)
+setTimeout(reload, 5 * 60 * 1000);
 
+function reload(){
+	location.relaod();
+}
 
 // Eventlisteners
 gridEl.addEventListener('click', activate, false);
@@ -104,8 +107,11 @@ function getData() {
 
 	// AJAX Request
   var	request = new XMLHttpRequest();
-      
-    request.open('GET', 'update');
+
+  // Server URL
+  request.open('GET', 'update');
+
+  // Local Example Data
 	//request.open('GET', 'data.json');
 
   // ErrorHandling
@@ -330,7 +336,6 @@ function timerIncrement(){
 }
 
 // Slider
-
 function slide(evt){
 	el = evt.target;
 	if(el.nodeName === 'BUTTON'){
@@ -365,7 +370,5 @@ function slide(evt){
 	}
 
 }
-
-
 
 });
