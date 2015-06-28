@@ -669,7 +669,7 @@ body, html {
     #detail .noise .devices:after {
       clear: both;
       display: block;
-      conent: ''; }
+      content: ''; }
   /* line 381, E:/Sites/urc/sabine/scss/styles.scss */
   #detail #clsBtn {
     position: absolute;

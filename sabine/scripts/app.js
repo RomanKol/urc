@@ -19,7 +19,7 @@ getData();
 setTimeout(reload, 5 * 60 * 1000);
 
 function reload(){
-	location.relaod();
+	location.reload();
 }
 
 // Eventlisteners
