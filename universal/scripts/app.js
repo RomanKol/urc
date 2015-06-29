@@ -104,7 +104,7 @@ function buildNavItem(key){
 	img.src = 'images/' + key + '.svg';
 
 	var h = document.createElement('h3');
-	h.innerText = key.replace('_', ' ');
+	h.innerHTML = key.replace('_', ' ');
 
 	var checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
@@ -134,7 +134,7 @@ function addSectionHeader(key){
 	var header = document.createElement('header');
 
 	var h = document.createElement('h1');
-	h.innerText = item.replace('_', ' ');
+	h.innerHTML = item.replace('_', ' ');
 
 	var img = document.createElement('img');
 	img.src = 'images/' + item + '.svg';
@@ -192,11 +192,11 @@ function buildForecast(data){
 			hRain = document.createElement('h3'),
 			date = date = new Date(data.dt * 1000);
 
-	h.innerText = date.toLocaleDateString();
+	h.innerHTML = date.toLocaleDateString();
 	img.src = 'images/weather/' + data.weather.icon + '.svg';
-	hTemp.innerText = Math.floor(data.temp.max) + '°C / ' + Math.floor(data.temp.min) + '°C';
-	hDescr.innerText = data.weather.description;
-	hRain.innerText = Math.floor(data.rain) + '%';
+	hTemp.innerHTML = Math.floor(data.temp.max) + '°C / ' + Math.floor(data.temp.min) + '°C';
+	hDescr.innerHTML = data.weather.description;
+	hRain.innerHTML = Math.floor(data.rain) + '%';
 	hRain.classList.add('rain');
 
 	figure.appendChild(h);
@@ -237,7 +237,7 @@ function buildDevice(item, data){
 			batteryvalue = document.createElement('data');
 
 	batteryimg.src = 'images/battery.svg';
-	batteryvalue.innerText  = data.battery + '%';
+	batteryvalue.innerHTML  = data.battery + '%';
 
 	batteryfc.appendChild(batteryvalue);
 	battery.appendChild(batteryimg);
@@ -264,11 +264,11 @@ function buildMap(item, data){
 
 
 	var alt = document.createElement('data');
-	alt.innerText = 'Alt: ' + data.alt + 'm';
+	alt.innerHTML = 'Alt: ' + data.alt + 'm';
 	var lat = document.createElement('data');
-	lat.innerText = 'Lat: ' + data.lat.toFixed(3);
+	lat.innerHTML = 'Lat: ' + data.lat.toFixed(3);
 	var lng = document.createElement('data');
-	lng.innerText = 'Lng: ' + data.lng.toFixed(3);
+	lng.innerHTML = 'Lng: ' + data.lng.toFixed(3);
 
 	section.appendChild(map);
 	section.appendChild(alt);
@@ -331,7 +331,7 @@ function buildFigure(value){
 
 		var figcaption = document.createElement('figcaption');
 		var h = document.createElement('h2');
-		h.innerText = key;
+		h.innerHTML = key;
 
 		var a = document.createElement('a');
 		a.href = value[key];
@@ -378,13 +378,13 @@ function buildValue(indoor, outdoor, unit){
 		var data = document.createElement('data');
 		var unit = unit ? unit : '';
 		var text = indoor + unit + ' | ' + outdoor + unit;
-		data.innerText = text;
+		data.innerHTML = text;
 		return data;
 	} else {
 		var data = document.createElement('data');
 		var text = indoor;
 		if(unit) text += unit;
-		data.innerText = text;
+		data.innerHTML = text;
 		return data;
 	}
 }
@@ -396,7 +396,7 @@ function buildProgressBar(value, label){
 
 	if(label){
 		var headline = document.createElement('h3');
-		headline.innerText = label;
+		headline.innerHTML = label;
 		div.appendChild(headline);
 	}
 

@@ -109,10 +109,10 @@ function getData() {
   var	request = new XMLHttpRequest();
 
   // Server URL
-  request.open('GET', 'update');
+  //request.open('GET', 'update');
 
   // Local Example Data
-	//request.open('GET', 'data.json');
+	request.open('GET', 'data.json');
 
   // ErrorHandling
   request.onerror = function() {
@@ -150,7 +150,7 @@ function setTemperature(temperature){
  	// Tile
 	el = document.getElementById('temperature');
 
-	el.querySelector('data').innerText = Math.floor(temperature.indoor) + '°C';
+	el.querySelector('data').innerHTML = Math.floor(temperature.indoor) + '°C';
 	el.classList.remove('temp-low', 'temp-good', 'temp-warm', 'temp-hot');
 
 	// Temperature less than 15
@@ -165,8 +165,8 @@ function setTemperature(temperature){
 	}
 
 	// DetailView
-	detailEl.querySelector('.temperature .indoor').innerText = Math.floor(temperature.indoor) + '°C';
-	detailEl.querySelector('.temperature .outdoor').innerText = Math.floor(temperature.outdoor) + '°C';
+	detailEl.querySelector('.temperature .indoor').innerHTML = Math.floor(temperature.indoor) + '°C';
+	detailEl.querySelector('.temperature .outdoor').innerHTML = Math.floor(temperature.outdoor) + '°C';
 }
 
 // Food Element
@@ -219,7 +219,7 @@ function setStresslevel(stresslevel){
 
 	// DetailView
 	dEl = detailEl.querySelector('.stresslevel');
-	dEl.querySelector('h2').innerText = stresslevel.message;
+	dEl.querySelector('h2').innerHTML = stresslevel.message;
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ stresslevel.indoor);
 }
@@ -229,7 +229,7 @@ function setNoise(noise){
 
 	// Tile
 	el = document.getElementById('noise');
-	el.querySelector('data').innerText = noise.indoor + 'db';
+	el.querySelector('data').innerHTML = noise.indoor + 'db';
 	el.classList.remove('noise-low', 'noise-medium', 'noise-height');
 
 	if(noise.indoor <= 63){
@@ -244,7 +244,7 @@ function setNoise(noise){
 
 	// DetailView
 	dEl = detailEl.querySelector('.noise');
-	dEl.querySelector('data').innerText = noise.indoor + 'db';
+	dEl.querySelector('data').innerHTML = noise.indoor + 'db';
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ domClass);
 
@@ -272,7 +272,7 @@ function setAirquality(airquality){
 
 	// DetailView
 	dEl = detailEl.querySelector('.airquality')
-	dEl.querySelector('h2').innerText = airquality.message;
+	dEl.querySelector('h2').innerHTML = airquality.message;
 	dEl.querySelector('.ampel').classList.remove('ampel-1', 'ampel-2', 'ampel-3');
 	dEl.querySelector('.ampel').classList.add('ampel-'+ airquality.indoor);
 }
@@ -287,7 +287,7 @@ function foodListItem(data, itemWidth){
 	img.src = 'images/food/' + name + '.jpg';
 	figcaption = document.createElement('figcaption');
 	h2 = document.createElement('h2');
-	h2.innerText = data;
+	h2.innerHTML = data;
 
 	figcaption.appendChild(h2);
 	figure.appendChild(img);
@@ -310,11 +310,11 @@ function weatherListItem(data, itemWidth, position, id){
 	figcaption = document.createElement('figcaption');
 
 	h3Temp = document.createElement('h3');
-	h3Temp.innerText = Math.floor(data.temp.max) + '°C / ' + Math.floor(data.temp.min) + '°C';
+	h3Temp.innerHTML = Math.floor(data.temp.max) + '°C / ' + Math.floor(data.temp.min) + '°C';
 	h3Descr = document.createElement('h3');
-	h3Descr.innerText = data.weather.description;
+	h3Descr.innerHTML = data.weather.description;
 	h3Rain = document.createElement('h3');
-	h3Rain.innerText = Math.floor(data.rain) + '%';
+	h3Rain.innerHTML = Math.floor(data.rain) + '%';
 	h3Rain.classList.add('rain');
 
 	figcaption.appendChild(h3Temp);
